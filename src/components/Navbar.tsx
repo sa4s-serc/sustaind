@@ -22,7 +22,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <Link href="/" className="flex items-center">
                         <motion.div
-                            className="text-2xl font-bold"
+                            className="text-3xl font-bold"
                             whileHover={{ scale: 1.05 }}
                             transition={{ type: "spring", stiffness: 300 }}
                         >
@@ -37,15 +37,27 @@ const Navbar = () => {
                             {navLinks.map((link) => (
                                 <motion.div
                                     key={link.href}
+                                    className="relative"
                                     whileHover={{ y: -2 }}
                                     transition={{ type: "spring", stiffness: 300 }}
                                 >
-                                    <Link
-                                        href={link.href}
-                                        className="text-gray-900 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
-                                    >
-                                        {link.label}
-                                    </Link>
+                                    <motion.div whileHover="hover" className="relative">
+                                        <Link
+                                            href={link.href}
+                                            className="text-gray-900 hover:text-orange-500 px-3 py-2 text-lg font-medium transition-colors duration-200 relative block"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                        <motion.div
+                                            className="absolute bottom-0 left-3 right-3 h-0.5 bg-orange-500"
+                                            initial={{ scaleX: 0 }}
+                                            variants={{
+                                                hover: { scaleX: 1 }
+                                            }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                            style={{ transformOrigin: "left" }}
+                                        />
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </div>
@@ -102,14 +114,26 @@ const Navbar = () => {
                                     initial={{ x: -20, opacity: 0 }}
                                     animate={{ x: 0, opacity: 1 }}
                                     transition={{ duration: 0.2 }}
+                                    className="relative"
                                 >
-                                    <Link
-                                        href={link.href}
-                                        className="text-gray-900 hover:text-orange-500 block px-3 py-2 text-base font-medium transition-colors duration-200"
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        {link.label}
-                                    </Link>
+                                    <motion.div whileHover="hover" className="relative">
+                                        <Link
+                                            href={link.href}
+                                            className="text-gray-900 hover:text-orange-500 block px-3 py-2 text-base font-medium transition-colors duration-200 relative"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                        <motion.div
+                                            className="absolute bottom-0 left-3 right-3 h-0.5 bg-orange-500"
+                                            initial={{ scaleX: 0 }}
+                                            variants={{
+                                                hover: { scaleX: 1 }
+                                            }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                            style={{ transformOrigin: "left" }}
+                                        />
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </div>

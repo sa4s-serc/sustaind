@@ -12,6 +12,7 @@ The design should be simple and clean, with a focus on readability.
 The color scheme should be white background, with #212121 color for text.
 Since it is an Indian project, the design should incorporate the color green for headings, and the color saffron for links and buttons.
 There should be plenty of small microanimations to make the website feel alive and engaging, but they should not be distracting or overwhelming.
+Do not use gradients anywhere.
 
 ## Fonts
 The website should use IBM Plex Sans for text and Inter for headings.

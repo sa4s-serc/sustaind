@@ -69,34 +69,32 @@ const HeroSection = () => {
 
 const CollaborationSection = () => {
     return (
-        <section className="py-20 bg-gray-50 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
+        <section className="pb-8 px-4 sm:px-6 lg:px-8 bg-white">
+            <div className="max-w-3xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
+                    className="text-center mb-8"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                        Interested in <span className="text-green-600">collaborating</span>?
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                        Collaborate with us
                     </h2>
-
-                    <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                        Join our mission to build sustainable AI systems. Whether you're a researcher,
-                        developer, or organization, we'd love to work together.
+                    <p className="text-lg text-gray-600 mb-8">
+                        Interested in sustainable AI? Reach out to join our mission.
                     </p>
-
                     <motion.a
                         href="mailto:karthik.vaidyanathan@iiit.ac.in"
                         whileHover={{
-                            scale: 1.05,
-                            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                            scale: 1.02,
+                            boxShadow: "0 4px 12px -3px rgba(0, 0, 0, 0.08)"
                         }}
-                        whileTap={{ scale: 0.95 }}
+                        whileTap={{ scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        className="inline-block bg-green-600 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg text-lg transition-colors duration-300 shadow-lg"
+                        className="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg text-lg transition-all duration-300 shadow-md"
                     >
-                        Contact Us
+                        Get in Touch
                     </motion.a>
                 </motion.div>
             </div>

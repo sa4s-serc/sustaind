@@ -1,0 +1,24 @@
+[
+    {
+        "id": "harmone-2025",
+        "title": "HarmonE: A Self-Adaptive Approach to Architecting Sustainable MLOps",
+        "authors": [
+            "Hiya Bhatt",
+            "Shaunak Biswas",
+            "Srinivasan Rakhunathan",
+            "Karthik Vaidhyanathan"
+        ],
+        "abstract": "Machine Learning Enabled Systems (MLS) are becoming integral to real-world applications, but ensuring their sustainable performance over time remains a significant challenge. These systems operate in dynamic environments and face runtime uncertainties like data drift and model degradation, which affects the sustainability of MLS across multiple dimensions: technical, economical, environmental, and social. While Machine Learning Operations (MLOps) addresses the technical dimension by streamlining the ML model lifecycle, it overlooks other dimensions. Furthermore, some traditional practices in MLOps, such as frequent retraining, incur substantial energy and computational overhead, thus amplifying sustainability concerns. To address them, HarmonE presents an architectural approach that enables self-adaptive capabilities in MLOps pipelines using the MAPE-K loop. HarmonE allows system designers to define explicit sustainability goals and adaptation thresholds at design time, and performs runtime monitoring of key metrics, such as prediction accuracy, energy consumption, and data distribution shifts, to trigger appropriate adaptation strategies. We validate our approach using a Digital Twin (DT) of an Intelligent Transportation System (ITS), focusing on traffic flow prediction as our primary use case. The DT employs time series ML models to predict real-time traffic and assesses various flow scenarios. Our results show that HarmonE adaptively re-evaluates conditions while meeting accuracy and meeting sustainability goals.",
+        "venue": "19th European Conference on Software Architecture (ECSA 2025)",
+        "year": 2025,
+        "doi": "arXiv:2505.13693",
+        "url": "https://arxiv.org/abs/2505.13693",
+        "coverImage": "/data/images/HarmonE_cover.png",
+        "keywords": [
+            "Self-Adaptation",
+            "MLOps",
+            "Sustainability",
+            "Green AI"
+        ]
+    }
+]
