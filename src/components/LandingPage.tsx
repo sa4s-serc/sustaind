@@ -38,7 +38,7 @@ const HeroSection = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                     >
-                        Developing environmentally and economically sustainable AI systems for India's future.
+                        Developing environmentally and economically sustainable AI systems for India&apos;s future.
                         Join us in creating AI that serves both innovation and sustainability.
                     </motion.p>
 

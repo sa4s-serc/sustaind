@@ -50,7 +50,7 @@ export default function About() {
 
                             <div className="bg-[#16a34a]/5 p-6 rounded-lg mb-6 border-l-4 border-[#16a34a]">
                                 <p className="text-lg text-[#212121] leading-relaxed font-['IBM_Plex_Sans']">
-                                    <span className="font-semibold text-[#ea580c]">Did you know?</span> AI operations consume approximately <span className="font-semibold">2% of the world's electricity</span>, and training a single model can emit carbon equivalent to <span className="font-semibold">five cars over their lifetimes</span>.
+                                    <span className="font-semibold text-[#ea580c]">Did you know?</span> AI operations consume approximately <span className="font-semibold">2% of the world&apos;s electricity</span>, and training a single model can emit carbon equivalent to <span className="font-semibold">five cars over their lifetimes</span>.
                                 </p>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ export default function About() {
 
                     <div className="bg-green-50 p-8 rounded-xl border border-green-200">
                         <p className="text-xl text-[#212121] leading-relaxed font-['IBM_Plex_Sans'] max-w-4xl mx-auto">
-                            By bridging the gap between AI innovation and sustainability, SustAInd is committed to ensuring that India's AI revolution contributes to a <span className="font-semibold text-green-600">greener</span>, more <span className="font-semibold text-[#ea580c]">economically viable</span> future for all.
+                            By bridging the gap between AI innovation and sustainability, SustAInd is committed to ensuring that India&apos;s AI revolution contributes to a <span className="font-semibold text-green-600">greener</span>, more <span className="font-semibold text-[#ea580c]">economically viable</span> future for all.
                         </p>
                     </div>
                 </motion.div>

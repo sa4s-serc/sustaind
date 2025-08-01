@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 interface Blog {
     id: number;
@@ -23,7 +22,7 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
     if (!isOpen) return null;
 
     const formatContent = (content: string) => {
-        // Simple markdown-like parsing for demonstration
+        // Simple markdown-like formatting
         return content
             .split('\n\n')
             .map((paragraph, index) => {

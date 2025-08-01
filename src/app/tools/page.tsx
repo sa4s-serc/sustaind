@@ -91,7 +91,7 @@ export default function Tools() {
                         Our Tools
                     </h1>
                     <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                        Discover the innovative tools and software we've developed to advance sustainable AI research and practice.
+                        Discover the innovative tools and software we&apos;ve developed to advance sustainable AI research and practice.
                     </p>
                 </motion.div>
 
