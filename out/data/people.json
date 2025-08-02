@@ -1,0 +1,47 @@
+[
+    {
+        "id": "karthik-vaidyanathan",
+        "name": "Karthik Vaidyanathan",
+        "designation": "Assistant Professor, IIIT Hyderabad",
+        "description": "Karthik Vaidhyanathan is an Assistant Professor at the Software Engineering Research Center, IIIT-Hyderabad, India where he is also associated with the leadership team of smart city living lab. He obtained his Ph.D. from the Gran Sasso Science Institute, Italy and did his postdoc at the University of L'Aquila, Italy. His main research interests lie in the intersection of software architecture and machine learning with a specific focus on building sustainable software systems. His research focuses on how machine learning techniques can be leveraged to better architect self-adaptive systems and further how to better define architecting practices for developing Machine Learning-enabled software systems. As a part of his research activities, he serves as a reviewer/organizing committee member in various workshops, conferences, and journals. He is also an editorial board member (SE Radio) of IEEE Software. Karthik also poses more than 5 years of industrial experience as an employee and as a consultant in building and deploying ML products/services.",
+        "picture": "https://karthikv1392.github.io/assets/img/karthik_circle_profile-1400.webp",
+        "email": "karthik.vaidyanathan@iiit.ac.in",
+        "isLead": true
+    },
+    {
+        "id": "akhila-matathammal",
+        "name": "Akhila Matathammal",
+        "designation": "PhD in CSE, IIIT Hyderabad",
+        "description": "A PhD student on a mission to revolutionize sustainable software architecture, edge, and microservices, Akhila is making cloud-native environments greener, one line of code at a time!",
+        "picture": "https://serc.iiit.ac.in/images/people/akhila-matathammal.png",
+        "email": "akhila.matathammal@research.iiit.ac.in",
+        "isLead": false
+    },
+    {
+        "id": "hiya-bhatt",
+        "name": "Hiya Bhatt",
+        "designation": "MS in CSE, IIIT Hyderabad",
+        "description": "Her research focuses on developing sustainable self-adaptive machine learning-enabled systems that can efficiently manage changing environments and resource constraints. She is also exploring how these systems can be integrated with digital twins to enhance real-time monitoring, analysis, and decision-making in dynamic scenarios. Alongside her academic work, she enjoys singing.",
+        "picture": "https://serc.iiit.ac.in/images/people/hiya-bhatt.jpeg",
+        "email": "hiya.bhatt@research.iiiit.ac.in",
+        "isLead": false
+    },
+    {
+        "id": "shaunak-biswas",
+        "name": "Shaunak Biswas",
+        "designation": "BTech + MS in CSE, IIIT Hyderabad",
+        "description": "Shaunak is dedicated to developing ML systems that are both self-adaptive and eco-friendly. He loves music, art and challenging himself.",
+        "picture": "https://serc.iiit.ac.in/images/people/shaunak-biswas.png",
+        "email": "shaunak.biswas@research.iiit.ac.in",
+        "isLead": false
+    },
+    {
+        "id": "arihant-tripathy",
+        "name": "Arihant Tripathy",
+        "designation": "BTech + MS in CSE, IIIT Hyderabad",
+        "description": "Arihant has experience in both full-stack development and systems programming, bringing a technical perspective to sustainability challenges. As an active open-source contributor and coordinator at IIIT-H's Open Source Developers' Group, he is keen on using collaborative approaches to solving complex technology problems. He is motivated by producing scalable, enduring technology solutions which have real influence.",
+        "picture": "https://serc.iiit.ac.in/images/people/arihant-tripathy.jpg",
+        "email": "arihant.tripathy@research.iiit.ac.in",
+        "isLead": false
+    }
+]
