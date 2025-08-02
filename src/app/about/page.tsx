@@ -184,6 +184,12 @@ export default function About() {
                             By bridging the gap between AI innovation and sustainability, SustAInd is committed to ensuring that India&apos;s AI revolution contributes to a <span className="font-semibold text-green-600">greener</span>, more <span className="font-semibold text-[#ea580c]">economically viable</span> future for all.
                         </p>
                     </div>
+        {/* Acknowledgements Section */}
+        <div className="mt-16 text-center">
+            <p className="text-lg text-gray-600">
+                We would like to thank <a href="https://dst.gov.in/anusandhan-national-research-foundation-anrf" target="_blank" rel="noopener noreferrer" className="text-orange-500">Anusandhan National Research Foundation</a> and <a href="https://www.anrfonline.in/ANRF/ecrg_anrf?HomePage=New" target="_blank" rel="noopener noreferrer" className="text-orange-500">Prime Minister Early Career Grant</a> for their support.
+            </p>
+        </div>
                 </motion.div>
             </motion.div>
         </div>

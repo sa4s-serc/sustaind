@@ -143,7 +143,7 @@ export default function Publications() {
                         >
                             <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-600">
                                 <Image
-                                    src={publication.coverImage}
+                                    src={`.${publication.coverImage}`}
                                     alt={`Cover of ${publication.title}`}
                                     fill
                                     className="object-cover object-top"
