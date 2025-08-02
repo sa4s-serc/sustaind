@@ -21,7 +21,7 @@ export default function People() {
     useEffect(() => {
         const fetchPeople = async () => {
             try {
-                const response = await fetch('/data/people.json');
+                const response = await fetch('./data/people.json');
                 const data = await response.json();
                 setPeople(data);
             } catch (error) {
