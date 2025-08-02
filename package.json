@@ -1,6 +1,7 @@
 {
   "name": "sustaind",
   "version": "0.1.0",
+  "homepage": "https://Arihant25.github.io/sustaind",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -25,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
