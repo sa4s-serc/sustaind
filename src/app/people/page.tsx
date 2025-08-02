@@ -60,7 +60,7 @@ export default function People() {
                 </div>
 
                 {/* Mobile-friendly grid view (Visible on small screens) */}
-                <div className="grid grid-cols-2 gap-8 md:hidden">
+                <div className="grid grid-cols-1 gap-8 md:hidden">
                     {people.map((person) => (
                         <motion.div
                             key={person.id}
@@ -88,7 +88,7 @@ export default function People() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-opacity-60 flex items-center justify-center p-4 z-50"
+                            className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-2 sm:p-4 z-50"
                             onClick={() => setSelectedPerson(null)}
                         >
                             <motion.div
@@ -96,29 +96,29 @@ export default function People() {
                                 animate={{ scale: 1, opacity: 1 }}
                                 exit={{ scale: 0.8, opacity: 0 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl"
+                                className="bg-white rounded-lg sm:rounded-lg max-w-2xl w-full max-h-[95vh] sm:max-h-[80vh] overflow-y-auto shadow-2xl"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <div className="p-8">
-                                    <div className="flex justify-between items-start mb-6">
-                                        <div className="flex items-start space-x-6">
-                                            <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg border-4 flex-shrink-0">
+                                <div className="p-4 sm:p-8">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start mb-4 sm:mb-6">
+                                        <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 w-full">
+                                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shadow-lg border-4 flex-shrink-0">
                                                 <img
                                                     src={selectedPerson.picture}
                                                     alt={selectedPerson.name}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
-                                            <div className="flex-1">
-                                                <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                                            <div className="flex-1 text-center sm:text-left">
+                                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
                                                     {selectedPerson.name}
                                                 </h2>
-                                                <p className="text-orange-600 font-semibold text-lg mb-2">
+                                                <p className="text-orange-600 font-semibold text-base sm:text-lg mb-2">
                                                     {selectedPerson.designation}
                                                 </p>
                                                 <a
                                                     href={`mailto:${selectedPerson.email}`}
-                                                    className="text-green-600 hover:text-green-700 transition-colors"
+                                                    className="text-green-600 hover:text-green-700 transition-colors text-sm sm:text-base break-all"
                                                 >
                                                     {selectedPerson.email}
                                                 </a>
@@ -126,12 +126,12 @@ export default function People() {
                                         </div>
                                         <button
                                             onClick={() => setSelectedPerson(null)}
-                                            className="text-gray-400 hover:text-gray-600 text-3xl font-bold"
+                                            className="text-gray-400 hover:text-gray-600 text-2xl sm:text-3xl font-bold mt-2 sm:mt-0 self-end sm:self-start"
                                         >
                                             &times;
                                         </button>
                                     </div>
-                                    <div className="text-gray-700 leading-relaxed prose">
+                                    <div className="text-gray-700 leading-relaxed prose text-sm sm:text-base">
                                         <p>{selectedPerson.description}</p>
                                     </div>
                                 </div>

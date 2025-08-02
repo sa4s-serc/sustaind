@@ -22,7 +22,7 @@ export default function Blogs() {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch('/data/blogs.json');
+                const response = await fetch('./data/blogs.json');
                 const data = await response.json();
                 setBlogs(data);
             } catch (error) {

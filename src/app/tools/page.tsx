@@ -22,7 +22,7 @@ export default function Tools() {
     useEffect(() => {
         const fetchTools = async () => {
             try {
-                const response = await fetch('/data/tools.json');
+                const response = await fetch('./data/tools.json');
                 const data = await response.json();
                 setTools(data);
             } catch (error) {
@@ -142,7 +142,7 @@ export default function Tools() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+                        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50"
                         onClick={() => setSelectedTool(null)}
                     >
                         <motion.div
@@ -150,11 +150,11 @@ export default function Tools() {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                            className="bg-white rounded-lg sm:rounded-xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {selectedTool.image && (
-                                <div className="h-64 bg-gray-100 overflow-hidden rounded-t-xl">
+                                <div className="h-48 sm:h-64 bg-gray-100 overflow-hidden rounded-t-lg sm:rounded-t-xl">
                                     <img
                                         src={selectedTool.image}
                                         alt={selectedTool.name}
@@ -162,12 +162,12 @@ export default function Tools() {
                                     />
                                 </div>
                             )}
-                            <div className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h2 className="text-2xl font-bold text-gray-900">{selectedTool.name}</h2>
+                            <div className="p-4 sm:p-6">
+                                <div className="flex items-start justify-between mb-4">
+                                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2 flex-1">{selectedTool.name}</h2>
                                     <button
                                         onClick={() => setSelectedTool(null)}
-                                        className="text-gray-500 hover:text-gray-700"
+                                        className="text-gray-500 hover:text-gray-700 flex-shrink-0 p-1"
                                     >
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -175,20 +175,20 @@ export default function Tools() {
                                     </button>
                                 </div>
 
-                                <p className="text-gray-600 mb-6">{selectedTool.longDescription}</p>
+                                <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">{selectedTool.longDescription}</p>
 
-                                <div className="mb-6">
-                                    <h3 className="text-lg font-semibold text-green-600 mb-3">Authors</h3>
-                                    <p className="text-gray-600">{selectedTool.authors.join(', ')}</p>
+                                <div className="mb-4 sm:mb-6">
+                                    <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-2 sm:mb-3">Authors</h3>
+                                    <p className="text-gray-600 text-sm sm:text-base">{selectedTool.authors.join(', ')}</p>
                                 </div>
 
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
                                     {selectedTool.url && (
                                         <motion.a
                                             href={selectedTool.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors"
+                                            className="bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors text-center text-sm sm:text-base"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
@@ -200,7 +200,7 @@ export default function Tools() {
                                             href={selectedTool.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                                            className="border border-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-center text-sm sm:text-base"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
@@ -212,7 +212,7 @@ export default function Tools() {
                                             href={selectedTool.paper}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="border border-green-600 text-green-600 px-6 py-2 rounded-lg font-medium hover:bg-green-50 transition-colors"
+                                            className="border border-green-600 text-green-600 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-green-50 transition-colors text-center text-sm sm:text-base"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >

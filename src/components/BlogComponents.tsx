@@ -28,21 +28,21 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
             .map((paragraph, index) => {
                 if (paragraph.startsWith('## ')) {
                     return (
-                        <h2 key={index} className="text-2xl font-bold text-green-600 mt-8 mb-4">
+                        <h2 key={index} className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                             {paragraph.replace('## ', '')}
                         </h2>
                     );
                 }
                 if (paragraph.startsWith('### ')) {
                     return (
-                        <h3 key={index} className="text-xl font-semibold text-gray-800 mt-6 mb-3">
+                        <h3 key={index} className="text-lg sm:text-xl font-semibold text-gray-800 mt-4 sm:mt-6 mb-2 sm:mb-3">
                             {paragraph.replace('### ', '')}
                         </h3>
                     );
                 }
                 if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                     return (
-                        <p key={index} className="font-semibold text-gray-800 mb-4">
+                        <p key={index} className="font-semibold text-gray-800 mb-3 sm:mb-4 text-sm sm:text-base">
                             {paragraph.replace(/\*\*/g, '')}
                         </p>
                     );
@@ -50,9 +50,9 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
                 if (paragraph.startsWith('- ')) {
                     const items = paragraph.split('\n').filter(item => item.startsWith('- '));
                     return (
-                        <ul key={index} className="list-disc list-inside mb-4 space-y-2">
+                        <ul key={index} className="list-disc list-inside mb-3 sm:mb-4 space-y-1 sm:space-y-2">
                             {items.map((item, i) => (
-                                <li key={i} className="text-gray-700">
+                                <li key={i} className="text-gray-700 text-sm sm:text-base">
                                     {item.replace('- ', '')}
                                 </li>
                             ))}
@@ -60,7 +60,7 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
                     );
                 }
                 return (
-                    <p key={index} className="text-gray-700 mb-4 leading-relaxed">
+                    <p key={index} className="text-gray-700 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base">
                         {paragraph}
                     </p>
                 );
@@ -72,41 +72,41 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4"
             onClick={onClose}
         >
             <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-hidden"
+                className="bg-white rounded-lg sm:rounded-lg max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden w-full"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="p-6 border-b border-gray-200 flex justify-between items-start">
-                    <div className="flex-1">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">{blog.title}</h1>
-                        <div className="flex items-center text-sm text-gray-600 space-x-4">
+                <div className="p-4 sm:p-6 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start">
+                    <div className="flex-1 mb-4 sm:mb-0">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 pr-2">{blog.title}</h1>
+                        <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-600 space-y-1 sm:space-y-0 sm:space-x-4">
                             <span>By {blog.author}</span>
-                            <span>•</span>
+                            <span className="hidden sm:inline">•</span>
                             <span>{new Date(blog.date).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
                             })}</span>
-                            <span>•</span>
+                            <span className="hidden sm:inline">•</span>
                             <span>{blog.readTime}</span>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="ml-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                        className="text-gray-400 hover:text-gray-600 text-xl sm:text-2xl font-bold self-end sm:self-start"
                     >
                         ×
                     </button>
                 </div>
 
-                <div className="p-6 overflow-y-auto max-h-[70vh]">
-                    <div className="prose prose-lg max-w-none">
+                <div className="p-4 sm:p-6 overflow-y-auto max-h-[75vh] sm:max-h-[70vh]">
+                    <div className="prose prose-sm sm:prose-lg max-w-none">
                         {formatContent(blog.content)}
                     </div>
                 </div>

@@ -25,54 +25,54 @@ interface PublicationModalProps {
 function PublicationModal({ publication, onClose }: PublicationModalProps) {
     return (
         <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
         >
             <motion.div
-                className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-white rounded-lg sm:rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                        <h2 className="text-2xl font-bold text-gray-900 pr-4">{publication.title}</h2>
+                <div className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
+                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2 mb-2 sm:mb-0 flex-1">{publication.title}</h2>
                         <button
                             onClick={onClose}
-                            className="text-gray-500 hover:text-gray-700 text-2xl"
+                            className="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl self-end sm:self-start"
                         >
                             ×
                         </button>
                     </div>
 
-                    <div className="mb-4">
-                        <p className="text-gray-600">
+                    <div className="mb-4 sm:mb-6 space-y-2">
+                        <p className="text-gray-600 text-sm sm:text-base">
                             <span className="font-semibold">Authors:</span> {publication.authors.join(', ')}
                         </p>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 text-sm sm:text-base">
                             <span className="font-semibold">Venue:</span> {publication.venue} ({publication.year})
                         </p>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 text-sm sm:text-base break-all">
                             <span className="font-semibold">DOI:</span> {publication.doi}
                         </p>
                     </div>
 
-                    <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-green-600 mb-2">Abstract</h3>
-                        <p className="text-gray-700 leading-relaxed">{publication.abstract}</p>
+                    <div className="mb-4 sm:mb-6">
+                        <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-2">Abstract</h3>
+                        <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{publication.abstract}</p>
                     </div>
 
-                    <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-green-600 mb-2">Keywords</h3>
+                    <div className="mb-4 sm:mb-6">
+                        <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-2">Keywords</h3>
                         <div className="flex flex-wrap gap-2">
                             {publication.keywords.map((keyword, index) => (
                                 <span
                                     key={index}
-                                    className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                                    className="bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm"
                                 >
                                     {keyword}
                                 </span>
@@ -85,7 +85,7 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
                             href={publication.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors"
+                            className="bg-orange-500 hover:bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg transition-colors text-sm sm:text-base text-center flex-1 sm:flex-none"
                         >
                             Read Paper
                         </a>
@@ -103,7 +103,7 @@ export default function Publications() {
     useEffect(() => {
         async function fetchPublications() {
             try {
-                const response = await fetch('/data/publications.json');
+                const response = await fetch('./data/publications.json');
                 const data = await response.json();
                 setPublications(data);
             } catch (error) {
