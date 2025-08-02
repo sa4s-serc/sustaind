@@ -12,7 +12,7 @@ const Footer = () => {
                             <span className="text-orange-500">AInd</span>
                         </div>
                         <p className="text-gray-600 text-sm text-center md:text-left max-w-xs leading-relaxed">
-                            Developing environmentally and economically sustainable AI systems for India's future.
+                            Developing environmentally and economically sustainable AI systems for India&apos;s future.
                         </p>
                     </div>
 
@@ -57,7 +57,7 @@ const Footer = () => {
                             © 2025 SustAInd. All rights reserved.
                         </p>
                         <p className="text-xs text-gray-500">
-                            Sustainable AI for India's Future
+                            Sustainable AI for India&apos;s Future
                         </p>
                     </div>
                 </div>
