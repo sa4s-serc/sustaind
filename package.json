@@ -1,7 +1,6 @@
 {
   "name": "sustaind",
   "version": "0.1.0",
-  "homepage": "https://Arihant25.github.io/sustaind",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

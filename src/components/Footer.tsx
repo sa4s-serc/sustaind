@@ -2,12 +2,12 @@
 
 const Footer = () => {
     return (
-        <footer className=" border-t-2 border-gray-200 mt-auto">
-            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <footer className="bg-white border-t-2 border-gray-200 mt-auto">
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-black">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                     {/* Logo & Description - Left */}
                     <div className="flex flex-col items-center md:items-start space-y-4">
-                        <div className="text-3xl font-bold font-inter">
+                        <div className="text-3xl font-bold font-inter text-black">
                             <span className="text-green-600">Sust</span>
                             <span className="text-orange-500">AInd</span>
                         </div>
@@ -51,7 +51,7 @@ const Footer = () => {
                 </div>
 
                 {/* Footer Bottom */}
-                <div className="mt-8 pt-6 border-t border-gray-300">
+                <div className="mt-8 pt-6 border-t border-gray-300 bg-white">
                     <div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
                         <p className="text-xs text-gray-500">
                             © 2025 SustAInd. All rights reserved.
