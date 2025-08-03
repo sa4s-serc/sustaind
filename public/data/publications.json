@@ -13,7 +13,7 @@
         "year": 2025,
         "doi": "arXiv:2505.13693",
         "url": "https://arxiv.org/abs/2505.13693",
-        "coverImage": "./data/images/HarmonE_cover.png",
+        "coverImage": "/data/images/HarmonE_cover.png",
         "keywords": [
             "Self-Adaptation",
             "MLOps",
