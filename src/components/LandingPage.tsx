@@ -46,6 +46,7 @@ const HeroSection = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
                         <Link href="/about">
                             <motion.button
@@ -60,6 +61,19 @@ const HeroSection = () => {
                                 Learn More
                             </motion.button>
                         </Link>
+                        <a href="https://discord.gg/Pnv3uF3PZy" target="_blank" rel="noopener noreferrer">
+                            <motion.button
+                                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+                                whileHover={{
+                                    scale: 1.05,
+                                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                Join Our Community
+                            </motion.button>
+                        </a>
                     </motion.div>
                 </motion.div>
             </div>
