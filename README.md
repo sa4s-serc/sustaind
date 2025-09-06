@@ -20,6 +20,8 @@ To make any changes to the website, please follow these steps:
    npm run build
    ```
    The final build will be available in the `docs` directory, which will be served by GitHub Pages.
+   
+   **Important: Make sure you create an empty .nojekyll file in the `docs` directory to ensure GitHub Pages serves the site correctly.**
 5. Commit your changes:
    ```bash
    git add .
