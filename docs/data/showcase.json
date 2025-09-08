@@ -8,19 +8,19 @@
                 "urls": [
                     {
                         "language": "English",
-                        "url": "/data/videos/harmone/English_HarmonE.mp4"
+                        "url": "./data/videos/harmone/English_HarmonE.mp4"
                     },
                     {
                         "language": "Hindi",
-                        "url": "/data/videos/harmone/Hindi_HarmonE.mp4"
+                        "url": "./data/videos/harmone/Hindi_HarmonE.mp4"
                     },
                     {
                         "language": "Telugu",
-                        "url": "/data/videos/harmone/Telugu_HarmonE.mp4"
+                        "url": "./data/videos/harmone/Telugu_HarmonE.mp4"
                     },
                     {
                         "language": "Malayalam",
-                        "url": "/data/videos/harmone/Malayalam_HarmonE.mp4"
+                        "url": "./data/videos/harmone/Malayalam_HarmonE.mp4"
                     }
                 ]
             }
