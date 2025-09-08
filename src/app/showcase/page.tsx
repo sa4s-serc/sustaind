@@ -135,7 +135,6 @@ const ShowcasePage = () => {
                                             key={getCurrentVideoUrl(item.videos)} // Force re-render when URL changes
                                             controls
                                             className="w-full h-full"
-                                            poster="/images/video-poster.jpg" // Optional: add a poster image
                                         >
                                             <source
                                                 src={getCurrentVideoUrl(item.videos)}
