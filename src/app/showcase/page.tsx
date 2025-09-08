@@ -27,7 +27,7 @@ const ShowcasePage = () => {
     useEffect(() => {
         const fetchShowcaseData = async () => {
             try {
-                const response = await fetch('/data/showcase.json');
+                const response = await fetch('./data/showcase.json');
                 const data = await response.json();
                 setShowcaseData(data);
                 setLoading(false);
