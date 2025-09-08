@@ -24,6 +24,43 @@ const ShowcasePage = () => {
     const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
     const [loading, setLoading] = useState(true);
 
+    // Function to parse markdown-style links in text and render them as clickable links
+    const renderTextWithLinks = (text: string) => {
+        const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+
+        while ((match = linkRegex.exec(text)) !== null) {
+            // Add text before the link
+            if (match.index > lastIndex) {
+                parts.push(text.substring(lastIndex, match.index));
+            }
+
+            // Add the clickable link
+            parts.push(
+                <a
+                    key={match.index}
+                    href={match[2]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-orange-600 hover:text-orange-800 underline transition-colors duration-200"
+                >
+                    {match[1]}
+                </a>
+            );
+
+            lastIndex = match.index + match[0].length;
+        }
+
+        // Add remaining text after the last link
+        if (lastIndex < text.length) {
+            parts.push(text.substring(lastIndex));
+        }
+
+        return parts.length > 0 ? parts : text;
+    };
+
     useEffect(() => {
         const fetchShowcaseData = async () => {
             try {
@@ -149,7 +186,7 @@ const ShowcasePage = () => {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                                    {item.videos[0].title}
+                                                    {renderTextWithLinks(item.videos[0].title)}
                                                 </h3>
                                             </div>
                                             <motion.div
