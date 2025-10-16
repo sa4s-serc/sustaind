@@ -12,7 +12,7 @@ To make any changes to the website, please follow these steps:
 2. Make your changes.
 3. Test the changes locally:
    ```bash
-   pnpm install
+   bun install
    npm run dev
    ```
 4. Build the project:
