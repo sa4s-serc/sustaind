@@ -17,6 +17,15 @@
         "email": "sara18anee@gmail.com",
         "isLead": false
     },
+        {
+        "id": "chandrasekar",
+        "name": "Chandrasekar",
+        "designation": "Junior Research Fellow, IIIT Hyderabad",
+        "description": "Chandrasekar is a researcher in Software Engineering for Machine Learning, focusing on building sustainable and well-architected ML-enabled systems. With prior industry experience at Infosys as a full-stack developer, he aims to advance software engineering practices for long-term technical sustainability. Beyond research and coding, he loves singing.",
+        "picture": "./data/images/chandrasekar.jpg",
+        "email": "chandrasekar.s@research.iiit.ac.in",
+        "isLead": false
+    },
     {
         "id": "akhila-matathammal",
         "name": "Akhila Matathammal",
