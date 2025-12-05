@@ -1,6 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import type { Components } from 'react-markdown';
 
 interface Blog {
     id: number;
@@ -18,54 +21,125 @@ interface BlogModalProps {
     onClose: () => void;
 }
 
+// Custom markdown components with proper styling
+const markdownComponents: Components = {
+    h1: ({ children }) => (
+        <h1 className="text-2xl sm:text-3xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
+            {children}
+        </h1>
+    ),
+    h2: ({ children }) => (
+        <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
+            {children}
+        </h2>
+    ),
+    h3: ({ children }) => (
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mt-4 sm:mt-6 mb-2 sm:mb-3">
+            {children}
+        </h3>
+    ),
+    h4: ({ children }) => (
+        <h4 className="text-base sm:text-lg font-semibold text-gray-800 mt-3 sm:mt-4 mb-2">
+            {children}
+        </h4>
+    ),
+    p: ({ children }) => (
+        <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+            {children}
+        </p>
+    ),
+    ul: ({ children }) => (
+        <ul className="list-disc list-outside ml-6 mb-4 sm:mb-5 space-y-2">
+            {children}
+        </ul>
+    ),
+    ol: ({ children }) => (
+        <ol className="list-decimal list-outside ml-6 mb-4 sm:mb-5 space-y-2">
+            {children}
+        </ol>
+    ),
+    li: ({ children }) => (
+        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
+            {children}
+        </li>
+    ),
+    a: ({ href, children }) => (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-600 hover:text-green-700 underline decoration-green-400 hover:decoration-green-600 transition-colors"
+        >
+            {children}
+        </a>
+    ),
+    strong: ({ children }) => (
+        <strong className="font-semibold text-gray-900">{children}</strong>
+    ),
+    em: ({ children }) => (
+        <em className="italic text-gray-700">{children}</em>
+    ),
+    blockquote: ({ children }) => (
+        <blockquote className="border-l-4 border-green-500 pl-4 py-2 my-4 bg-green-50 italic text-gray-700">
+            {children}
+        </blockquote>
+    ),
+    code: ({ className, children }) => {
+        const isInline = !className;
+        if (isInline) {
+            return (
+                <code className="bg-gray-100 text-green-700 px-1.5 py-0.5 rounded text-sm font-mono">
+                    {children}
+                </code>
+            );
+        }
+        return (
+            <code className="block bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm font-mono my-4">
+                {children}
+            </code>
+        );
+    },
+    pre: ({ children }) => (
+        <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm font-mono my-4">
+            {children}
+        </pre>
+    ),
+    hr: () => (
+        <hr className="my-6 sm:my-8 border-t border-gray-300" />
+    ),
+    table: ({ children }) => (
+        <div className="overflow-x-auto my-4">
+            <table className="min-w-full border-collapse border border-gray-300">
+                {children}
+            </table>
+        </div>
+    ),
+    thead: ({ children }) => (
+        <thead className="bg-green-50">{children}</thead>
+    ),
+    tbody: ({ children }) => (
+        <tbody>{children}</tbody>
+    ),
+    tr: ({ children }) => (
+        <tr className="border-b border-gray-300">{children}</tr>
+    ),
+    th: ({ children }) => (
+        <th className="px-4 py-2 text-left font-semibold text-gray-800 border border-gray-300">
+            {children}
+        </th>
+    ),
+    td: ({ children }) => (
+        <td className="px-4 py-2 text-gray-700 border border-gray-300">
+            {children}
+        </td>
+    ),
+    sup: ({ children }) => (
+        <sup className="text-green-600 font-medium">{children}</sup>
+    ),
+};
+
 export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
     if (!isOpen) return null;
-
-    const formatContent = (content: string) => {
-        // Simple markdown-like formatting
-        return content
-            .split('\n\n')
-            .map((paragraph, index) => {
-                if (paragraph.startsWith('## ')) {
-                    return (
-                        <h2 key={index} className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
-                            {paragraph.replace('## ', '')}
-                        </h2>
-                    );
-                }
-                if (paragraph.startsWith('### ')) {
-                    return (
-                        <h3 key={index} className="text-lg sm:text-xl font-semibold text-gray-800 mt-4 sm:mt-6 mb-2 sm:mb-3">
-                            {paragraph.replace('### ', '')}
-                        </h3>
-                    );
-                }
-                if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                    return (
-                        <p key={index} className="font-semibold text-gray-800 mb-3 sm:mb-4 text-sm sm:text-base">
-                            {paragraph.replace(/\*\*/g, '')}
-                        </p>
-                    );
-                }
-                if (paragraph.startsWith('- ')) {
-                    const items = paragraph.split('\n').filter(item => item.startsWith('- '));
-                    return (
-                        <ul key={index} className="list-disc list-inside mb-3 sm:mb-4 space-y-1 sm:space-y-2">
-                            {items.map((item, i) => (
-                                <li key={i} className="text-gray-700 text-sm sm:text-base">
-                                    {item.replace('- ', '')}
-                                </li>
-                            ))}
-                        </ul>
-                    );
-                }
-                return (
-                    <p key={index} className="text-gray-700 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base">
-                        {paragraph}
-                    </p>
-                );
-            });
-    };
 
     return (
         <motion.div
@@ -107,7 +181,12 @@ export function BlogModal({ blog, isOpen, onClose }: BlogModalProps) {
 
                 <div className="p-4 sm:p-6 overflow-y-auto max-h-[75vh] sm:max-h-[70vh]">
                     <div className="prose prose-sm sm:prose-lg max-w-none">
-                        {formatContent(blog.content)}
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={markdownComponents}
+                        >
+                            {blog.content}
+                        </ReactMarkdown>
                     </div>
                 </div>
             </motion.div>
