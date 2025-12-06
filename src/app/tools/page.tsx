@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface Tool {
     id: string;
@@ -110,11 +111,12 @@ export default function Tools() {
                             onClick={() => setSelectedTool(tool)}
                         >
                             {tool.image && (
-                                <div className="w-full h-48 bg-gray-100 overflow-hidden">
-                                    <img
+                                <div className="w-full h-48 bg-gray-100 overflow-hidden relative">
+                                    <Image
+                                        fill
                                         src={tool.image}
                                         alt={tool.name}
-                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                        className="object-cover hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             )}
@@ -154,11 +156,12 @@ export default function Tools() {
                             onClick={(e) => e.stopPropagation()}
                         >
                             {selectedTool.image && (
-                                <div className="h-48 sm:h-64 bg-gray-100 overflow-hidden rounded-t-lg sm:rounded-t-xl">
-                                    <img
+                                <div className="h-48 sm:h-64 bg-gray-100 overflow-hidden rounded-t-lg sm:rounded-t-xl relative">
+                                    <Image
+                                        fill
                                         src={selectedTool.image}
                                         alt={selectedTool.name}
-                                        className="w-full h-full object-cover"
+                                        className="object-cover"
                                     />
                                 </div>
                             )}

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 const Footer = () => {
   return (
     <footer className="bg-white border-t-2 border-gray-200 mt-auto">
@@ -23,14 +25,15 @@ const Footer = () => {
               This project is under the support of
             </h3>
             <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6">
-              <div className="h-12 flex items-center text-sm font-semibold text-gray-800">
-                Anusandhan National Research Foundation (ANRF)
-              </div>
-              <img
-                src="https://dst.gov.in/sites/all/modules/customs/cmf_content/assets/images/dst-logo1.jpg"
-                alt="Department of Science and Technology Logo"
-                className="h-12 w-auto hover:opacity-80 transition-opacity duration-200"
-              />
+              <a href="https://www.anrfonline.in/ANRF/HomePage" target="_blank" rel="noopener noreferrer">
+                <Image
+                  src="https://psa.gov.in/CMS/web/sites/default/files/2025-11/anrf.jpg"
+                  alt="Anusandhan National Research Foundation (ANRF) Logo"
+                  width={200}
+                  height={96}
+                  className="h-24 w-auto hover:opacity-80 transition-opacity duration-200"
+                />
+              </a>
             </div>
           </div>
 

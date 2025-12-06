@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import ForceNetworkGraph from '../../components/ForceNetworkGraph';
 
 interface Person {
@@ -69,9 +70,11 @@ export default function People() {
                             onClick={() => setSelectedPerson(person)}
                         >
                             <div className={`w-24 h-24 mx-auto rounded-full overflow-hidden shadow-lg border-4 ${person.isLead ? 'border-green-600' : 'border-gray-200'} mb-3`}>
-                                <img
+                                <Image
                                     src={person.picture}
                                     alt={person.name}
+                                    width={96}
+                                    height={96}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -103,9 +106,11 @@ export default function People() {
                                     <div className="flex flex-col sm:flex-row justify-between items-start mb-4 sm:mb-6">
                                         <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 w-full">
                                             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shadow-lg border-4 flex-shrink-0">
-                                                <img
+                                                <Image
                                                     src={selectedPerson.picture}
                                                     alt={selectedPerson.name}
+                                                    width={96}
+                                                    height={96}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>

@@ -1,47 +1,65 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { BlogCard, BlogModal } from '@/components/BlogComponents';
+import Link from 'next/link';
 
-interface Blog {
+interface BlogPreview {
     id: number;
     title: string;
     description: string;
-    content: string;
     author: string;
     date: string;
     readTime: string;
+    slug: string;
+}
+
+const blogs: BlogPreview[] = [
+    {
+        id: 2,
+        title: "Wait, How Much Does That AI Agent Actually Cost?",
+        description: "A candid conversation on the launch of Project SustAInd between two Junior Research Fellows, Aneetta and Chandrasekar, at the Software Engineering Research Center (SERC) Lab, IIIT Hyderabad.",
+        author: "Aneetta Sara Shany & Chandrasekar S",
+        date: "2025-12-05",
+        readTime: "5 min read",
+        slug: "wait-how-much-does-ai-cost",
+    },
+    {
+        id: 1,
+        title: "Enhancing Sustainability of Modern Software Systems through Self-adaptive Architectures",
+        description: "Dr. Karthik Vaidhyanathan explains the concept of software sustainability and how his group's research on self-adaptation is contributing towards greener and sustainable software.",
+        author: "Dr. Karthik Vaidhyanathan",
+        date: "2025-01-17",
+        readTime: "10 min read",
+        slug: "enhancing-sustainability",
+    },
+];
+
+function BlogCard({ blog }: { blog: BlogPreview }) {
+    return (
+        <Link href={`/blogs/${blog.slug}`}>
+            <motion.div
+                whileHover={{ y: -4 }}
+                className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 cursor-pointer transition-all hover:shadow-lg"
+            >
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 hover:text-green-600 transition-colors">
+                    {blog.title}
+                </h3>
+                <p className="text-gray-600 mb-4 line-clamp-2">
+                    {blog.description}
+                </p>
+                <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 space-y-1 sm:space-y-0 sm:space-x-4">
+                    <span>{blog.author}</span>
+                    <span className="hidden sm:inline">•</span>
+                    <span>{new Date(blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    <span className="hidden sm:inline">•</span>
+                    <span>{blog.readTime}</span>
+                </div>
+            </motion.div>
+        </Link>
+    );
 }
 
 export default function Blogs() {
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        const fetchBlogs = async () => {
-            try {
-                const response = await fetch('./data/blogs.json');
-                const data = await response.json();
-                setBlogs(data);
-            } catch (error) {
-                console.error('Error fetching blogs:', error);
-            }
-        };
-
-        fetchBlogs();
-    }, []);
-
-    const handleBlogClick = (blog: Blog) => {
-        setSelectedBlog(blog);
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedBlog(null);
-    };
 
     return (
         <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -74,7 +92,7 @@ export default function Blogs() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <BlogCard blog={blog} onClick={() => handleBlogClick(blog)} />
+                            <BlogCard blog={blog} />
                         </motion.div>
                     ))}
                 </motion.div>
@@ -100,20 +118,10 @@ export default function Blogs() {
                                 />
                             </svg>
                         </div>
-                        <h3 className="text-xl font-medium text-gray-500 mb-2">No blog posts yet</h3>
-                        <p className="text-gray-400">Check back soon for updates from our research team.</p>
+                        <p className="text-gray-400 text-lg">No blogs yet</p>
                     </motion.div>
                 )}
-
             </div>
-
-            {selectedBlog && (
-                <BlogModal
-                    blog={selectedBlog}
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                />
-            )}
         </div>
     );
 }
