@@ -6,9 +6,10 @@ import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
     const [currentImage, setCurrentImage] = useState(0);
+    const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
     const images = [
-        { src: '/data/images/group_pic_1.jpg', duration: 10000 },
-        { src: '/data/images/group_pic_2.jpg', duration: 10000 }
+        { src: `${basePath}/data/images/group_pic_1.jpg`, duration: 10000 },
+        { src: `${basePath}/data/images/group_pic_2.jpg`, duration: 10000 }
     ];
 
     useEffect(() => {
@@ -32,25 +33,25 @@ const HeroSection = () => {
                         zIndex: 0
                     }}
                     initial={{ opacity: 0, backgroundPosition: '0% 50%' }}
-                    animate={{ 
+                    animate={{
                         opacity: currentImage === index ? 1 : 0,
-                        backgroundPosition: currentImage === index 
+                        backgroundPosition: currentImage === index
                             ? ['0% 50%', '100% 50%']
                             : '50% 50%'
                     }}
-                    transition={{ 
+                    transition={{
                         opacity: { duration: 3, ease: "easeOut" },
-                        backgroundPosition: { 
+                        backgroundPosition: {
                             duration: (images[index].duration / 1000),
                             ease: "linear"
                         }
                     }}
                 />
             ))}
-            
+
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-black/50 z-10" />
-            
+
             <div className="max-w-4xl mx-auto text-center relative z-20 -mt-28">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
