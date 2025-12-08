@@ -163,6 +163,7 @@ const markdownComponents: Components = {
 };
 
 export default function WaitHowMuchDoesAICostBlog() {
+    const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
     const blog = {
         title: "Wait, How Much Does That AI Agent Actually Cost?",
         author: "Aneetta Sara Shany & Chandrasekar S",
@@ -172,7 +173,7 @@ export default function WaitHowMuchDoesAICostBlog() {
 
 *(Scene: Two Junior Research Fellows, Aneetta and Chandrasekar, taking a break at the Software Engineering Research Center (SERC) Lab, IIIT Hyderabad.)*
 
-![AI Agent Conversation](/data/images/blog/ai-agent-how-cost.png)
+![AI Agent Conversation](${basePath}/data/images/blog/ai-agent-how-cost.png)
 
 *Aneetta:*
 Okay, Chandru, serious question. I was scrolling through my phone today, and everyone is obsessed with "Agentic AI". Autonomous agents planning trips, writing code, calling tools... it's everywhere. But is anyone talking about the bill?
