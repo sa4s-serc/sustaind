@@ -9,16 +9,38 @@
             "Karthik Vaidhyanathan"
         ],
         "abstract": "Machine Learning Enabled Systems (MLS) are becoming integral to real-world applications, but ensuring their sustainable performance over time remains a significant challenge. These systems operate in dynamic environments and face runtime uncertainties like data drift and model degradation, which affects the sustainability of MLS across multiple dimensions: technical, economical, environmental, and social. While Machine Learning Operations (MLOps) addresses the technical dimension by streamlining the ML model lifecycle, it overlooks other dimensions. Furthermore, some traditional practices in MLOps, such as frequent retraining, incur substantial energy and computational overhead, thus amplifying sustainability concerns. To address them, HarmonE presents an architectural approach that enables self-adaptive capabilities in MLOps pipelines using the MAPE-K loop. HarmonE allows system designers to define explicit sustainability goals and adaptation thresholds at design time, and performs runtime monitoring of key metrics, such as prediction accuracy, energy consumption, and data distribution shifts, to trigger appropriate adaptation strategies. We validate our approach using a Digital Twin (DT) of an Intelligent Transportation System (ITS), focusing on traffic flow prediction as our primary use case. The DT employs time series ML models to predict real-time traffic and assesses various flow scenarios. Our results show that HarmonE adaptively re-evaluates conditions while meeting accuracy and meeting sustainability goals.",
-        "venue": "19th European Conference on Software Architecture (ECSA 2025)",
+        "venue": "19th European Conference on Software Architecture (ECSA)",
         "year": 2025,
         "doi": "arXiv:2505.13693",
         "url": "https://arxiv.org/abs/2505.13693",
-        "coverImage": "/data/images/HarmonE_cover.png",
+        "coverImage": "/data/images/publications/HarmonE_cover.png",
         "keywords": [
             "Self-Adaptation",
             "MLOps",
             "Sustainability",
             "Green AI"
         ]
+    },
+    {
+        "id": "swenergy-2025",
+        "title": "SWEnergy: An Empirical Study on Energy Efficiency in Agentic Issue Resolution Frameworks with SLMs",
+        "authors": [
+            "Arihant Tripathy",
+            "Ch Pavan Harshit",
+            "Karthik Vaidhyanathan"
+        ],
+        "abstract": "Context. LLM-based autonomous agents in software engineering rely on large, proprietary models, limiting local deployment.  This has spurred interest in Small Language Models (SLMs), but their practical effectiveness and efficiency within complex agentic frameworks for automated issue resolution remain poorly understood.\n\nGoal. We investigate the performance, energy efficiency, and resource consumption of four leading agentic issue resolution frameworks when deliberately constrained to using SLMs. We aim to assess the viability of these systems for this task in resource-limited settings and characterize the resulting trade-offs.\n\nMethod. We conduct a controlled evaluation of four leading agentic frameworks (SWE-Agent, OpenHands, Mini SWE Agent, AutoCodeRover) using two SLMs (Gemma-3 4B, Qwen-3 1.7B) on the SWE-bench Verified Mini benchmark. On fixed hardware, we measure energy, duration, token usage, and memory over 150 runs per configuration.\n\nResults. We find that framework architecture is the primary driver of energy consumption. The most energy-intensive framework, AutoCodeRover (Gemma), consumed 9.4x more energy on average than the least energy-intensive, OpenHands (Gemma). However, this energy is largely wasted. Task resolution rates were near-zero, demonstrating that current frameworks, when paired with SLMs, consume significant energy on unproductive reasoning loops. The SLM's limited reasoning was the bottleneck for success, but the framework's design was the bottleneck for efficiency.\n\nConclusions. Current agentic frameworks, designed for powerful LLMs, fail to operate efficiently with SLMs. We find that framework architecture is the primary driver of energy consumption, but this energy is largely wasted due to the SLMs' limited reasoning. Viable low-energy solutions require shifting from passive orchestration to architectures that actively manage SLM weaknesses.",
+        "venue": "International Workshop on Agentic Engineering (AGENT)",
+        "year": 2026,
+        "doi": "",
+        "url": "",
+        "coverImage": "/data/images/publications/swenergy-1.png",
+        "keywords": [
+            "Agentic Issue Resolution",
+            "Empirical Study",
+            "Energy Efficiency",
+            "Small Language Models"
+        ],
+        "audio": "/data/audio/swenergy-overview.m4a"
     }
 ]

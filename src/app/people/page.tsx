@@ -91,15 +91,15 @@ export default function People() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-2 sm:p-4 z-50"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50"
                             onClick={() => setSelectedPerson(null)}
                         >
                             <motion.div
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.8, opacity: 0 }}
+                                initial={{ y: "100%", opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: "100%", opacity: 0 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className="bg-white rounded-lg sm:rounded-lg max-w-2xl w-full max-h-[95vh] sm:max-h-[80vh] overflow-y-auto shadow-2xl"
+                                className="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full sm:my-auto max-h-[100vh] sm:max-h-[80vh] overflow-y-auto shadow-2xl"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <div className="p-4 sm:p-8">
