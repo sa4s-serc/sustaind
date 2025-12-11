@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -27,8 +27,12 @@ export const metadata: Metadata = {
   description: "Developing environmentally and economically sustainable AI systems for India's future",
   keywords: ['sustainable AI', 'AI India', 'green computing', 'sustainable technology'],
   authors: [{ name: 'SustAInd Team' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({

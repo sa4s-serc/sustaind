@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[97367,["/sustaind/_next/static/chunks/ff1a16fafef87110.js","/sustaind/_next/static/chunks/7f1d21cd857aa3e5.js"],"ViewportBoundary"]
+4:I[97367,["/sustaind/_next/static/chunks/ff1a16fafef87110.js","/sustaind/_next/static/chunks/7f1d21cd857aa3e5.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[27201,["/sustaind/_next/static/chunks/ff1a16fafef87110.js","/sustaind/_next/static/chunks/7f1d21cd857aa3e5.js"],"IconMark"]
+0:{"buildId":"bwysHvdFWMNvvJzhzn34o","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"SustAInd - Sustainable AI for India"}],["$","meta","1",{"name":"description","content":"Developing environmentally and economically sustainable AI systems for India's future"}],["$","meta","2",{"name":"author","content":"SustAInd Team"}],["$","meta","3",{"name":"keywords","content":"sustainable AI,AI India,green computing,sustainable technology"}],["$","meta","4",{"name":"robots","content":"index, follow"}],["$","link","5",{"rel":"icon","href":"/sustaind/favicon.ico?favicon.0b3bf435.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L7","6",{}]]
