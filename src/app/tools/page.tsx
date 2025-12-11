@@ -61,24 +61,6 @@ export default function Tools() {
         }
     };
 
-    const modalVariants = {
-        hidden: { opacity: 0, scale: 0.8 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                duration: 0.3
-            }
-        },
-        exit: {
-            opacity: 0,
-            scale: 0.8,
-            transition: {
-                duration: 0.2
-            }
-        }
-    };
-
     return (
         <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-white">
             <div className="max-w-6xl mx-auto">
