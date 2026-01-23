@@ -121,7 +121,7 @@ export default function TrackingMacPowerBlog() {
                     </p>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        I was running <a href="https://ollama.com/library/llama3.2:1b" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors"><strong className="font-semibold text-gray-900">Llama 3.2</strong></a> on my <a href="https://support.apple.com/en-in/111883" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors">MacBook Air</a>. The fan wasn&apos;t even spinning (<em className="italic text-gray-700">Apple Silicon is dangerously efficient</em>), so I assumed the cost was negligible. But I needed numbers, not assumptions.
+                        I was running <a href="https://ollama.com/library/llama3.2:1b" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors">Llama 3.2</a> on my <a href="https://support.apple.com/en-in/111883" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors">MacBook Air</a>. The fan wasn&apos;t even spinning (<em className="italic text-gray-700">Apple Silicon is dangerously efficient</em>), so I assumed the cost was negligible. But I needed numbers, not assumptions.
                     </p>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base ml-8">
@@ -143,117 +143,116 @@ export default function TrackingMacPowerBlog() {
                     </p>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        This is where I found my first real bloom: measuring energy.
-                    </p>
-
-                    <hr className="my-6 sm:my-8 border-t border-gray-300" />
-
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
-                        The Test (and the Baseline)
-                    </h2>
-
-                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        To see how much <em className="italic text-gray-700">more</em> the LLM actually cost, I needed a reference point.
-                    </p>
-
-                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        So I measured three things:
-                    </p>
-
-                    <ul className="list-disc list-outside ml-6 mb-4 sm:mb-5 space-y-2">
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Idle Power</strong>: My Mac doing nothing.
-                        </li>
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Baseline Power</strong>: Running the Llama model without inference (just keeping it in memory).
-                        </li>
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Inference Power</strong>: Making the model actually respond to 10 test queries.
-                        </li>
-                    </ul>
-
-                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        The graphs don&apos;t lie. Idle power is silent. Baseline power is steady, like a pilot light. But <em className="italic text-gray-700">inference power</em>? That&apos;s the spike where the cost lives.
+                        The tracker gave me the idle power draw: ~15mW.
                     </p>
 
                     <img
                         src={`${basePath}/data/images/blog/blog002-pytorch-profiler-results.png`}
-                        alt="PyTorch Profiler Results"
+                        alt="Idle Power Draw"
                         className="w-full h-auto rounded-lg shadow-md my-6 sm:my-8"
                     />
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        Running the model <em className="italic text-gray-700">once</em> didn&apos;t consume much. But running it <em className="italic text-gray-700">ten times</em>? That&apos;s when I actually saw the shape of the usage curve. Not a smooth line. Not a slow burn. It was jagged, spiky, and very real. Each spike, was a query. And each query, was a cost.
-                    </p>
-
-                    <hr className="my-6 sm:my-8 border-t border-gray-300" />
-
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
-                        The Math Behind the Measurement
-                    </h2>
-
-                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        The calculation was straightforward:
-                    </p>
-
-                    <ul className="list-disc list-outside ml-6 mb-4 sm:mb-5 space-y-2">
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">CPU + GPU Power Draw</strong> (in Watts) = Total energy being consumed per second.
-                        </li>
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Duration</strong> (in seconds) = How long the query runs.
-                        </li>
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Energy</strong> (in Joules) = Power × Time.
-                        </li>
-                    </ul>
-
-                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        But here&apos;s the catch: Most of us never see this in our work. We optimize <em className="italic text-gray-700">latency</em> (speed), but forget about <em className="italic text-gray-700">energy</em> (the planet). I started to understand that <strong className="font-semibold text-gray-900">speed ≠ efficiency</strong>. Sometimes the fastest model is also the hungriest. And in a world where LLMs are running millions of queries daily, those extra watts add up fast.
+                        Then, I asked Llama a question: &quot;<em className="italic text-gray-700">What is software sustainability in 3 lines?</em>&quot;
+                        <br />
+                        BOOM. The numbers shot up instantly… ~7000mW.
                     </p>
 
                     <img
                         src={`${basePath}/data/images/blog/blog002-energy-consumption-metrics.png`}
-                        alt="Energy Consumption Metrics"
+                        alt="Active Power Draw"
                         className="w-full h-auto rounded-lg shadow-md my-6 sm:my-8"
                     />
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        I wasn&apos;t just profiling an LLM anymore; I was learning how to measure the invisible cost of <em className="italic text-gray-700">thinking</em>.
+                        <em className="italic text-gray-700">It wasn&apos;t about the code anymore. It was real. It was power. It was</em> <strong className="font-semibold text-gray-900">energy.</strong>
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        I could see the cost of my curiosity. That was my <em className="italic text-gray-700">Hello World</em> moment for energy tracking.
                     </p>
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
                     <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
-                        The Tools &amp; Process Behind the Dashboard
+                        What I Learned (The Interesting Stuff )
                     </h2>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        If you&apos;re curious about the engineering behind this, here&apos;s the setup:
+                        Through the struggle, I gathered some facts that genuinely surprised me:
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        The &quot;<em className="italic text-gray-700">Spike</em>&quot; is Instant: AI doesn&apos;t &quot;<em className="italic text-gray-700">warm up.</em>&quot; It goes from 0 to 100 in milliseconds. The Energy demand is immediate and intense.
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        <em className="italic text-gray-700">Idle</em> vs. <em className="italic text-gray-700">Active</em>. Background tasks barely register on the power meter. LLM inference? That&apos;s when you see what your Mac can really pull.
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        <em className="italic text-gray-700">Generation is the real cost</em>. Processing your prompt is fast and cheap, it&apos;s the token-by-token response generation that hammers your CPU and drains your battery.
+                    </p>
+
+                    <hr className="my-6 sm:my-8 border-t border-gray-300" />
+
+                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                        The Reality Check
+                    </h2>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        Here is a slightly terrifying fact I learned from my logs:
+                        <br />
+                        <strong className="font-semibold text-gray-900">Every single query has a carbon footprint.</strong>
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        We often think of &quot;Green AI&quot; as a massive data center problem. But measuring it locally made me realize that even for one user, the cost is noticeable. Now, imagine millions of users doing this every second.
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        It turns out, &quot;Sustainable AI&quot; isn&apos;t just about where the electricity comes from; It&apos;s about how efficiently we use it.
+                    </p>
+
+                    <hr className="my-6 sm:my-8 border-t border-gray-300" />
+
+                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                        Don&apos;t Reinvent the Wheel (Here&apos;s the Code)
+                    </h2>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        That command was just the &apos;Hello World&apos;, a quick manual check. But I realized I couldn&apos;t just sit there typing commands forever if I wanted valid results. I needed a proper, automated setup. I didn&apos;t want to just guess the energy; I wanted to scientifically measure it. So, I built a <strong className="font-semibold text-gray-900">system</strong>.⚙️
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        In the GitHub repo, you won&apos;t just find a basic script. You&apos;ll find a full setup (<strong className="font-semibold text-gray-900">ollama-energy-tracker</strong>) that includes:
                     </p>
 
                     <ul className="list-disc list-outside ml-6 mb-4 sm:mb-5 space-y-2">
                         <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Hardware</strong>: MacBook Air (Apple Silicon)
+                            <strong className="font-semibold text-gray-900">The Architecture:</strong> <em className="italic text-gray-700">My Master-Worker setup separated the &quot;tracker&quot; from the &quot;LLM&quot; so measuring the energy doesn&apos;t accidentally slow down the model.</em>
                         </li>
                         <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Model</strong>: Llama 3.2 (1B parameters)
+                            <strong className="font-semibold text-gray-900">The Power Engine:</strong> <em className="italic text-gray-700">My script talks directly to your Mac&apos;s hardware to get the real numbers, no guessing games or rough estimates.</em>
                         </li>
                         <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Energy Monitoring</strong>: <code className="bg-gray-100 text-green-700 px-1.5 py-0.5 rounded text-sm font-mono">sudo powermetrics</code>
+                            <strong className="font-semibold text-gray-900">The Smart Fixes:</strong> <em className="italic text-gray-700">It fills in the gaps. If a query is too fast for the hardware sensors to catch, the tool kicks in a backup estimate to ensure your data remains accurate.</em>
                         </li>
                         <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Dashboard</strong>: Python-based visualization using Flask
-                        </li>
-                        <li className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                            <strong className="font-semibold text-gray-900">Frontend</strong>: HTML/CSS/JavaScript with Chart.js
+                            <strong className="font-semibold text-gray-900">The Visuals:</strong> <em className="italic text-gray-700">A simple dashboard where you can actually see your energy usage and trends in real-time.</em>
                         </li>
                     </ul>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
-                        The code is already on GitHub. It&apos;s open-source. It&apos;s documented. It&apos;s ready for you to fork.
-                        <br />
-                        Come break things, run the dashboard, and let me know if your Mac sweats as much as mine did. You can connect with <a href="https://www.linkedin.com/in/aneetta-sara/" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors"><strong className="font-semibold text-gray-900">me on LinkedIn</strong></a>.
+                        Curious about the actual numbers? I&apos;ve packed the README with my full research findings. Go take a look at <a href="https://github.com/aneettasara/ollama-energy-tracker" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors"><strong className="font-semibold text-gray-900">my GitHub repo</strong>🔗</a>. It&apos;s not perfect. It&apos;s just a snapshot of me figuring things out. It includes the scripts to run the model, track the energy, and visualize the spikes.
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        It&apos;s open-source. It&apos;s documented. It&apos;s ready for you to fork.
+                    </p>
+
+                    <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
+                        Come break things, run the dashboard, and let me know if your Mac sweats as much as mine did. You can connect with <a href="https://www.linkedin.com/in/aneetta-sara/" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-700 underline decoration-orange-400 hover:decoration-orange-600 transition-colors"><strong className="font-semibold text-gray-900">me on LinkedIn</strong>🔗</a>.
                     </p>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base">
@@ -261,9 +260,7 @@ export default function TrackingMacPowerBlog() {
                     </p>
 
                     <p className="text-gray-700 mb-4 sm:mb-5 leading-relaxed text-sm sm:text-base ml-8">
-                        <em className="italic text-gray-700">Every single query has a carbon footprint. it&apos;s okay to bloom a little late.</em>
-                        <br />
-                        <em className="italic text-gray-700">Just make sure you keep growing.</em>
+                        <em className="italic text-gray-700">it&apos;s okay to bloom a little late. Just make sure you keep growing.</em>
                     </p>
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
