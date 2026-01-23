@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 3,
+        title: "Watts the Cost? Tracking My Mac's Power Draw During LLM Inference",
+        description: "A personal journey of measuring the invisible energy cost of running LLMs locally, from debugging powermetrics to building a carbon tracking dashboard.",
+        author: "Aneetta Sara Shany",
+        date: "2026-01-23",
+        readTime: "8 min read",
+        slug: "tracking-mac-power-llm-inference",
+    },
+    {
         id: 2,
         title: "Wait, How Much Does That AI Agent Actually Cost?",
         description: "A candid conversation on the launch of Project SustAInd between two Junior Research Fellows, Aneetta and Chandrasekar, at the Software Engineering Research Center (SERC) Lab, IIIT Hyderabad.",
