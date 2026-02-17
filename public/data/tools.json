@@ -20,7 +20,7 @@
         "name": "Harmonica",
         "description": "A self-adaptation exemplar for sustainable MLOps that operationalizes the HarmonE approach with a runnable implementation.",
         "longDescription": "Harmonica is a fully runnable tool designed to enable the sustainable operation of MLOps pipelines. It demonstrates how a structured MAPE-K loop can be integrated into real MLOps pipelines to support sustainability, long-term viability, and runtime resilience in Machine-Learning-enabled Systems (MLS). The tool includes a managing system that oversees the MLS at runtime and enforces adaptation policies decoupled from system execution, featuring a web-based dashboard for visualization and policy management.",
-        "url": "https://github.com/sa4s-serc/HarmonE-tool",
+        "url": "https://sa4s-serc.github.io/HarmonE-tool/",
         "github": "https://github.com/sa4s-serc/HarmonE-tool",
         "paper": "https://arxiv.org/abs/2601.11926",
         "authors": [
@@ -30,6 +30,6 @@
             "Srinivasan Rakhunathan",
             "Karthik Vaidhyanathan"
         ],
-        "image": "./data/images/tools/harmonica.png"
+        "image": "https://sa4s-serc.github.io/HarmonE-tool/static/images/architecture.png"
     }
 ]
