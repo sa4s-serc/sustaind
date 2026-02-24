@@ -50,7 +50,7 @@ export default function TrackingMacPowerBlog() {
                         className="w-full h-auto rounded-lg shadow-md my-6 sm:my-8"
                     />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         The Prologue: Better Late Than Never
                     </h2>
 
@@ -76,7 +76,7 @@ export default function TrackingMacPowerBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         The Zero State: Code vs. Energy
                     </h2>
 
@@ -110,7 +110,7 @@ export default function TrackingMacPowerBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         The Struggle (and the Silence)
                     </h2>
 
@@ -128,7 +128,7 @@ export default function TrackingMacPowerBlog() {
                         <em className="italic text-gray-700">I was planted, but I definitely wasn&apos;t blooming. I was just... debugging.</em>
                     </p>
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         The <em className="italic text-gray-700">Eureka</em> Moment ! sudo powermetrics
                     </h2>
 
@@ -174,7 +174,7 @@ export default function TrackingMacPowerBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         What I Learned (The Interesting Stuff )
                     </h2>
 
@@ -196,7 +196,7 @@ export default function TrackingMacPowerBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         The Reality Check
                     </h2>
 
@@ -216,7 +216,7 @@ export default function TrackingMacPowerBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         Don&apos;t Reinvent the Wheel (Here&apos;s the Code)
                     </h2>
 

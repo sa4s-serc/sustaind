@@ -317,7 +317,7 @@ export default function WaitHowMuchDoesAICostBlog() {
 
                     <hr className="my-6 sm:my-8 border-t border-gray-300" />
 
-                    <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-green-600 mt-6 sm:mt-8 mb-3 sm:mb-4">
                         Join the <span className="font-semibold"><span className="text-green-600">Sust</span><span className="text-orange-500">AInd</span></span> Mission !!
                     </h2>
 

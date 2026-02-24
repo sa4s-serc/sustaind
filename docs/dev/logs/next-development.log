@@ -1,0 +1,9 @@
+[00:00:01.761] Server  LOG     ✓ Ready in 1225ms
+[00:00:55.382] Server  LOG     ○ Compiling / ...
+[00:01:04.047] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:04.481] Browser WARN    Image with src "https://psa.gov.in/CMS/web/sites/default/files/2025-11/anrf.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:13.396] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:13.615] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:13.871] Browser WARN    Image with src "/data/images/blog/city.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:03:01.745] Server  LOG     ✓ Compiled in 4s

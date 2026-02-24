@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function MLSystemsAgeLikeCityBlog() {
+    const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
+
     return (
         <div className="min-h-screen py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
             <div className="max-w-4xl mx-auto">
@@ -30,6 +33,16 @@ export default function MLSystemsAgeLikeCityBlog() {
                         <span>8 min read</span>
                     </div>
                 </motion.div>
+
+                <div className="my-8 sm:my-10">
+                    <Image
+                        src={`${basePath}/data/images/blog/city.png`}
+                        alt="ML Systems aging like a city"
+                        width={1200}
+                        height={600}
+                        className="w-full h-auto rounded-xl shadow-lg"
+                    />
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0 }}
