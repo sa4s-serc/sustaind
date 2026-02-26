@@ -173,7 +173,7 @@ const CollaborationSection = () => {
                             Interested in sustainable AI? Reach out to join our mission.
                         </p>
                         <m.a
-                            href="mailto:karthik.vaidyanathan@iiit.ac.in"
+                            href="mailto:karthik.vaidhyanathan@iiit.ac.in"
                             whileHover={{
                                 scale: 1.02,
                             }}

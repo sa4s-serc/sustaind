@@ -50,10 +50,10 @@ const Footer = () => {
               <div>IIIT Hyderabad, Telangana, India</div>
             </div>
             <a
-              href="mailto:karthik.vaidyanathan@iiit.ac.in"
+              href="mailto:karthik.vaidhyanathan@iiit.ac.in"
               className="text-orange-500 hover:text-orange-600 transition-colors duration-200 text-sm font-medium border-b border-transparent hover:border-orange-500"
             >
-              karthik.vaidyanathan@iiit.ac.in
+              karthik.vaidhyanathan@iiit.ac.in
             </a>
           </div>
         </div>

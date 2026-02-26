@@ -30,7 +30,7 @@ Software Engineering Research Center
 IIIT Hyderabad
 Telangana, India
 ```
-and email address: `karthik.vaidyanathan@iiit.ac.in`
+and email address: `karthik.vaidhyanathan@iiit.ac.in`
 
 On phones, the footer should be centered.
 
@@ -74,10 +74,10 @@ Each person should be just a picture in a circle, clicking on which opens a card
 The card should be a rounded rectangle, with the picture on the left side and the name and designation on the right side. The description should be below the name and designation, in a lighter shade.
 
 The people are as follows:
-- **Karthik Vaidyanathan** - Assistant Professor, IIIT Hyderabad
+- **Karthik Vaidhyanathan** - Assistant Professor, IIIT Hyderabad
   - Description: Karthik Vaidhyanathan is an Assistant Professor at the Software Engineering Research Center, IIIT-Hyderabad, India where he is also associated with the leadership team of smart city living lab. He obtained his Ph.D. from the Gran Sasso Science Institute, Italy and did his postdoc at the University of L'Aquila, Italy. His main research interests lie in the intersection of software architecture and machine learning with a specific focus on building sustainable software systems. His research focuses on how machine learning techniques can be leveraged to better architect self-adaptive systems and further how to better define architecting practices for developing Machine Learning-enabled software systems. As a part of his research activities, he serves as a reviewer/organizing committee member in various workshops, conferences, and journals. He is also an editorial board member (SE Radio) of IEEE Software. Karthik also poses more than 5 years of industrial experience as an employee and as a consultant in building and deploying ML products/services.
   - Picture: https://karthikv1392.github.io/assets/img/karthik_circle_profile-1400.webp
-  - Email: karthik.vaidyanathan@iiit.ac.in
+  - Email: karthik.vaidhyanathan@iiit.ac.in
 
 - **Akhila Matathammal** - PhD in CSE, IIIT Hyderabad
   - Description: A PhD student on a mission to revolutionize sustainable software architecture, edge, and microservices, Akhila is making cloud-native environments greener, one line of code at a time!
@@ -99,7 +99,7 @@ The people are as follows:
   - Picture: https://serc.iiit.ac.in/images/people/arihant-tripathy.jpg
   - Email: arihant.tripathy@research.iiit.ac.in
 
-Karthik Vaidyanathan should be in the center of the page, with the other people arranged around him in a random pattern with lines connecting them to him. The lines should be thin and light, so they do not distract from the content. The pictures should be circular and have a slight drop shadow to give a sense of depth. The people should slightly be bobbing up and down to give a sense of life to the page.
+Karthik Vaidhyanathan should be in the center of the page, with the other people arranged around him in a random pattern with lines connecting them to him. The lines should be thin and light, so they do not distract from the content. The pictures should be circular and have a slight drop shadow to give a sense of depth. The people should slightly be bobbing up and down to give a sense of life to the page.
 
 ### Publications Page
 The Publications page should have a list of all the publications related to the SustAInd project.
