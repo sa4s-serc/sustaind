@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 5,
+        title: "Small AI models can't always fix your code. Here's why that's interesting.",
+        description: "A deep dive into SWEnergy (ICSE 2026): why small local models fail on autonomous issue resolution today, and what needs to change in frameworks.",
+        author: "Arihant Tripathy",
+        date: "2026-03-13",
+        readTime: "12 min read",
+        slug: "small-ai-models-cant-fix-your-code",
+    },
+    {
         id: 4,
         title: "When ML Systems Age Like a City: A Simple Way to Think About Technical Sustainability in the Agentic Era",
         description: "An analogy comparing software system aging to fast-growing cities, exploring why technical sustainability is crucial in the era of AI and agentic coding.",
