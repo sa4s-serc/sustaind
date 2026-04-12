@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 6,
+        title: 'Teaching Systems to Survive: Making AI Sustainable through Self Adaptation',
+        description: 'How self-adaptive architectures like HarmonE and the Harmonica exemplar help operationalize sustainability goals in running AI systems.',
+        author: 'Shaunak Biswas and Hiya Bhatt',
+        date: '2026-04-12',
+        readTime: '8 min read',
+        slug: 'teaching-systems-to-survive',
+    },
+    {
         id: 5,
         title: "Small AI models can't always fix your code. Here's why that's interesting.",
         description: "A deep dive into SWEnergy (ICSE 2026): why small local models fail on autonomous issue resolution today, and what needs to change in frameworks.",
