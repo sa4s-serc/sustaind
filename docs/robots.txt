@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://sa4s-serc.github.io
+Sitemap: https://sa4s-serc.github.io/sustaind/sitemap.xml

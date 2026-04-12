@@ -5,6 +5,11 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const siteName = "SustAInd";
+const siteUrl = "https://sa4s-serc.github.io/sustaind";
+const defaultTitle = "Sustainable AI for India";
+const defaultDescription = "SustAInd develops environmentally and economically sustainable AI systems, tools, and research for India.";
+
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ["latin"],
@@ -24,11 +29,53 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SustAInd - Sustainable AI for India",
-  description: "Developing environmentally and economically sustainable AI systems for India's future",
-  keywords: ['sustainable AI', 'AI India', 'green computing', 'sustainable technology'],
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${siteName} | ${defaultTitle}`,
+    template: `%s | ${siteName}`,
+  },
+  description: defaultDescription,
+  applicationName: siteName,
+  keywords: [
+    'sustainable AI',
+    'AI India',
+    'green computing',
+    'sustainable technology',
+    'green software engineering',
+    'responsible AI',
+    'SustAInd',
+  ],
   authors: [{ name: 'SustAInd Team' }],
-  robots: 'index, follow',
+  creator: 'SustAInd Team',
+  publisher: 'SustAInd',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    siteName,
+    title: `${siteName} | ${defaultTitle}`,
+    description: defaultDescription,
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${siteName} | ${defaultTitle}`,
+    description: defaultDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  category: 'technology',
 };
 
 export const viewport: Viewport = {
