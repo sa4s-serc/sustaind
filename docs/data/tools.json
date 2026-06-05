@@ -31,5 +31,20 @@
             "Karthik Vaidhyanathan"
         ],
         "image": "https://sa4s-serc.github.io/HarmonE-tool/static/images/architecture.png"
+    },
+    {
+        "id": "encode",
+        "name": "EnCoDe",
+        "description": "A methodology for fine-grained, design-time energy estimation of source code. EnCoDe predicts energy consumption of individual code blocks—functions, loops, and conditionals—without executing them, using static code features and ML models.",
+        "longDescription": "EnCoDe (Energy Estimation of Source Code At Design-Time) addresses the gap left by runtime-only profiling tools by enabling developers to estimate energy consumption at design time. It introduces PowerLens, a novel sub-millisecond measurement methodology that reliably captures energy readings for microsecond-scale code blocks using execution amplification, RAPL temporal synchronization, and IQR-based aggregation. An empirical study on over 18,000 Python programs yields a dataset of executable code blocks annotated with 33 static AST features across 7 categories. XGBoost models trained on these features achieve R² = 0.755 for continuous energy regression and 80.6% accuracy for Low/Medium/High tier classification—without running any code. EnCoDe is operationalized as WattWise, a VS Code extension that surfaces inline energy estimates, AI-powered optimization suggestions, a repo-wide energy dashboard, and a GitHub PR bot for catching energy regressions.",
+        "url": "https://sa4s-serc.github.io/encode/",
+        "github": "https://github.com/sa4s-serc/encode",
+        "paper": "https://arxiv.org/abs/2605.00504",
+        "authors": [
+            "Shailender Goyal",
+            "Akhila Matathammal",
+            "Karthik Vaidhyanathan"
+        ],
+        "image": "https://sa4s-serc.github.io/encode/static/images/wattwise_screenshot.png"
     }
 ]

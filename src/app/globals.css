@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../src";
 
 :root {
   --background: #ffffff;
@@ -9,6 +10,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-ibm-plex-sans);
+  --font-inter: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {

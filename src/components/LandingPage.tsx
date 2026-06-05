@@ -80,7 +80,7 @@ const HeroSection = () => {
                 {/* Dark overlay for better text readability */}
                 <div className="absolute inset-0 bg-black/50 z-10" />
 
-                <div className="max-w-4xl mx-auto text-center relative z-20 -mt-28">
+                <div className="max-w-4xl mx-auto text-center relative z-20 mt-0 md:-mt-20 lg:-mt-28">
                     <m.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
