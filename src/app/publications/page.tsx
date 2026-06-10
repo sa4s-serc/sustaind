@@ -82,7 +82,11 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
                     {/* Abstract */}
                     <div className="mb-6 sm:mb-8">
                         <h3 className="text-sm sm:text-base font-medium text-gray-500 uppercase tracking-wide mb-3">Abstract</h3>
-                        <p className="text-gray-800 leading-relaxed text-sm sm:text-base">{publication.abstract}</p>
+                        <div className="text-gray-800 leading-relaxed text-sm sm:text-base space-y-3">
+                            {publication.abstract.split('\n\n').map((para, i) => (
+                                <p key={i}>{para}</p>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Keywords */}
@@ -131,13 +135,17 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
 export default function Publications() {
     const [publications, setPublications] = useState<Publication[]>([]);
     const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
+    const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
 
     useEffect(() => {
         async function fetchPublications() {
             try {
                 const response = await fetch('./data/publications.json');
                 const data = await response.json();
-                setPublications(data);
+                setPublications([...data].sort((a: Publication, b: Publication) => {
+                    if (b.year !== a.year) return b.year - a.year;
+                    return data.indexOf(b) - data.indexOf(a);
+                }));
             } catch (error) {
                 console.error('Error fetching publications:', error);
             }
@@ -163,32 +171,111 @@ export default function Publications() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
-                    {publications.map((publication, index) => (
-                        <motion.div
-                            key={publication.id}
-                            className="cursor-pointer transform transition-all duration-300 hover:scale-105"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            onClick={() => setSelectedPublication(publication)}
+                {/* View Toggle */}
+                <div className="flex justify-end mb-8">
+                    <div className="inline-flex rounded-xl border border-gray-200 bg-gray-50 p-1 gap-1">
+                        <button
+                            onClick={() => setViewMode('card')}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${viewMode === 'card'
+                                    ? 'bg-white text-green-700 shadow-sm border border-gray-200'
+                                    : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                            aria-label="Card view"
                         >
-                            <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-600">
-                                <Image
-                                    src={`.${publication.coverImage}`}
-                                    alt={`Cover of ${publication.title}`}
-                                    fill
-                                    className="object-cover object-top"
-                                />
-                            </div>
-                            <div className="mt-4 text-center">
-                                <h3 className="text-lg font-semibold text-gray-900">
-                                    {publication.title}
-                                </h3>
-                            </div>
-                        </motion.div>
-                    ))}
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
+                            </svg>
+                            Cards
+                        </button>
+                        <button
+                            onClick={() => setViewMode('list')}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${viewMode === 'list'
+                                    ? 'bg-white text-green-700 shadow-sm border border-gray-200'
+                                    : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                            aria-label="List view"
+                        >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z" />
+                            </svg>
+                            List
+                        </button>
+                    </div>
                 </div>
+
+                {/* Card View */}
+                {viewMode === 'card' && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
+                        {publications.map((publication, index) => (
+                            <motion.div
+                                key={publication.id}
+                                className="cursor-pointer transform transition-all duration-300 hover:scale-105"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                onClick={() => setSelectedPublication(publication)}
+                            >
+                                <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-600">
+                                    <Image
+                                        src={`.${publication.coverImage}`}
+                                        alt={`Cover of ${publication.title}`}
+                                        fill
+                                        className="object-cover object-top"
+                                    />
+                                    <span className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow">
+                                        {publication.year}
+                                    </span>
+                                </div>
+                                <div className="mt-4 text-center">
+                                    <h3 className="text-lg font-semibold text-gray-900">
+                                        {publication.title}
+                                    </h3>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
+
+                {/* List View */}
+                {viewMode === 'list' && (
+                    <div className="pb-8 divide-y divide-gray-200">
+                        {publications.map((publication, index) => (
+                            <motion.div
+                                key={publication.id}
+                                className="py-5 group"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3, delay: index * 0.03 }}
+                            >
+                                <p className="text-sm text-gray-500 mb-0.5">
+                                    {publication.authors.join(', ')}
+                                </p>
+                                <button
+                                    className="text-left text-base font-semibold text-green-700 hover:text-green-900 hover:underline leading-snug mb-1 cursor-pointer"
+                                    onClick={() => setSelectedPublication(publication)}
+                                >
+                                    {publication.title}
+                                </button>
+                                <p className="text-sm text-gray-600 italic">
+                                    {publication.venue}, {publication.year}
+                                </p>
+                                {publication.doi && (
+                                    <p className="text-xs text-gray-400 mt-0.5">
+                                        DOI: <a
+                                            href={publication.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="hover:text-green-600 hover:underline"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {publication.doi}
+                                        </a>
+                                    </p>
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
 
                 {publications.length === 0 && (
                     <div className="text-center py-12">

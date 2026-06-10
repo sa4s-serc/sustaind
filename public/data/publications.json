@@ -30,7 +30,7 @@
             "Karthik Vaidhyanathan"
         ],
         "abstract": "Context. LLM-based autonomous agents in software engineering rely on large, proprietary models, limiting local deployment.  This has spurred interest in Small Language Models (SLMs), but their practical effectiveness and efficiency within complex agentic frameworks for automated issue resolution remain poorly understood.\n\nGoal. We investigate the performance, energy efficiency, and resource consumption of four leading agentic issue resolution frameworks when deliberately constrained to using SLMs. We aim to assess the viability of these systems for this task in resource-limited settings and characterize the resulting trade-offs.\n\nMethod. We conduct a controlled evaluation of four leading agentic frameworks (SWE-Agent, OpenHands, Mini SWE Agent, AutoCodeRover) using two SLMs (Gemma-3 4B, Qwen-3 1.7B) on the SWE-bench Verified Mini benchmark. On fixed hardware, we measure energy, duration, token usage, and memory over 150 runs per configuration.\n\nResults. We find that framework architecture is the primary driver of energy consumption. The most energy-intensive framework, AutoCodeRover (Gemma), consumed 9.4x more energy on average than the least energy-intensive, OpenHands (Gemma). However, this energy is largely wasted. Task resolution rates were near-zero, demonstrating that current frameworks, when paired with SLMs, consume significant energy on unproductive reasoning loops. The SLM's limited reasoning was the bottleneck for success, but the framework's design was the bottleneck for efficiency.\n\nConclusions. Current agentic frameworks, designed for powerful LLMs, fail to operate efficiently with SLMs. We find that framework architecture is the primary driver of energy consumption, but this energy is largely wasted due to the SLMs' limited reasoning. Viable low-energy solutions require shifting from passive orchestration to architectures that actively manage SLM weaknesses.",
-        "venue": "International Workshop on Agentic Engineering (AGENT)",
+        "venue": "1st International Workshop on Agentic Engineering (AGENT)",
         "year": 2026,
         "doi": "https://doi.org/10.48550/arXiv.2512.09543",
         "url": "http://arxiv.org/abs/2512.09543",
@@ -65,5 +65,27 @@
             "Machine Learning Enabled Systems"
         ],
         "coverImage": "/data/images/publications/harmonica.png"
+    },
+    {
+        "id": "wattsdebts-2026",
+        "title": "Watts and Debts of Agentic Frameworks: An Empirical Study (Registered Report)",
+        "authors": [
+            "Aneetta Sara Shany",
+            "Chandrasekar S",
+            "Karthik Vaidhyanathan"
+        ],
+        "abstract": "Context: Every agentic AI system shipped to production carries two hidden risks: accumulated Technical Debt (TD) and unmonitored runtime energy costs.\n\nGoal: This registered report proposes a confirmatory empirical study correlating Self-Admitted Technical Debt (SATD) with hardware-level runtime energy consumption across agentic frameworks, to determine whether automated source code analysis can serve as a reliable early-warning proxy for energy-efficient framework selection.\n\nMethod: We will evaluate five open-source agentic frameworks by executing a standardized task suite in a strictly controlled environment. SATD will be extracted via automated comment mining and categorized via an LLM-assisted classification pipeline, while runtime energy will be measured at the hardware level. The study investigates (RQ1) the presence of TD within these frameworks; (RQ2) variance in runtime energy across architectures; and (RQ3) statistical correlations between TD and task-level energy.\n\nConclusion: Findings aim to inform energy-aware design decisions and advance green software engineering for agentic AI.",
+        "venue": "20th International Symposium on Empirical Software Engineering and Measurement (ESEM 2026) - Registered Reports Track",
+        "year": 2026,
+        "doi": "https://doi.org/10.48550/arXiv.2606.10702",
+        "url": "https://arxiv.org/abs/2606.10702",
+        "coverImage": "/data/images/publications/wattsdebts-2026.jpg",
+        "keywords": [
+            "Agentic Frameworks",
+            "Technical Debt",
+            "Energy Consumption",
+            "Empirical Study",
+            "Registered Report"
+        ]
     }
 ]
