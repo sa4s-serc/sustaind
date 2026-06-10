@@ -67,6 +67,28 @@
         "coverImage": "/data/images/publications/harmonica.png"
     },
     {
+        "id": "encode-2026",
+        "title": "EnCoDe: Energy Estimation of Source Code At Design-Time",
+        "authors": [
+            "Shailender Goyal",
+            "Akhila Matathammal",
+            "Karthik Vaidhyanathan"
+        ],
+        "abstract": "Energy efficiency has emerged as a vital attribute of software quality, with significant implications for both environmental sustainability and operational costs. However, existing profiling tools operate only at runtime and coarse granularity, typically capturing energy at the process or method level. Such tools fail to expose how small code blocks, such as functions, loops, and conditionals, contribute to energy consumption, preventing developers from reasoning about and comparing the energy efficiency of programming constructs during design-time. To address this gap, we propose EnCoDe, a methodology for fine-grained, design-time energy estimation, with the following key contributions: (1) PowerLens, a novel measurement methodology that achieves reliable sub-millisecond energy readings for small code blocks; (2) Extensive empirical study on code blocks extracted from over 18,000 Python programs, uncovering linear and non-linear relationships between energy consumption and static code features such as structural, complexity, density, and contextual characteristics, resulting in a first-of-its-kind fine-grained dataset; and (3) Predictive modeling, in which machine learning models are trained on these features to accurately estimate and classify block-level energy consumption at design-time. Our results demonstrate stable, reproducible block-level estimations, with regressors achieving R² = 0.75 and classifiers achieving 80.6% accuracy in identifying energy hotspots, enabling developers to localize and address inefficient code regions early in the development process without execution.",
+        "venue": "International Conference on Evaluation and Assessment in Software Engineering (EASE 2026)",
+        "year": 2026,
+        "doi": "https://doi.org/10.48550/arXiv.2605.00504",
+        "url": "https://arxiv.org/abs/2605.00504",
+        "coverImage": "/data/images/publications/encode-2026.png",
+        "keywords": [
+            "Energy Estimation",
+            "Source Code Analysis",
+            "Design-Time",
+            "Green Software Engineering",
+            "Machine Learning"
+        ]
+    },
+    {
         "id": "wattsdebts-2026",
         "title": "Watts and Debts of Agentic Frameworks: An Empirical Study (Registered Report)",
         "authors": [
