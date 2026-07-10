@@ -55,5 +55,20 @@
                 ]
             }
         ]
+    },
+    {
+        "id": 4,
+        "title": "EnCoDe: Energy Estimation of Source Code At Design-Time",
+        "videos": [
+            {
+                "title": "Presentation (created with [Saral AI](https://saral.democratiseresearch.in/))",
+                "urls": [
+                    {
+                        "language": "English",
+                        "url": "./data/videos/encode/English_EnCoDe.mp4"
+                    }
+                ]
+            }
+        ]
     }
 ]
