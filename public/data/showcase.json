@@ -25,5 +25,35 @@
                 ]
             }
         ]
+    },
+    {
+        "id": 2,
+        "title": "Harmonica: A Self-Adaptation Exemplar for Sustainable MLOps",
+        "videos": [
+            {
+                "title": "Presentation (created with [Saral AI](https://saral.democratiseresearch.in/))",
+                "urls": [
+                    {
+                        "language": "English",
+                        "url": "./data/videos/harmonica/English_Harmonica.mp4"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "SWEnergy: An Empirical Study on Energy Efficiency in Agentic Issue Resolution Frameworks with SLMs",
+        "videos": [
+            {
+                "title": "Presentation (created with [Saral AI](https://saral.democratiseresearch.in/))",
+                "urls": [
+                    {
+                        "language": "English",
+                        "url": "./data/videos/swenergy/English_SWEnergy.mp4"
+                    }
+                ]
+            }
+        ]
     }
 ]
