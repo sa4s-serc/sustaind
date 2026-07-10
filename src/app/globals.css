@@ -37,8 +37,37 @@ img {
   content-visibility: auto;
 }
 
+/* Smooth in-page scrolling (e.g. anchor jumps), offset for the sticky navbar */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+/* Never silently remove focus - always show a clear, consistent ring for
+   keyboard users, regardless of which element opts out of the browser default. */
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Slim, unobtrusive scrollbar for modal/dialog content, overriding the
+   browser's bulky default scrollbar. */
+.modal-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
 
   *,
   *::before,

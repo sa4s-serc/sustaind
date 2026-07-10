@@ -41,12 +41,13 @@ const Navbar = () => {
                                     key={link.href}
                                     className="relative"
                                     whileHover={{ y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
                                     transition={{ type: "spring", stiffness: 300 }}
                                 >
                                     <motion.div whileHover="hover" className="relative">
                                         <Link
                                             href={link.href}
-                                            className="text-gray-900 hover:text-orange-500 px-3 py-2 text-lg font-medium transition-colors duration-200 relative block"
+                                            className="text-gray-900 hover:text-orange-500 px-3 py-2 text-lg font-medium transition-colors duration-200 relative block rounded-md"
                                         >
                                             {link.label}
                                         </Link>
@@ -69,8 +70,9 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <motion.button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="text-gray-900 hover:text-orange-500 focus:outline-none focus:text-orange-500"
+                            className="text-gray-900 hover:text-orange-500 focus:text-orange-500 rounded-md"
                             whileTap={{ scale: 0.95 }}
+                            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                         >
                             <svg
                                 className="h-6 w-6"
@@ -118,10 +120,10 @@ const Navbar = () => {
                                     transition={{ duration: 0.2 }}
                                     className="relative"
                                 >
-                                    <motion.div whileHover="hover" className="relative">
+                                    <motion.div whileHover="hover" whileTap={{ scale: 0.97 }} className="relative">
                                         <Link
                                             href={link.href}
-                                            className="text-gray-900 hover:text-orange-500 block px-3 py-2 text-base font-medium transition-colors duration-200 relative"
+                                            className="text-gray-900 hover:text-orange-500 block px-3 py-2 text-base font-medium transition-colors duration-200 relative rounded-md"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             {link.label}

@@ -1,15 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion';
+import { LazyMotion, domMax, m, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { useSwipeToClose } from '@/hooks/useSwipeToClose';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 
 // Dynamically import the heavy D3 component
 const ForceNetworkGraph = dynamic(() => import('../../components/ForceNetworkGraph'), {
     loading: () => <div className="flex items-center justify-center h-96"><p className="text-gray-500">Loading network graph...</p></div>,
     ssr: false
 });
+
+interface PersonLinks {
+    scholar?: string;
+    dblp?: string;
+    linkedin?: string;
+    website?: string;
+}
 
 interface Person {
     id: string;
@@ -19,11 +28,14 @@ interface Person {
     picture: string;
     email: string;
     isLead: boolean;
+    links?: PersonLinks;
 }
 
 export default function People() {
     const [people, setPeople] = useState<Person[]>([]);
     const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+    const { startDrag, dragProps } = useSwipeToClose(() => setSelectedPerson(null));
+    useLockBodyScroll(selectedPerson !== null);
 
     useEffect(() => {
         const fetchPeople = async () => {
@@ -40,7 +52,7 @@ export default function People() {
     }, []);
 
     return (
-        <LazyMotion features={domAnimation}>
+        <LazyMotion features={domMax}>
             <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-white">
                 <div className="max-w-6xl mx-auto">
                     <m.div
@@ -106,9 +118,18 @@ export default function People() {
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: "100%", opacity: 0 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    className="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full sm:my-auto max-h-[100vh] sm:max-h-[80vh] overflow-y-auto shadow-2xl"
+                                    className="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full sm:my-auto h-[85vh] sm:h-auto sm:max-h-[85vh] overflow-y-auto shadow-2xl modal-scroll"
                                     onClick={(e) => e.stopPropagation()}
+                                    {...dragProps}
                                 >
+                                    {/* Drag Handle for Mobile */}
+                                    <div
+                                        className="sticky top-0 bg-white pt-3 pb-2 sm:hidden flex justify-center z-10 rounded-t-3xl touch-none cursor-grab active:cursor-grabbing"
+                                        onPointerDown={startDrag}
+                                    >
+                                        <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+                                    </div>
+
                                     <div className="p-4 sm:p-8">
                                         <div className="flex flex-col sm:flex-row justify-between items-start mb-4 sm:mb-6">
                                             <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 w-full">
@@ -134,14 +155,52 @@ export default function People() {
                                                     >
                                                         {selectedPerson.email}
                                                     </a>
+                                                    {selectedPerson.links && (
+                                                        <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-3">
+                                                            {selectedPerson.links.scholar && (
+                                                                <a
+                                                                    href={selectedPerson.links.scholar}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 text-gray-700 hover:border-green-600 hover:text-green-600 transition-colors"
+                                                                >
+                                                                    Google Scholar
+                                                                </a>
+                                                            )}
+                                                            {selectedPerson.links.dblp && (
+                                                                <a
+                                                                    href={selectedPerson.links.dblp}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 text-gray-700 hover:border-green-600 hover:text-green-600 transition-colors"
+                                                                >
+                                                                    DBLP
+                                                                </a>
+                                                            )}
+                                                            {selectedPerson.links.linkedin && (
+                                                                <a
+                                                                    href={selectedPerson.links.linkedin}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 text-gray-700 hover:border-green-600 hover:text-green-600 transition-colors"
+                                                                >
+                                                                    LinkedIn
+                                                                </a>
+                                                            )}
+                                                            {selectedPerson.links.website && (
+                                                                <a
+                                                                    href={selectedPerson.links.website}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 text-gray-700 hover:border-green-600 hover:text-green-600 transition-colors"
+                                                                >
+                                                                    Website
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
-                                            <button
-                                                onClick={() => setSelectedPerson(null)}
-                                                className="text-gray-400 hover:text-gray-600 text-2xl sm:text-3xl font-bold mt-2 sm:mt-0 self-end sm:self-start"
-                                            >
-                                                &times;
-                                            </button>
                                         </div>
                                         <div className="text-gray-700 leading-relaxed prose text-sm sm:text-base">
                                             <p>{selectedPerson.description}</p>

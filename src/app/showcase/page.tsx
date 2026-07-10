@@ -190,26 +190,28 @@ const ShowcasePage = () => {
                         <div className="relative grid lg:grid-cols-[1.6fr_1fr] gap-8 lg:gap-10 p-5 sm:p-8 lg:p-10">
                             {/* Player */}
                             <div>
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={currentUrl}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.35 }}
-                                        className="aspect-video rounded-xl overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_0_60px_-15px_rgba(34,197,94,0.35)]"
-                                    >
-                                        <video
+                                <div className="relative aspect-video rounded-xl overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_0_60px_-15px_rgba(34,197,94,0.35)]">
+                                    <AnimatePresence initial={false}>
+                                        <motion.div
                                             key={currentUrl}
-                                            controls
-                                            preload="metadata"
-                                            className="w-full h-full"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.35 }}
+                                            className="absolute inset-0"
                                         >
-                                            <source src={currentUrl} type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </motion.div>
-                                </AnimatePresence>
+                                            <video
+                                                key={currentUrl}
+                                                controls
+                                                preload="metadata"
+                                                className="w-full h-full"
+                                            >
+                                                <source src={currentUrl} type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
 
                                 {activeItem.videos.length > 0 && (
                                     <p className="mt-4 text-sm text-gray-400">
@@ -280,9 +282,10 @@ const ShowcasePage = () => {
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
                                                     >
-                                                        <button
+                                                        <motion.button
                                                             onClick={() => setActiveId(item.id)}
                                                             aria-current={isCurrent ? 'true' : undefined}
+                                                            whileTap={{ scale: 0.98 }}
                                                             className={`w-full text-left rounded-xl px-4 py-3 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400 ${isCurrent
                                                                 ? 'bg-white/10 ring-1 ring-green-400/40'
                                                                 : 'hover:bg-white/5 ring-1 ring-transparent'
@@ -302,7 +305,7 @@ const ShowcasePage = () => {
                                                                     </span>
                                                                 </span>
                                                             </span>
-                                                        </button>
+                                                        </motion.button>
                                                     </motion.li>
                                                 );
                                             })}

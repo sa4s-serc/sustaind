@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useSwipeToClose } from '@/hooks/useSwipeToClose';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 
 interface Tool {
     id: string;
@@ -19,6 +21,8 @@ interface Tool {
 export default function Tools() {
     const [tools, setTools] = useState<Tool[]>([]);
     const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+    const { startDrag, dragProps } = useSwipeToClose(() => setSelectedTool(null));
+    useLockBodyScroll(selectedTool !== null);
 
     useEffect(() => {
         const fetchTools = async () => {
@@ -111,9 +115,12 @@ export default function Tools() {
                                     </div>
                                 </div>
                                 <div className="flex justify-end">
-                                    <button className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors">
+                                    <motion.button
+                                        whileTap={{ scale: 0.95 }}
+                                        className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors"
+                                    >
                                         Read More
-                                    </button>
+                                    </motion.button>
                                 </div>
                             </div>
                         </motion.div>
@@ -121,94 +128,105 @@ export default function Tools() {
                 </motion.div>
 
                 {/* Modal for tool details */}
-                {selectedTool && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50"
-                        onClick={() => setSelectedTool(null)}
-                    >
+                <AnimatePresence>
+                    {selectedTool && (
                         <motion.div
-                            initial={{ y: "100%", opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: "100%", opacity: 0 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            className="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full sm:my-auto max-h-[100vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl"
-                            onClick={(e) => e.stopPropagation()}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50"
+                            onClick={() => setSelectedTool(null)}
                         >
-                            {selectedTool.image && (
-                                <div className="h-48 sm:h-64 bg-gray-100 overflow-hidden rounded-t-lg sm:rounded-t-xl relative">
-                                    <Image
-                                        fill
-                                        src={selectedTool.image}
-                                        alt={selectedTool.name}
-                                        className="object-cover"
-                                    />
-                                </div>
-                            )}
-                            <div className="p-4 sm:p-6">
-                                <div className="flex items-start justify-between mb-4">
-                                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2 flex-1">{selectedTool.name}</h2>
-                                    <button
-                                        onClick={() => setSelectedTool(null)}
-                                        className="text-gray-500 hover:text-gray-700 flex-shrink-0 p-1"
-                                    >
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
+                            <motion.div
+                                initial={{ y: "100%", opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: "100%", opacity: 0 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                className="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full sm:my-auto h-[85vh] sm:h-auto sm:max-h-[85vh] overflow-y-auto shadow-2xl modal-scroll"
+                                onClick={(e) => e.stopPropagation()}
+                                {...dragProps}
+                            >
+                                {/* Drag Handle for Mobile */}
+                                <div
+                                    className="sticky top-0 bg-white pt-3 pb-2 sm:hidden flex justify-center z-10 rounded-t-3xl touch-none cursor-grab active:cursor-grabbing"
+                                    onPointerDown={startDrag}
+                                >
+                                    <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
                                 </div>
 
-                                <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">{selectedTool.longDescription}</p>
+                                {selectedTool.image && (
+                                    <div className="h-48 sm:h-64 bg-gray-100 overflow-hidden rounded-t-lg sm:rounded-t-xl relative">
+                                        <Image
+                                            fill
+                                            src={selectedTool.image}
+                                            alt={selectedTool.name}
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                )}
+                                <div className="p-4 sm:p-6">
+                                    <div className="flex items-start justify-between mb-4">
+                                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2 flex-1">{selectedTool.name}</h2>
+                                        <button
+                                            onClick={() => setSelectedTool(null)}
+                                            className="text-gray-500 hover:text-gray-700 flex-shrink-0 p-1"
+                                        >
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
 
-                                <div className="mb-4 sm:mb-6">
-                                    <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-2 sm:mb-3">Authors</h3>
-                                    <p className="text-gray-600 text-sm sm:text-base">{selectedTool.authors.join(', ')}</p>
-                                </div>
+                                    <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">{selectedTool.longDescription}</p>
 
-                                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
-                                    {selectedTool.url && (
-                                        <motion.a
-                                            href={selectedTool.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors text-center text-sm sm:text-base"
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            Visit Tool
-                                        </motion.a>
-                                    )}
-                                    {selectedTool.github && (
-                                        <motion.a
-                                            href={selectedTool.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="border border-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-center text-sm sm:text-base"
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            GitHub
-                                        </motion.a>
-                                    )}
-                                    {selectedTool.paper && (
-                                        <motion.a
-                                            href={selectedTool.paper}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="border border-green-600 text-green-600 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-green-50 transition-colors text-center text-sm sm:text-base"
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            Read Paper
-                                        </motion.a>
-                                    )}
+                                    <div className="mb-4 sm:mb-6">
+                                        <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-2 sm:mb-3">Authors</h3>
+                                        <p className="text-gray-600 text-sm sm:text-base">{selectedTool.authors.join(', ')}</p>
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                                        {selectedTool.url && (
+                                            <motion.a
+                                                href={selectedTool.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors text-center text-sm sm:text-base"
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                            >
+                                                Visit Tool
+                                            </motion.a>
+                                        )}
+                                        {selectedTool.github && (
+                                            <motion.a
+                                                href={selectedTool.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="border border-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-center text-sm sm:text-base"
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                            >
+                                                GitHub
+                                            </motion.a>
+                                        )}
+                                        {selectedTool.paper && (
+                                            <motion.a
+                                                href={selectedTool.paper}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="border border-green-600 text-green-600 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-green-50 transition-colors text-center text-sm sm:text-base"
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                            >
+                                                Read Paper
+                                            </motion.a>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                )}
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

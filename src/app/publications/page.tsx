@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import AudioPlayer from '@/components/AudioPlayer';
+import CopyButton from '@/components/CopyButton';
+import { useSwipeToClose } from '@/hooks/useSwipeToClose';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 
 interface Publication {
     id: string;
@@ -25,6 +28,10 @@ interface PublicationModalProps {
 }
 
 function PublicationModal({ publication, onClose }: PublicationModalProps) {
+    const citation = `${publication.authors.join(', ')} (${publication.year}). ${publication.title}. ${publication.venue}.${publication.doi ? ` https://doi.org/${publication.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')}` : ''}`;
+    const { startDrag, dragProps } = useSwipeToClose(onClose);
+    useLockBodyScroll(true);
+
     return (
         <motion.div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center overflow-y-auto"
@@ -34,29 +41,34 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
             onClick={onClose}
         >
             <motion.div
-                className="bg-white rounded-t-3xl sm:rounded-2xl max-w-4xl w-full sm:my-auto max-h-[100vh] sm:max-h-[90vh] overflow-y-auto relative shadow-2xl"
+                className="bg-white rounded-t-3xl sm:rounded-2xl max-w-4xl w-full sm:my-auto h-[85vh] sm:h-auto sm:max-h-[85vh] overflow-y-auto relative shadow-2xl modal-scroll"
                 initial={{ y: "100%", opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: "100%", opacity: 0 }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
+                {...dragProps}
             >
                 {/* Drag Handle for Mobile */}
-                <div className="sticky top-0 bg-white pt-3 pb-2 sm:hidden flex justify-center z-10 rounded-t-3xl">
+                <div
+                    className="sticky top-0 bg-white pt-3 pb-2 sm:hidden flex justify-center z-10 rounded-t-3xl touch-none cursor-grab active:cursor-grabbing"
+                    onPointerDown={startDrag}
+                >
                     <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
                 </div>
 
                 <div className="px-5 sm:px-8 pt-4 sm:pt-8 pb-6 sm:pb-8">
                     {/* Close Button */}
-                    <button
+                    <motion.button
                         onClick={onClose}
+                        whileTap={{ scale: 0.9 }}
                         className="absolute top-6 right-5 sm:top-8 sm:right-8 text-gray-400 hover:text-gray-700 transition-colors duration-200 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100"
                         aria-label="Close"
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                    </button>
+                    </motion.button>
 
                     {/* Title */}
                     <h2 className="text-xl sm:text-3xl font-semibold text-gray-900 pr-12 mb-6 sm:mb-8 leading-tight">
@@ -115,8 +127,8 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
                         </div>
                     )}
 
-                    {/* Action Button */}
-                    <div className="pt-2">
+                    {/* Action Buttons */}
+                    <div className="pt-2 flex flex-col sm:flex-row gap-3">
                         <a
                             href={publication.url}
                             target="_blank"
@@ -125,6 +137,7 @@ function PublicationModal({ publication, onClose }: PublicationModalProps) {
                         >
                             Read Full Paper
                         </a>
+                        <CopyButton text={citation} label="Copy citation" copiedLabel="Citation copied!" className="w-full sm:w-auto justify-center" />
                     </div>
                 </div>
             </motion.div>
@@ -174,11 +187,12 @@ export default function Publications() {
                 {/* View Toggle */}
                 <div className="flex justify-end mb-8">
                     <div className="inline-flex rounded-xl border border-gray-200 bg-gray-50 p-1 gap-1">
-                        <button
+                        <motion.button
                             onClick={() => setViewMode('card')}
+                            whileTap={{ scale: 0.95 }}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${viewMode === 'card'
-                                    ? 'bg-white text-green-700 shadow-sm border border-gray-200'
-                                    : 'text-gray-500 hover:text-gray-700'
+                                ? 'bg-white text-green-700 shadow-sm border border-gray-200'
+                                : 'text-gray-500 hover:text-gray-700'
                                 }`}
                             aria-label="Card view"
                         >
@@ -186,12 +200,13 @@ export default function Publications() {
                                 <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
                             </svg>
                             Cards
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
                             onClick={() => setViewMode('list')}
+                            whileTap={{ scale: 0.95 }}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${viewMode === 'list'
-                                    ? 'bg-white text-green-700 shadow-sm border border-gray-200'
-                                    : 'text-gray-500 hover:text-gray-700'
+                                ? 'bg-white text-green-700 shadow-sm border border-gray-200'
+                                : 'text-gray-500 hover:text-gray-700'
                                 }`}
                             aria-label="List view"
                         >
@@ -199,7 +214,7 @@ export default function Publications() {
                                 <path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z" />
                             </svg>
                             List
-                        </button>
+                        </motion.button>
                     </div>
                 </div>
 
@@ -212,7 +227,7 @@ export default function Publications() {
                                 className="cursor-pointer transform transition-all duration-300 hover:scale-105"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.4) }}
                                 onClick={() => setSelectedPublication(publication)}
                             >
                                 <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-600">
@@ -245,7 +260,7 @@ export default function Publications() {
                                 className="py-5 group"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3, delay: index * 0.03 }}
+                                transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.3) }}
                             >
                                 <p className="text-sm text-gray-500 mb-0.5">
                                     {publication.authors.join(', ')}

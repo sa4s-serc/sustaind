@@ -26,8 +26,20 @@ export default function Videos() {
     }, []);
 
     const getYouTubeEmbedUrl = (url: string) => {
-        const videoId = url.split('v=')[1]?.split('&')[0];
-        return `https://www.youtube.com/embed/${videoId}`;
+        let videoId = '';
+        try {
+            const parsed = new URL(url);
+            if (parsed.hostname.includes('youtu.be')) {
+                videoId = parsed.pathname.slice(1);
+            } else {
+                videoId = parsed.searchParams.get('v') ?? '';
+            }
+        } catch {
+            videoId = '';
+        }
+        // Use the privacy-enhanced nocookie domain to avoid third-party
+        // cookie-consent redirects that can prevent the embed from loading.
+        return `https://www.youtube-nocookie.com/embed/${videoId}`;
     };
 
     const containerVariants = {
