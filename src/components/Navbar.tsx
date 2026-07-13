@@ -63,6 +63,45 @@ const Navbar = () => {
                                     </motion.div>
                                 </motion.div>
                             ))}
+                            <motion.div
+                                className="relative"
+                                whileHover={{ y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <motion.div whileHover="hover" className="relative">
+                                    <Link
+                                        href="https://autose.dev"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-900 hover:text-orange-500 pl-3 pr-2 py-2 text-lg font-medium transition-colors duration-200 relative border-l border-gray-200 flex items-center gap-1"
+                                    >
+                                        AutoSE
+                                        <svg
+                                            className="h-4 w-4"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                            />
+                                        </svg>
+                                    </Link>
+                                    <motion.div
+                                        className="absolute bottom-0 left-3 right-3 h-0.5 bg-orange-500"
+                                        initial={{ scaleX: 0 }}
+                                        variants={{
+                                            hover: { scaleX: 1 }
+                                        }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        style={{ transformOrigin: "left" }}
+                                    />
+                                </motion.div>
+                            </motion.div>
                         </div>
                     </div>
 
@@ -140,6 +179,46 @@ const Navbar = () => {
                                     </motion.div>
                                 </motion.div>
                             ))}
+                            <motion.div
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.2 }}
+                                className="relative border-t border-gray-100 mt-1 pt-1"
+                            >
+                                <motion.div whileHover="hover" whileTap={{ scale: 0.97 }} className="relative">
+                                    <Link
+                                        href="https://autose.dev"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-900 hover:text-orange-500 flex items-center gap-1 px-3 py-2 text-base font-medium transition-colors duration-200 relative rounded-md"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        AutoSE
+                                        <svg
+                                            className="h-4 w-4"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                            />
+                                        </svg>
+                                    </Link>
+                                    <motion.div
+                                        className="absolute bottom-0 left-3 right-3 h-0.5 bg-orange-500"
+                                        initial={{ scaleX: 0 }}
+                                        variants={{
+                                            hover: { scaleX: 1 }
+                                        }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        style={{ transformOrigin: "left" }}
+                                    />
+                                </motion.div>
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}
