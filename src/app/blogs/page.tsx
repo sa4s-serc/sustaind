@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 7,
+        title: 'Can Your Code Tell You How Much Energy It Will Burn Before You Even Run It?',
+        description: 'PowerLens reliably measures the energy of tiny code blocks, and EnCoDe predicts a block energy cost from source alone, no execution required. From the EnCoDe paper at EASE 2026.',
+        author: 'Shailender Goyal',
+        date: '2026-07-16',
+        readTime: '7 min read',
+        slug: 'energy-cost-before-you-run',
+    },
+    {
         id: 6,
         title: 'Teaching Systems to Survive: Making AI Sustainable through Self Adaptation',
         description: 'How self-adaptive architectures like HarmonE and the Harmonica exemplar help operationalize sustainability goals in running AI systems.',
