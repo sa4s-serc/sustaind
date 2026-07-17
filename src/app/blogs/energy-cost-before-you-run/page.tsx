@@ -27,6 +27,18 @@ function Code({ children }: { children: React.ReactNode }) {
     );
 }
 
+function BlogImage({ src, alt }: { src: string; alt: string }) {
+    const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
+
+    return (
+        <img
+            src={`${basePath}${src}`}
+            alt={alt}
+            className="w-full h-auto rounded-lg shadow-md my-6 sm:my-8"
+        />
+    );
+}
+
 function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
     return (
         <a
@@ -98,6 +110,11 @@ export default function EnergyCostBeforeYouRunBlog() {
                         We wanted developers to see the energy cost of a loop the moment they write it, the way a spell-checker flags a typo the moment you type it, not after you have mailed the letter. That effort became two things: <strong>PowerLens</strong>, a way to reliably measure these tiny blocks, and <strong>EnCoDe</strong>, a system that learns from those measurements to <em>predict</em> a block's energy cost from the code alone, without running it at all.
                     </Paragraph>
 
+                    <BlogImage
+                        src="/data/images/blog/blog004-rapl-measurement-noise.jpeg"
+                        alt="Coefficient of variation and zero-reading counts rising sharply as execution time drops below RAPL's ~1ms resolution"
+                    />
+
                     <SectionTitle>PowerLens: turning up the volume on a whisper</SectionTitle>
 
                     <Paragraph>
@@ -123,6 +140,11 @@ export default function EnergyCostBeforeYouRunBlog() {
                     <Paragraph>
                         Do all three, ten times over, discard the outliers, and you get a trustworthy reading even for code that runs in millionths of a second. To sanity-check this, we summed up PowerLens's block-by-block readings for dozens of programs and compared the total against a plain whole-program RAPL measurement of the same code. They matched closely, across every kind of construct we tested.
                     </Paragraph>
+
+                    <BlogImage
+                        src="/data/images/blog/blog004-powerlens-architecture.jpeg"
+                        alt="PowerLens architecture: execution amplification, synchronisation, and calibrated subtraction, run through environment stabilisation, measurement execution, and IQR-based outlier removal to yield final block energy"
+                    />
 
                     <SectionTitle>From measuring to predicting</SectionTitle>
 
