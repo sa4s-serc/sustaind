@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 8,
+        title: 'Code meets Evidence: What is Empirical SE?',
+        description: 'Walking the road to EMSE: what empirical software engineering is, why the community formed, how to match a method to your question, and a worked example on whether INT8 quantization actually saves energy.',
+        author: 'Aneetta Sara Shany',
+        date: '2026-08-05',
+        readTime: '6 min read',
+        slug: 'code-meets-evidence',
+    },
+    {
         id: 7,
         title: 'Can Your Code Tell You How Much Energy It Will Burn Before You Even Run It?',
         description: 'PowerLens reliably measures the energy of tiny code blocks, and EnCoDe predicts a block energy cost from source alone, no execution required. From the EnCoDe paper at EASE 2026.',
