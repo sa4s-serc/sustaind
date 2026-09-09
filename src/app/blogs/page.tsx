@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 9,
+        title: 'When Systems Evolve Beyond Understanding',
+        description: 'The second post in our technical-sustainability series: why understanding what a system does is not the same as understanding why it was built that way, how architectural knowledge evaporates as teams and ML systems change, and what research offers against it.',
+        author: 'Chandrasekar S',
+        date: '2026-09-09',
+        readTime: '8 min read',
+        slug: 'when-systems-evolve-beyond-understanding',
+    },
+    {
         id: 8,
         title: 'Code meets Evidence: What is Empirical SE?',
         description: 'Walking the road to EMSE: what empirical software engineering is, why the community formed, how to match a method to your question, and a worked example on whether INT8 quantization actually saves energy.',

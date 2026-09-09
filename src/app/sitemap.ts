@@ -21,10 +21,11 @@ const routes = [
     "/blogs/teaching-systems-to-survive",
     "/blogs/energy-cost-before-you-run",
     "/blogs/code-meets-evidence",
+    "/blogs/when-systems-evolve-beyond-understanding",
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const now = new Date("2026-08-05T00:00:00.000Z");
+    const now = new Date("2026-09-09T00:00:00.000Z");
 
     return routes.map((route) => ({
         url: `${siteUrl}${route}`,
