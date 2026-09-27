@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Cite from '@/components/Cite';
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
     return (
@@ -83,7 +84,7 @@ export default function SoftwareMetabolismBlog() {
                     <Paragraph>
                         It&apos;s not that software people don&apos;t care about energy. There&apos;s a fair
                         amount of research on it. People have compared how much energy different programming
-                        languages use [1], and which Java collection classes are cheapest [2]. But nearly all
+                        languages use <Cite n={1} />, and which Java collection classes are cheapest <Cite n={2} />. But nearly all
                         of it measures small pieces of code, once, under a benchmark. That tells you which
                         sorting routine to pick. It doesn&apos;t tell you whether the system you&apos;re
                         running is getting better or worse.
@@ -119,7 +120,7 @@ export default function SoftwareMetabolismBlog() {
                         People who know hardware will recognize this as the old split between static and
                         dynamic power, just applied to a whole deployment instead of a chip. It&apos;s also why
                         idle servers are so expensive. Barroso and Hölzle pointed out years ago that a server
-                        doing almost nothing still draws a large fraction of its peak power [3].
+                        doing almost nothing still draws a large fraction of its peak power <Cite n={3} />.
                     </Paragraph>
 
                     <BlogFigure
@@ -143,7 +144,7 @@ export default function SoftwareMetabolismBlog() {
 
                     <Paragraph>
                         The first is where things get practical. Software tends to grow. Lehman noticed this
-                        decades ago [4], and anyone who has worked on a codebase for more than a year has
+                        decades ago <Cite n={4} />, and anyone who has worked on a codebase for more than a year has
                         noticed it too. Each release adds a dependency or a framework or some background
                         process that seemed like a good idea at the time. None of these is expensive on its
                         own. But they add up, and nobody is watching the total.
@@ -168,7 +169,7 @@ export default function SoftwareMetabolismBlog() {
                         three-quarters power. That means an elephant uses much more energy than a mouse in
                         total, but much less per kilogram. Big animals get economies of scale. West, Brown and
                         Enquist later showed this falls out of the way branching networks move resources
-                        through a body [5].
+                        through a body <Cite n={5} />.
                     </Paragraph>
 
                     <Paragraph>
@@ -192,7 +193,7 @@ export default function SoftwareMetabolismBlog() {
                         useful too. The ratio of basal to active energy, which you could call a system&apos;s{' '}
                         <strong>metabolic profile</strong>, varies a lot. A busy model-serving endpoint spends
                         almost all its energy on work. A rarely used internal service on hungry hardware spends
-                        almost all of it waiting [3]. Few teams know which kind they have, and it matters,
+                        almost all of it waiting <Cite n={3} />. Few teams know which kind they have, and it matters,
                         because the two need opposite fixes. You make the first cheaper by making the work
                         cheaper. You make the second cheaper by making it need less to stay awake.
                     </Paragraph>
@@ -202,7 +203,7 @@ export default function SoftwareMetabolismBlog() {
                         nothing to do, they drop their basal rate. The software equivalents are things like
                         scale-to-zero and serverless. There&apos;s also a milder version where the system
                         doesn&apos;t sleep but does less. Our group has worked on self-adaptive ML systems that
-                        switch models at runtime to hold a quality target while using less energy [6], [7].
+                        switch models at runtime to hold a quality target while using less energy <Cite n={6} />, <Cite n={7} />.
                     </Paragraph>
 
                     <Paragraph>
@@ -219,8 +220,8 @@ export default function SoftwareMetabolismBlog() {
                     <Paragraph>
                         I should say what metabolism isn&apos;t. It isn&apos;t carbon. The same kilowatt-hour
                         can be clean or dirty depending on when and where you draw it, and there&apos;s good
-                        work on moving jobs to greener hours and regions [8], as well as on where that stops
-                        helping [9]. That work changes when you spend energy. Metabolism is about spending less
+                        work on moving jobs to greener hours and regions <Cite n={8} />, as well as on where that stops
+                        helping <Cite n={9} />. That work changes when you spend energy. Metabolism is about spending less
                         of it. The two fit together.
                     </Paragraph>
 
@@ -258,45 +259,45 @@ export default function SoftwareMetabolismBlog() {
                     <SectionTitle>References</SectionTitle>
 
                     <ol className="list-decimal list-outside ml-5 space-y-3 mb-6 text-sm text-gray-600 leading-relaxed">
-                        <li>
+                        <li id="ref-1" className="scroll-mt-24">
                             R. Pereira, M. Couto, F. Ribeiro, R. Rua, J. Cunha, J. P. Fernandes, and J. Saraiva,
                             &quot;Energy efficiency across programming languages: How do energy, time, and memory
                             relate?,&quot; in <em>Proc. SLE</em>, 2017, pp. 256–267.
                         </li>
-                        <li>
+                        <li id="ref-2" className="scroll-mt-24">
                             S. Hasan, Z. King, M. Hafiz, M. Sayagh, B. Adams, and A. Hindle, &quot;Energy
                             profiles of Java collections classes,&quot; in <em>Proc. ICSE</em>, 2016, pp.
                             225–236.
                         </li>
-                        <li>
+                        <li id="ref-3" className="scroll-mt-24">
                             L. A. Barroso and U. Hölzle, &quot;The case for energy-proportional
                             computing,&quot; <em>Computer</em>, vol. 40, no. 12, pp. 33–37, 2007.
                         </li>
-                        <li>
+                        <li id="ref-4" className="scroll-mt-24">
                             M. M. Lehman, &quot;Laws of software evolution revisited,&quot; in{' '}
                             <em>Proc. EWSPT</em>, 1996.
                         </li>
-                        <li>
+                        <li id="ref-5" className="scroll-mt-24">
                             G. B. West, J. H. Brown, and B. J. Enquist, &quot;A general model for the origin of
                             allometric scaling laws in biology,&quot; <em>Science</em>, vol. 276, no. 5309, pp.
                             122–126, 1997.
                         </li>
-                        <li>
+                        <li id="ref-6" className="scroll-mt-24">
                             S. Kulkarni, A. Marda, and K. Vaidhyanathan, &quot;Towards self-adaptive machine
                             learning-enabled systems through QoS-aware model switching,&quot; in{' '}
                             <em>Proc. ASE (NIER Track)</em>, 2023.
                         </li>
-                        <li>
+                        <li id="ref-7" className="scroll-mt-24">
                             M. Tedla, S. Kulkarni, and K. Vaidhyanathan, &quot;EcoMLS: A self-adaptation
                             approach for architecting green ML-enabled systems,&quot; in{' '}
                             <em>Proc. ICSA-C</em>, 2024.
                         </li>
-                        <li>
+                        <li id="ref-8" className="scroll-mt-24">
                             P. Wiesner, I. Behnke, D. Scheinert, K. Gontarska, and L. Thamsen, &quot;Let&apos;s
                             wait awhile: How temporal workload shifting can reduce carbon emissions in the
                             cloud,&quot; in <em>Proc. Middleware</em>, 2021.
                         </li>
-                        <li>
+                        <li id="ref-9" className="scroll-mt-24">
                             T. Sukprasert, A. Souza, N. Bashir, D. Irwin, and P. Shenoy, &quot;On the
                             limitations of carbon-aware temporal and spatial workload shifting in the
                             cloud,&quot; in <em>Proc. EuroSys</em>, 2024, pp. 924–941.

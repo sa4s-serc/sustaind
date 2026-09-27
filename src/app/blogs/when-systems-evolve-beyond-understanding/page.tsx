@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Cite from '@/components/Cite';
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
     return (
@@ -145,10 +146,10 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                         ways to address it. In surveys, the most commonly reported tool for understanding the
                         relationship between architecture and code is simply{' '}
                         <strong>personal knowledge and experience</strong>, not dedicated tooling or formal
-                        methods [3]. When someone who holds that knowledge leaves the team, the understanding
+                        methods <Cite n={3} />. When someone who holds that knowledge leaves the team, the understanding
                         goes with them. And the most frequently cited barrier to maintaining this
                         understanding? Cost and effort: teams know it matters but cannot justify the time under
-                        delivery pressure [3].
+                        delivery pressure <Cite n={3} />.
                     </Paragraph>
 
                     <Paragraph>
@@ -181,11 +182,11 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                     <Paragraph>
                         And the snapshot is often wrong. Research has found that a majority of inconsistencies
                         between architecture descriptions and actual code trace back to documentation that
-                        simply was not kept up to date [1]. The code evolved. The documentation did not. This
+                        simply was not kept up to date <Cite n={1} />. The code evolved. The documentation did not. This
                         gap between the intended design and the implemented system is what researchers call{' '}
                         <strong>architectural drift</strong>, a gradual divergence driven not by bad decisions
                         but by the accumulation of reasonable ones made without a shared record of their
-                        reasoning [1].
+                        reasoning <Cite n={1} />.
                     </Paragraph>
 
                     <Paragraph>Consider how a real system evolves:</Paragraph>
@@ -282,7 +283,7 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                         Instead of architecture living in a slide deck or wiki that nobody updates, the idea is
                         to keep it in a version-controlled, machine-readable format alongside the source code,
                         so that when the implementation drifts from the intended design, the mismatch becomes
-                        visible, like a failing test [1]. It does not solve the intent problem entirely, but it
+                        visible, like a failing test <Cite n={1} />. It does not solve the intent problem entirely, but it
                         makes drift detectable rather than silent.
                     </Paragraph>
 
@@ -293,7 +294,7 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                         Today, the link between &quot;this paragraph in the design document&quot; and &quot;these
                         files in the repository&quot; exists mostly in people&apos;s heads. Researchers have
                         shown that by using architecture models as a bridge, it is possible to recover these
-                        connections with promising accuracy [2]. The goal is not to replace human
+                        connections with promising accuracy <Cite n={2} />. The goal is not to replace human
                         understanding, but to make it easier to ask: &quot;which parts of the code relate to
                         this design decision?&quot;
                     </Paragraph>
@@ -312,7 +313,7 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                         system are made informally and never recorded. This is why researchers are also
                         exploring ways to extract architectural reasoning from artifacts that get produced
                         regardless, such as pull requests, issue trackers, code reviews, and team conversations
-                        [3][4]. Someone added that external API from the opening of this blog for a reason.
+                        <Cite n={3} /><Cite n={4} />. Someone added that external API from the opening of this blog for a reason.
                         That reason probably exists in a ticket or a thread from eighteen months ago. The
                         challenge is finding it and connecting it to the component it explains.
                     </Paragraph>
@@ -373,18 +374,18 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                     <SectionTitle>References</SectionTitle>
 
                     <ol className="list-decimal list-outside ml-5 space-y-3 mb-6 text-sm text-gray-600 leading-relaxed">
-                        <li>
+                        <li id="ref-1" className="scroll-mt-24">
                             Bucaioni et al., &quot;<strong>Architecture as Code</strong>,&quot; IEEE ICSA
                             2025.
                         </li>
-                        <li>
+                        <li id="ref-2" className="scroll-mt-24">
                             Keim et al., &quot;
                             <strong>
                                 Recovering Trace Links Between Software Documentation and Code
                             </strong>
                             ,&quot; IEEE/ACM ICSE 2024.
                         </li>
-                        <li>
+                        <li id="ref-3" className="scroll-mt-24">
                             Tian et al., &quot;
                             <strong>
                                 Relationships between Software Architecture and Source Code in Practice: An
@@ -392,7 +393,7 @@ export default function WhenSystemsEvolveBeyondUnderstandingBlog() {
                             </strong>
                             ,&quot; <em>Information and Software Technology</em>, 2022.
                         </li>
-                        <li>
+                        <li id="ref-4" className="scroll-mt-24">
                             Hyun and Hurtado, &quot;
                             <strong>
                                 Traceability of Architectural Design Decisions and Software Artifacts: A
