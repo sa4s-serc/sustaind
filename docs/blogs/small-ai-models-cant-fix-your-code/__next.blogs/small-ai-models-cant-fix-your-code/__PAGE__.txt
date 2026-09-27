@@ -1,9 +1,9 @@
 1:"$Sreact.fragment"
-2:I[1304,[],"ClientPageRoot"]
-3:I[9243,["716","static/chunks/716-0e263525b1289cb7.js","818","static/chunks/818-65e39438f9b8bee3.js","500","static/chunks/500-5d45efbf86b8d36e.js","291","static/chunks/app/blogs/small-ai-models-cant-fix-your-code/page-ef097a5a7aa81bc4.js"],"default"]
-6:I[484,[],"OutletBoundary"]
+2:I[47257,["/sustaind/_next/static/chunks/ff1a16fafef87110.js","/sustaind/_next/static/chunks/bf1f6d5df2e9b1a8.js"],"ClientPageRoot"]
+3:I[9482,["/sustaind/_next/static/chunks/5e215e3c286e7274.js","/sustaind/_next/static/chunks/c2629e69e14145bf.js","/sustaind/_next/static/chunks/0c99716a8f71df18.js","/sustaind/_next/static/chunks/cf97250532814768.js","/sustaind/_next/static/chunks/341efd48c88f4017.js"],"default"]
+6:I[97367,["/sustaind/_next/static/chunks/ff1a16fafef87110.js","/sustaind/_next/static/chunks/bf1f6d5df2e9b1a8.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"buildId":"vVuZfG7m9MKeLW6pj9ToQ","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],null,["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"mCSK4ackraOtBBOntJ1S_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/sustaind/_next/static/chunks/341efd48c88f4017.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 4:{}
 5:{}
 8:null

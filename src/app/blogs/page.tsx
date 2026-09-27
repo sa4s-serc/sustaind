@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 10,
+        title: 'Software Metabolism',
+        description: "Borrowing an idea from biology: the energy a whole system spends to deliver its work over its deployed life. On basal and active energy, metabolic bloat across releases, and whether software has its own Kleiber's law.",
+        author: 'Arihant Tripathy',
+        date: '2026-10-05',
+        readTime: '8 min read',
+        slug: 'software-metabolism',
+    },
+    {
         id: 9,
         title: 'When Systems Evolve Beyond Understanding',
         description: 'The second post in our technical-sustainability series: why understanding what a system does is not the same as understanding why it was built that way, how architectural knowledge evaporates as teams and ML systems change, and what research offers against it.',
