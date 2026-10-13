@@ -259,7 +259,7 @@ export default function Practices() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.15 }}
-                    className="sticky top-16 z-30 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100 mb-10"
+                    className="-mx-4 sm:mx-0 px-4 sm:px-0 py-3 border-b border-gray-100 mb-10"
                 >
                     <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible modal-scroll" role="group" aria-label="Filter by category">
                         <FilterPill active={category === 'all'} onClick={() => selectCategory('all')} count={practices.length}>
