@@ -171,6 +171,22 @@ export default function Practices() {
     const [practices, setPractices] = useState<Practice[]>([]);
     const [publications, setPublications] = useState<Record<string, Publication>>({});
     const [category, setCategory] = useState<Filter<CategoryId>>('all');
+    // Sections start collapsed so the page opens as a short overview of the categories.
+    const [expanded, setExpanded] = useState<Set<CategoryId>>(() => new Set());
+
+    const toggleSection = (id: CategoryId) =>
+        setExpanded((prev) => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+
+    const selectCategory = (id: Filter<CategoryId>) => {
+        setCategory(id);
+        // Picking a category should show its practices, not a closed heading.
+        if (id !== 'all') setExpanded((prev) => new Set(prev).add(id));
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -193,7 +209,7 @@ export default function Practices() {
         // Restore a shared filter, e.g. /practices?category=agents
         const params = new URLSearchParams(window.location.search);
         const initialCategory = params.get('category');
-        if (categories.some((c) => c.id === initialCategory)) setCategory(initialCategory as CategoryId);
+        if (categories.some((c) => c.id === initialCategory)) selectCategory(initialCategory as CategoryId);
     }, []);
 
     // Keep the URL in sync so a filtered view can be shared.
@@ -214,6 +230,7 @@ export default function Practices() {
         .filter((c) => category === 'all' || c.id === category)
         .map((c) => ({ ...c, items: visible.filter((p) => p.category === c.id) }))
         .filter((s) => s.items.length > 0);
+    const allExpanded = sections.every((s) => expanded.has(s.id));
 
     return (
         <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -245,7 +262,7 @@ export default function Practices() {
                     className="sticky top-16 z-30 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100 mb-10"
                 >
                     <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible modal-scroll" role="group" aria-label="Filter by category">
-                        <FilterPill active={category === 'all'} onClick={() => setCategory('all')} count={practices.length}>
+                        <FilterPill active={category === 'all'} onClick={() => selectCategory('all')} count={practices.length}>
                             All
                         </FilterPill>
                         {categories.map((c) => {
@@ -254,7 +271,7 @@ export default function Practices() {
                                 <FilterPill
                                     key={c.id}
                                     active={category === c.id}
-                                    onClick={() => setCategory(category === c.id ? 'all' : c.id)}
+                                    onClick={() => selectCategory(category === c.id ? 'all' : c.id)}
                                     count={count}
                                 >
                                     <CategoryIcon path={c.icon} className="w-4 h-4" />
@@ -262,50 +279,94 @@ export default function Practices() {
                                 </FilterPill>
                             );
                         })}
+                        {sections.length > 1 && (
+                            <button
+                                type="button"
+                                onClick={() => setExpanded(allExpanded ? new Set() : new Set(sections.map((s) => s.id)))}
+                                className="shrink-0 self-center text-sm font-medium text-orange-600 hover:text-orange-700 hover:underline underline-offset-2 px-2 sm:ml-auto"
+                            >
+                                {allExpanded ? 'Collapse all' : 'Expand all'}
+                            </button>
+                        )}
                     </div>
                 </motion.div>
 
-                {/* Practices, grouped by category */}
-                <div className="space-y-14">
+                {/* Practices, grouped by category into collapsible sections */}
+                <div>
                     <AnimatePresence mode="popLayout" initial={false}>
-                        {sections.map((section) => (
-                            <motion.section
-                                key={section.id}
-                                layout
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                aria-labelledby={`section-${section.id}`}
-                            >
-                                <div className="flex items-start gap-4 mb-6">
-                                    <div className="w-11 h-11 rounded-xl bg-green-50 border border-green-100 text-green-600 flex items-center justify-center shrink-0">
-                                        <CategoryIcon path={section.icon} className="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h2 id={`section-${section.id}`} className="font-inter text-2xl font-bold text-green-700">
-                                            {section.label}
-                                        </h2>
-                                        <p className="text-gray-600 text-sm sm:text-base">{section.blurb}</p>
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                                    <AnimatePresence mode="popLayout" initial={false}>
-                                        {section.items.map((practice) => (
-                                            <PracticeCard
-                                                key={practice.id}
-                                                practice={practice}
-                                                number={numbers.get(practice.id) ?? 0}
-                                                publication={publications[practice.paper]}
-                                            />
-                                        ))}
+                        {sections.map((section) => {
+                            const isOpen = expanded.has(section.id);
+                            return (
+                                <motion.section
+                                    key={section.id}
+                                    layout
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    aria-labelledby={`section-${section.id}`}
+                                    className="border-b border-gray-200"
+                                >
+                                    <h2 id={`section-${section.id}`}>
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleSection(section.id)}
+                                            aria-expanded={isOpen}
+                                            aria-controls={`panel-${section.id}`}
+                                            className="group w-full flex items-center gap-4 py-5 text-left"
+                                        >
+                                            <span className="w-11 h-11 rounded-xl bg-green-50 border border-green-100 text-green-600 flex items-center justify-center shrink-0 transition-colors group-hover:bg-green-100">
+                                                <CategoryIcon path={section.icon} className="w-5 h-5" />
+                                            </span>
+                                            <span className="flex-1 min-w-0">
+                                                <span className="flex items-center gap-2.5">
+                                                    <span className="font-inter text-xl sm:text-2xl font-bold text-green-700">{section.label}</span>
+                                                    <span className="tabular-nums text-xs font-medium rounded-full px-2 py-0.5 bg-gray-100 text-gray-500">
+                                                        {section.items.length}
+                                                    </span>
+                                                </span>
+                                                <span className="block text-gray-600 text-sm sm:text-base font-normal">{section.blurb}</span>
+                                            </span>
+                                            <motion.span
+                                                animate={{ rotate: isOpen ? 180 : 0 }}
+                                                transition={{ duration: 0.25 }}
+                                                className="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 shrink-0 transition-colors group-hover:text-orange-500 group-hover:bg-orange-50"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </motion.span>
+                                        </button>
+                                    </h2>
+                                    <AnimatePresence initial={false}>
+                                        {isOpen && (
+                                            <motion.div
+                                                id={`panel-${section.id}`}
+                                                key="panel"
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                                className="overflow-hidden"
+                                            >
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 pb-8 pt-1">
+                                                    {section.items.map((practice) => (
+                                                        <PracticeCard
+                                                            key={practice.id}
+                                                            practice={practice}
+                                                            number={numbers.get(practice.id) ?? 0}
+                                                            publication={publications[practice.paper]}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
                                     </AnimatePresence>
-                                </div>
-                            </motion.section>
-                        ))}
+                                </motion.section>
+                            );
+                        })}
                     </AnimatePresence>
                 </div>
-
 
                 {/* Closing note */}
                 {practices.length > 0 && (
