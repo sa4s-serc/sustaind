@@ -12,6 +12,7 @@ const Navbar = () => {
         { href: '/people', label: 'People' },
         { href: '/showcase', label: 'Showcase' },
         { href: '/publications', label: 'Publications' },
+        { href: '/practices', label: 'Practices' },
         { href: '/blogs', label: 'Blogs' },
         { href: '/tools', label: 'Tools' },
         { href: '/videos', label: 'Videos' },
@@ -34,8 +35,8 @@ const Navbar = () => {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
+                    <div className="hidden lg:block">
+                        <div className="ml-10 flex items-baseline space-x-2 xl:space-x-8">
                             {navLinks.map((link) => (
                                 <motion.div
                                     key={link.href}
@@ -47,7 +48,7 @@ const Navbar = () => {
                                     <motion.div whileHover="hover" className="relative">
                                         <Link
                                             href={link.href}
-                                            className="text-gray-900 hover:text-orange-500 px-3 py-2 text-lg font-medium transition-colors duration-200 relative block rounded-md"
+                                            className="text-gray-900 hover:text-orange-500 px-2 xl:px-3 py-2 text-base xl:text-lg font-medium transition-colors duration-200 relative block rounded-md"
                                         >
                                             {link.label}
                                         </Link>
@@ -74,7 +75,7 @@ const Navbar = () => {
                                         href="https://autose.dev"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-gray-900 hover:text-orange-500 pl-3 pr-2 py-2 text-lg font-medium transition-colors duration-200 relative border-l border-gray-200 flex items-center gap-1"
+                                        className="text-gray-900 hover:text-orange-500 pl-3 pr-2 py-2 text-base xl:text-lg font-medium transition-colors duration-200 relative border-l border-gray-200 flex items-center gap-1"
                                     >
                                         AutoSE
                                         <svg
@@ -106,7 +107,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    <div className="lg:hidden">
                         <motion.button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="text-gray-900 hover:text-orange-500 focus:text-orange-500 rounded-md"
@@ -148,7 +149,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="md:hidden bg-white border-t border-gray-100"
+                        className="lg:hidden bg-white border-t border-gray-100"
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                             {navLinks.map((link) => (

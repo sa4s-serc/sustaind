@@ -159,6 +159,10 @@ export default function Publications() {
                     if (b.year !== a.year) return b.year - a.year;
                     return data.indexOf(b) - data.indexOf(a);
                 }));
+
+                // Open a specific paper when linked as /publications#<id> (e.g. from Best Practices)
+                const linked = data.find((p: Publication) => p.id === window.location.hash.slice(1));
+                if (linked) setSelectedPublication(linked);
             } catch (error) {
                 console.error('Error fetching publications:', error);
             }

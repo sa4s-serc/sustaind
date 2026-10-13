@@ -1,6 +1,7 @@
 [
     {
         "id": "harmone-2025",
+        "shortTitle": "HarmonE",
         "title": "HarmonE: A Self-Adaptive Approach to Architecting Sustainable MLOps",
         "authors": [
             "Hiya Bhatt",
@@ -23,6 +24,7 @@
     },
     {
         "id": "swenergy-2025",
+        "shortTitle": "SWEnergy",
         "title": "SWEnergy: An Empirical Study on Energy Efficiency in Agentic Issue Resolution Frameworks with SLMs",
         "authors": [
             "Arihant Tripathy",
@@ -45,6 +47,7 @@
     },
     {
         "id": "harmonica-2026",
+        "shortTitle": "Harmonica",
         "title": "Harmonica: A Self-Adaptation Exemplar for Sustainable MLOps",
         "authors": [
             "Ananya Halgatti",
@@ -68,6 +71,7 @@
     },
     {
         "id": "encode-2026",
+        "shortTitle": "EnCoDe",
         "title": "EnCoDe: Energy Estimation of Source Code At Design-Time",
         "authors": [
             "Shailender Goyal",
@@ -90,6 +94,7 @@
     },
     {
         "id": "wattsdebts-2026",
+        "shortTitle": "Watts and Debts",
         "title": "Watts and Debts of Agentic Frameworks: An Empirical Study (Registered Report)",
         "authors": [
             "Aneetta Sara Shany",
