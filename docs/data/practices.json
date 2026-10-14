@@ -152,6 +152,46 @@
         "basis": "measured"
     },
     {
+        "id": "inference-batching",
+        "category": "inference",
+        "advice": "Batch inference requests where latency allows, since even a batch of two sharply cuts energy per request.",
+        "detail": "On Llama-3.2-3B, moving from batch 1 to batch 2 cut energy per sample by 40.7%. At batch 64 the saving reached 80.5%.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
+        "id": "inference-kv-cache",
+        "category": "inference",
+        "advice": "Keep KV caching on for long prompts.",
+        "detail": "At 512 input tokens, attention on Qwen2.5-3B used 33.6 mJ per decode step with the cache and 87.4 mJ without it. For very short prompts the cache made little difference.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
+        "id": "inference-fused-attention",
+        "category": "inference",
+        "advice": "Replace eager attention with a fused kernel such as FlashAttention or PyTorch SDPA.",
+        "detail": "Eager attention used the most energy in every model and input length tested. At 256 tokens, FlashAttention cut attention energy by 14 to 20%.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
+        "id": "inference-compile",
+        "category": "inference",
+        "advice": "Compile the model with torch.compile and try its max-autotune mode.",
+        "detail": "Compiling cut attention energy by 16 to 45% across the settings tested, with max-autotune lowest everywhere. These figures leave out the energy spent compiling.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
+        "id": "inference-fp16",
+        "category": "inference",
+        "advice": "Serve models in FP16 instead of FP32 unless your accuracy needs full precision.",
+        "detail": "Across three decoder models of 3 to 4 billion parameters, FP16 used 35 to 46% less whole-model energy than FP32.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
         "id": "mlops-drift-retrain",
         "category": "mlops",
         "advice": "Retrain when you detect data drift instead of on a fixed schedule.",
@@ -280,6 +320,14 @@
         "basis": "measured"
     },
     {
+        "id": "research-flops-proxy",
+        "category": "study-design",
+        "advice": "Don't use FLOPs as an energy proxy for model components.",
+        "detail": "Attention used the most energy per FLOP at every input length on Gemma-3-4B. A single attention block carried about 31 mJ of fixed cost before counting its heads.",
+        "paper": "clear-2026",
+        "basis": "measured"
+    },
+    {
         "id": "research-correlations",
         "category": "study-design",
         "advice": "Compare Pearson with rank correlations, and check strong correlations against model feature importance.",
@@ -296,12 +344,28 @@
         "basis": "measured"
     },
     {
+        "id": "research-gpu-replay",
+        "category": "research-measurement",
+        "advice": "To measure GPU components that finish in microseconds, replay each one thousands of times on cached inputs and divide.",
+        "detail": "NVML refreshes every 20 to 50 ms while Transformer components run in 10 to 100 µs. Replaying each component 10,000 times kept readings stable across 20 trials.",
+        "paper": "clear-2026",
+        "basis": "design"
+    },
+    {
         "id": "research-stabilise",
         "category": "research-measurement",
         "advice": "Fix the CPU frequency and pin the process to one core before measuring small blocks.",
         "detail": "PowerLens also disables Turbo Boost and stops background processes. The paper notes that single-core pinning hides multi-threading effects.",
         "paper": "encode-2026",
         "basis": "design"
+    },
+    {
+        "id": "research-low-readings",
+        "category": "research-measurement",
+        "advice": "Report relative standard deviation, and treat component readings under about 5 mJ as low confidence.",
+        "detail": "With NVML, run-to-run spread reached 34% near 1 mJ and fell below 5% once readings passed 20 mJ.",
+        "paper": "clear-2026",
+        "basis": "measured"
     },
     {
         "id": "research-validate-whole-program",
@@ -453,6 +517,14 @@
         "advice": "Design agent frameworks that manage small models' weaknesses, for example by detecting loops and checking patches independently.",
         "detail": "SWEnergy argues that current frameworks are passive orchestrators built for capable LLMs.",
         "paper": "swenergy-2025",
+        "basis": "open"
+    },
+    {
+        "id": "open-gpu-fused-kernels",
+        "category": "open-problems",
+        "advice": "Repeat component-level energy studies on other GPU generations, and find a way to count FLOPs for fused kernels.",
+        "detail": "CLEAR's results come from two NVIDIA Ada Lovelace GPUs. Profilers could not count FLOPs for the compiled kernels that used the least energy.",
+        "paper": "clear-2026",
         "basis": "open"
     },
     {

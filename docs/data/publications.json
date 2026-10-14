@@ -114,5 +114,28 @@
             "Empirical Study",
             "Registered Report"
         ]
+    },
+    {
+        "id": "clear-2026",
+        "shortTitle": "CLEAR",
+        "title": "Dissecting Transformers: A CLEAR Perspective towards Green AI",
+        "authors": [
+            "Hemang Jain",
+            "Shailender Goyal",
+            "Divyansh Pandey",
+            "Karthik Vaidhyanathan"
+        ],
+        "abstract": "The rapid adoption of Large Language Models (LLMs) has raised significant environmental concerns. Unlike the one-time cost of training, LLM inference occurs continuously and dominates the AI energy footprint. Yet most sustainability studies report only coarse model-level metrics, treating energy efficiency as an afterthought rather than a primary objective. Addressing the limitation, we propose Component-Level Energy Assessment via Repetitions (CLEAR), to overcome temporal mismatch between microsecond (µs) scale component execution and millisecond (ms) scale monitoring of energy sensors. Using CLEAR, we evaluate 15 models spanning four architecture types, keeping component-wise energy variance below 9.5% while capturing over 90% of total energy as individual components. We present the first comprehensive, fine-grained energy analysis of Transformer components across key parameters such as batch size, attention heads, hidden dimension, KV cache, and attention variants. Our findings reveal that Attention consumes significantly more Energy per FLOP as compared to the entire model, indicating that FLOPs alone fail to capture true component-level energy cost. CLEAR enables reliable fine-grained energy measurements and provides a strong formal foundation for predictive modelling of energy consumption.",
+        "venue": "Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)",
+        "year": 2026,
+        "doi": "https://doi.org/10.48550/arXiv.2510.02810",
+        "url": "https://arxiv.org/abs/2510.02810",
+        "coverImage": "/data/images/publications/clear-2026.jpg",
+        "keywords": [
+            "Green AI",
+            "LLM Inference",
+            "Energy Measurement",
+            "Transformer Architecture"
+        ]
     }
 ]
