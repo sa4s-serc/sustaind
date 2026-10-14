@@ -38,3 +38,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# next dev cache (distDir is docs, so dev output lands here)
+/docs/dev/

@@ -35,13 +35,13 @@ const audiences: { id: Audience; title: string; description: string; icon: strin
     {
         id: 'practitioners',
         title: 'For Practitioners',
-        description: 'Developers and engineers building, choosing and running software and AI systems.',
+        description: 'Conclusions from our studies, written as steps you can take when you build and run software and AI systems.',
         icon: 'M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z',
     },
     {
         id: 'researchers',
         title: 'For Researchers',
-        description: 'Researchers designing studies on green software, sustainable AI and self-adaptive systems.',
+        description: 'The methods behind those conclusions, plus the questions our papers leave open.',
         icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222',
     },
 ];
@@ -63,7 +63,7 @@ const categories: { id: CategoryId; audience: Audience; label: string; blurb: st
         id: 'measurement',
         audience: 'practitioners',
         label: 'Measuring Energy',
-        blurb: 'Getting numbers you can trust before you optimise anything.',
+        blurb: 'Seeing what your own workload costs, even on shared or cloud machines.',
         icon: 'M13 10V3L4 14h7v7l9-11h-7z',
     },
     {
@@ -77,7 +77,7 @@ const categories: { id: CategoryId; audience: Audience; label: string; blurb: st
         id: 'agents',
         audience: 'practitioners',
         label: 'AI Agents',
-        blurb: 'Building and choosing agentic systems that do not burn energy in circles.',
+        blurb: 'Keeping agents from spending energy on work that goes nowhere.',
         icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z',
     },
     {
@@ -126,7 +126,7 @@ const categories: { id: CategoryId; audience: Audience; label: string; blurb: st
         id: 'open-problems',
         audience: 'researchers',
         label: 'Open Problems',
-        blurb: 'Questions our papers leave open, ready for the next study.',
+        blurb: 'Questions our papers leave open for future studies.',
         icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
     },
 ];
@@ -332,8 +332,8 @@ export default function Practices() {
                 >
                     <h1 className="text-4xl md:text-5xl font-bold text-green-600 mb-4">Best Practices</h1>
                     <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                        Short, evidence-backed advice for building greener software and AI systems, and for
-                        studying them. Every line traces back to one of our published papers.
+                        Advice for building greener software and AI systems, and for studying them. Each item
+                        comes from one of our published papers.
                     </p>
                     {practices.length > 0 && (
                         <p className="mt-4 text-sm text-gray-500">
@@ -542,7 +542,7 @@ export default function Practices() {
                             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                                 {audience === 'practitioners'
                                     ? 'Each practice links to the paper it comes from. Results were measured under specific setups, so treat the numbers as a guide and measure on your own workload.'
-                                    : 'Each guideline links to the paper it comes from, where you will find the full method, the limitations and the threats to validity behind it.'}
+                                    : 'Each guideline links to the paper it comes from, where you can read the full method and its limitations.'}
                             </p>
                         </div>
                         <Link

@@ -1,495 +1,313 @@
 [
     {
-        "id": "measure-sub-ms",
-        "category": "measurement",
-        "advice": "Don't trust a single energy reading of code that runs in under a millisecond.",
-        "detail": "Hardware counters like Intel RAPL update roughly every 1 ms. Sub-millisecond workloads showed over 110% variation and often read zero.",
-        "paper": "encode-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "measure-amplify",
-        "category": "measurement",
-        "advice": "To measure a tiny function, run it many times in a loop and divide the total energy by the count.",
-        "detail": "PowerLens repeats each code block 1,000 times so its energy rises above the counter's resolution.",
-        "paper": "encode-2026",
-        "basis": "design"
-    },
-    {
-        "id": "measure-stabilise",
-        "category": "measurement",
-        "advice": "Lock the CPU frequency, disable Turbo Boost, pin to one core and stop background jobs before benchmarking energy.",
-        "detail": "Frequency scaling and other processes otherwise leak into your readings.",
-        "paper": "encode-2026",
-        "basis": "design"
-    },
-    {
-        "id": "measure-repeat",
-        "category": "measurement",
-        "advice": "Repeat each energy measurement about 10 times, drop the outliers, and report the mean.",
-        "detail": "With 10 trials and IQR outlier removal, over 90% of code blocks varied by less than 10% between trials.",
-        "paper": "encode-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "measure-cooldown",
-        "category": "measurement",
-        "advice": "Let the hardware cool down between benchmark runs, and average across repetitions.",
-        "detail": "HarmonE's experiments used five repetitions with a 20-minute cooldown between runs to keep hardware conditions stable.",
-        "paper": "harmone-2025",
-        "basis": "design"
-    },
-    {
-        "id": "measure-sum-check",
-        "category": "measurement",
-        "advice": "Sanity-check fine-grained energy numbers by confirming they add up to a whole-program measurement.",
-        "detail": "Summed block-level readings closely matched whole-program energy, with much lower variance.",
-        "paper": "encode-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "measure-relative",
-        "category": "measurement",
-        "advice": "Compare relative energy trends, not absolute joules, across different machines or measurement tools.",
-        "detail": "Software meters like pyRAPL give Intel-specific estimates, so absolute values shift between platforms.",
-        "paper": "harmonica-2026",
-        "basis": "design"
-    },
-    {
         "id": "measure-baseline",
         "category": "measurement",
-        "advice": "Subtract an idle baseline and the model server's own energy to see what your framework really costs.",
-        "detail": "The study records a 60-second idle reading per machine and tracks the model-serving process separately to isolate framework overhead.",
+        "advice": "Measure the machine while your workload is stopped, then subtract that idle draw from your readings.",
+        "detail": "An idle machine still uses power. SWEnergy's workstation drew 51.69 W of CPU power with nothing running, and removing it left only the agent's share.",
+        "paper": "swenergy-2025",
+        "basis": "design"
+    },
+    {
+        "id": "measure-own-process",
+        "category": "measurement",
+        "advice": "Track your workload by its process ID so other software on the same machine isn't counted against you.",
+        "detail": "The Watts and Debts protocol follows the model server by its PID and subtracts its energy from the total to get the framework's own cost.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
     {
         "id": "measure-proxies",
         "category": "measurement",
-        "advice": "Use runtime and output tokens as quick proxies for an agent's energy; memory use tells you little.",
-        "detail": "Energy correlated strongly with duration (R = 0.89) and output tokens (R = 0.88). Memory showed near-zero correlation because it is allocated upfront.",
+        "advice": "On machines where you can't read energy counters, such as many VMs, use runtime and output tokens as stand-ins.",
+        "detail": "In SWEnergy's agent runs, energy closely tracked wall-clock duration (R = 0.89) and output tokens (R = 0.88). Memory use showed almost no correlation.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
-        "id": "measure-log-tokens",
+        "id": "measure-tool-coverage",
         "category": "measurement",
-        "advice": "Log LLM call counts and input/output tokens next to every energy reading.",
-        "detail": "The volume of reasoning tokens can inflate energy independently of how well a framework orchestrates its work.",
-        "paper": "wattsdebts-2026",
+        "advice": "CPU and GPU counters leave out memory and storage, so read their totals as a partial cost.",
+        "detail": "RAPL and NVML report processor and graphics energy only. Their totals are not what the machine draws from the wall.",
+        "paper": "swenergy-2025",
         "basis": "design"
     },
-
     {
-        "id": "code-loops",
-        "category": "code",
-        "advice": "Look at loop-heavy and deeply nested blocks first when hunting for energy hotspots.",
-        "detail": "Loop count, conditionals, nesting and cognitive complexity all correlate with block energy across 18,000+ Python programs. Each link is weak on its own, so treat them as signals to check, not verdicts.",
+        "id": "measure-relative",
+        "category": "measurement",
+        "advice": "Compare versions on the same machine with the same tool, because absolute joules don't carry over between setups.",
+        "detail": "pyRAPL gives estimates tuned to Intel hardware. Harmonica lists portable measurement across operating systems and virtual machines as an open problem.",
+        "paper": "harmonica-2026",
+        "basis": "design"
+    },
+    {
+        "id": "measure-repeat",
+        "category": "measurement",
+        "advice": "Decide between two versions using the average of several runs.",
+        "detail": "Single readings are noisy. EnCoDe repeated each measurement 10 times and dropped outliers, after which over 90% of code blocks varied by less than 10%.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
-        "id": "code-operators",
+        "id": "code-loops",
         "category": "code",
-        "advice": "Give blocks dense with arithmetic and other operators a closer look for energy cost.",
-        "detail": "Operator density was the top-ranked feature in all three of EnCoDe's tree-based prediction models.",
+        "advice": "Start your search for energy hotspots with loop-heavy and deeply nested blocks.",
+        "detail": "Across more than 18,000 Python programs, loop count and nesting depth both correlated with block energy. Each link is weak by itself, so use them to decide where to look first.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
         "id": "code-no-single-metric",
         "category": "code",
-        "advice": "Don't use cyclomatic complexity or code size alone as a stand-in for energy cost.",
-        "detail": "Complexity metrics alone predicted energy tiers at 51% accuracy, which is barely above chance. Energy depends on how code features combine.",
+        "advice": "Don't treat cyclomatic complexity or code size as a stand-in for energy cost.",
+        "detail": "Complexity metrics alone predicted energy tiers with 51% accuracy, close to chance. Energy came from how many code features combine.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
         "id": "code-static-first",
         "category": "code",
-        "advice": "Use static energy estimation to shortlist hotspots before you run anything, then confirm by measuring.",
-        "detail": "Models trained on 33 static code features sorted blocks into low, medium or high energy with 80.6% accuracy. They're built for ranking hotspots, not exact joules.",
+        "advice": "Use static energy estimation to shortlist likely hotspots before running anything, then measure the ones it flags.",
+        "detail": "Models trained on 33 static code features placed blocks in the right energy tier 80.6% of the time. They rank hotspots well but don't give exact joules.",
         "paper": "encode-2026",
         "basis": "measured"
     },
-    {
-        "id": "code-refactor-compare",
-        "category": "code",
-        "advice": "When refactoring a flagged block, compare the estimated energy of the old and new versions.",
-        "detail": "EnCoDe's workflow flags high-energy blocks, then gives a comparative estimate between the original and refactored code to guide the choice.",
-        "paper": "encode-2026",
-        "basis": "design"
-    },
-    {
-        "id": "code-light-tooling",
-        "category": "code",
-        "advice": "Keep your energy-analysis tooling lightweight too.",
-        "detail": "A Gradient Boosting classifier used 0.015 J against Random Forest's 0.373 J for nearly identical accuracy (78.8% vs 79.2%).",
-        "paper": "encode-2026",
-        "basis": "measured"
-    },
-
     {
         "id": "agents-compare-frameworks",
         "category": "agents",
-        "advice": "Compare agent frameworks on energy before adopting one; the architecture alone can swing usage 9×.",
-        "detail": "On the same model and hardware, AutoCodeRover used 9.4× more energy per run than OpenHands.",
+        "advice": "Measure an agent framework's energy before adopting it, since architecture alone changed usage by up to 9×.",
+        "detail": "With the same model and hardware, AutoCodeRover used 9.4× more energy per run than OpenHands.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "agents-per-success",
         "category": "agents",
-        "advice": "Track energy per successfully completed task, not per run.",
-        "detail": "Small-model agents resolved almost no issues, so most of the energy they consumed bought nothing.",
+        "advice": "Count energy per task the agent actually completed, since a low-energy run may simply have given up early.",
+        "detail": "Small-model agents resolved almost no issues. Some of the cheapest runs stopped as soon as the prompt exceeded the model's token limit.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "agents-loop-detection",
         "category": "agents",
-        "advice": "Add loop detection: stop or change strategy when an agent repeats the same failing action.",
-        "detail": "Small models kept resubmitting the same failing test script or malformed API call, and the frameworks never noticed.",
+        "advice": "Stop or change strategy when an agent repeats the same failing action.",
+        "detail": "Small models kept resubmitting the same failing test script, and none of the frameworks noticed the repetition.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "agents-filter-output",
         "category": "agents",
-        "advice": "Filter and trim tool output before it reaches the model's context window.",
-        "detail": "Broad grep commands returned huge unfiltered outputs that overwhelmed a 32K context and caused the agent to lose track.",
+        "advice": "Trim tool output before it reaches the model's context window.",
+        "detail": "Broad grep commands returned huge unfiltered outputs that filled a 32K context and made the agent lose track of its task.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "agents-verify",
         "category": "agents",
-        "advice": "Never trust an agent's own \"success\" report; gate every generated patch on CI builds and tests.",
-        "detail": "Frameworks reported success for destructive patches, such as replacing a 2,000-line file with a single invalid line.",
+        "advice": "Gate every agent-generated patch on your CI build and tests, whatever the agent reports.",
+        "detail": "Frameworks reported success for destructive patches, including one that replaced a 2,000-line file with a single invalid line.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
-    {
-        "id": "agents-low-energy",
-        "category": "agents",
-        "advice": "Treat suspiciously low agent energy as a possible early failure, not efficiency.",
-        "detail": "Some low-energy runs ended early when the prompt exceeded the model's token limit, before any real work began.",
-        "paper": "swenergy-2025",
-        "basis": "measured"
-    },
-    {
-        "id": "agents-orchestration-budget",
-        "category": "agents",
-        "advice": "Budget for the orchestration loop, not just the model calls.",
-        "detail": "Planning, memory, tool, reflection and retry cycles burn energy on every iteration, and agents often run for minutes or hours.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "agents-debt-scan",
-        "category": "agents",
-        "advice": "Scan an agent framework's TODO, FIXME and HACK comments before betting production on it.",
-        "detail": "Prior work found ML projects carry twice the self-admitted technical debt of non-ML projects. This study tests whether that debt also tracks energy use.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "agents-pin-versions",
-        "category": "agents",
-        "advice": "Pin agent framework versions and re-measure energy after every upgrade.",
-        "detail": "These frameworks change quickly, which is why the study compares releases several months apart.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "agents-observable",
-        "category": "agents",
-        "advice": "Prefer agent frameworks you can run locally and instrument; you can't optimise energy you can't observe.",
-        "detail": "Observability and local deployability were selection criteria for the frameworks in the study.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-
     {
         "id": "models-light-to-heavy",
         "category": "models",
-        "advice": "Keep a range of light to heavy models, and serve the lightest one that meets your accuracy target.",
-        "detail": "HarmonE kept 95% of the heavy model's accuracy using 45.5% of its energy, and cut inference time by 53%.",
+        "advice": "Keep both light and heavy models available and serve the lightest one that meets your accuracy target.",
+        "detail": "HarmonE kept 95% of the heavy model's accuracy while using 45.5% of its energy, and inference time dropped by 53%.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
         "id": "models-check-energy",
         "category": "models",
-        "advice": "Check the energy cost of each candidate model before defaulting to the most accurate one.",
-        "detail": "An LSTM reached R² 0.917 against an SVM's 0.821 for traffic forecasting, but used about 8.4× the energy.",
-        "paper": "harmonica-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "models-size-variants",
-        "category": "models",
-        "advice": "Benchmark energy across model sizes; the largest variant may cost 4× for a marginal gain.",
-        "detail": "YOLOv8m used about 4.3× the energy of YOLOv8n for a 0.05 rise in mean detection confidence.",
+        "advice": "Check each candidate model's energy cost before defaulting to the most accurate one.",
+        "detail": "For traffic forecasting, an LSTM reached R² 0.917 against an SVM's 0.821 but used about 8.4× the energy.",
         "paper": "harmonica-2026",
         "basis": "measured"
     },
     {
         "id": "models-no-plug-and-play",
         "category": "models",
-        "advice": "Don't drop a small model into an agent framework built for large ones and expect savings.",
-        "detail": "Swapping a small model in for a large one was found to be ineffective and often counterproductive. Current frameworks assume a capable reasoning engine.",
+        "advice": "Don't expect savings from swapping a small model into an agent framework built for large ones.",
+        "detail": "SWEnergy found the swap ineffective and often counterproductive, because current frameworks assume a capable reasoning engine.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "models-smaller-not-cheaper",
         "category": "models",
-        "advice": "A smaller model can use more energy inside an agent loop; measure, don't assume.",
-        "detail": "In two of four frameworks, Qwen-3 1.7B burned more tokens and energy than the larger Gemma-3 4B.",
+        "advice": "Measure before assuming a smaller model saves energy inside an agent loop.",
+        "detail": "In two of four frameworks, Qwen-3 1.7B used more tokens and energy than the larger Gemma-3 4B.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "models-tco",
         "category": "models",
-        "advice": "Judge local models on total cost of ownership, not just the missing API bill.",
-        "detail": "Local runs avoided API fees but some configurations averaged 24 to 27 minutes per issue.",
+        "advice": "Count runtime and energy when costing a local model, as well as the API fees you avoid.",
+        "detail": "Local runs had no API fees, yet some configurations averaged 24 to 27 minutes per issue.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
-
     {
         "id": "mlops-drift-retrain",
         "category": "mlops",
-        "advice": "Retrain when data drift is detected, not on a fixed timer.",
-        "detail": "Drift-triggered retraining used 54.5% less energy than an LSTM retrained on a fixed schedule.",
+        "advice": "Retrain when you detect data drift instead of on a fixed schedule.",
+        "detail": "Drift-triggered retraining used 54.5% less energy than an LSTM retrained at fixed intervals.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
         "id": "mlops-retrain-worth-it",
         "category": "mlops",
-        "advice": "Before scheduling regular retraining of a heavy model, check that the accuracy gain is worth the energy.",
-        "detail": "Periodic retraining added about 38% more energy to an LSTM for a gain of just 0.008 R².",
+        "advice": "Before scheduling regular retraining of a heavy model, check that the accuracy gain justifies the energy.",
+        "detail": "Periodic retraining added about 38% more energy to an LSTM for an R² gain of 0.008.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
         "id": "mlops-version-reuse",
         "category": "mlops",
-        "advice": "Store each model with the data distribution it was trained on, and reuse it when those conditions return.",
-        "detail": "HarmonE checks its model repository for a matching past model before retraining, avoiding redundant work when familiar patterns recur.",
+        "advice": "Store each model with the data distribution it was trained on, and reuse it when that distribution comes back.",
+        "detail": "HarmonE looks for a matching past model before retraining, which avoids repeat work when familiar patterns return.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "mlops-switch-plus-retrain",
         "category": "mlops",
-        "advice": "Pair model switching with selective retraining; switching alone drifts toward the heaviest model.",
-        "detail": "Switch-only used more energy than HarmonE (24.3 vs 20.6 mJ) and still fell short of the heavy model's accuracy.",
+        "advice": "Pair model switching with selective retraining, because switching alone keeps falling back to the heaviest model.",
+        "detail": "Switching without retraining used more energy than HarmonE (24.3 vs 20.6 mJ) and still fell short of the heavy model's accuracy.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
-        "id": "mlops-adapt-at-runtime",
-        "category": "mlops",
-        "advice": "Let the system adapt models to runtime conditions instead of always running the heaviest one.",
-        "detail": "Adaptive operation kept about 97.5% of a static LSTM's accuracy with roughly 44% less energy.",
-        "paper": "harmonica-2026",
-        "basis": "measured"
-    },
-
-    {
         "id": "adapt-thresholds",
         "category": "adaptation",
-        "advice": "Set measurable accuracy, energy and drift thresholds at design time, and let them trigger actions.",
-        "detail": "HarmonE turns sustainability goals into concrete limits, such as a maximum data-drift score before retraining.",
+        "advice": "Set measurable energy and accuracy thresholds at design time and let them trigger adaptations.",
+        "detail": "HarmonE turns sustainability goals into concrete limits, for example a maximum drift score before retraining starts.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "adapt-monitor-together",
         "category": "adaptation",
-        "advice": "Monitor energy alongside accuracy and data drift in production, not accuracy alone.",
-        "detail": "HarmonE's monitor combines accuracy, normalised energy and drift into one view of system health.",
+        "advice": "Monitor energy in production next to accuracy.",
+        "detail": "HarmonE's monitor combines accuracy and normalised energy into one weighted score, and tracks data drift alongside it.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "adapt-tolerance",
         "category": "adaptation",
-        "advice": "Smooth your metrics and use tolerance bands so brief spikes don't trigger costly adaptations.",
-        "detail": "HarmonE made 12 adaptations, against 17 for switching with periodic retraining.",
+        "advice": "Smooth metrics and allow a tolerance band so brief spikes don't trigger costly adaptations.",
+        "detail": "HarmonE made 12 adaptations in a run, compared with 17 for model switching with periodic retraining.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
         "id": "adapt-cheap-loop",
         "category": "adaptation",
-        "advice": "Don't let overhead worries stop you; a lightweight monitor-and-adapt loop costs very little.",
-        "detail": "HarmonE's adaptation loop accounted for just 1.37% of total energy use.",
+        "advice": "Expect a lightweight monitor-and-adapt loop to cost very little energy.",
+        "detail": "HarmonE's adaptation loop accounted for 1.37% of total energy use.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
     {
         "id": "adapt-separate-layer",
         "category": "adaptation",
-        "advice": "Keep adaptation logic in a separate control layer, outside your training and inference code.",
-        "detail": "Harmonica wraps existing ML pipelines with an adaptation loop without changing how they train or serve.",
+        "advice": "Keep adaptation logic in its own control layer, outside your training and inference code.",
+        "detail": "Harmonica wraps existing ML pipelines with an adaptation loop and leaves their training and serving code unchanged.",
         "paper": "harmonica-2026",
-        "basis": "design"
-    },
-    {
-        "id": "adapt-config",
-        "category": "adaptation",
-        "advice": "Store thresholds and adaptation policies in editable config, not hard-coded values.",
-        "detail": "Harmonica keeps policies in JSON files that can be updated through a dashboard or API at runtime.",
-        "paper": "harmonica-2026",
-        "basis": "design"
-    },
-    {
-        "id": "adapt-live-dashboard",
-        "category": "adaptation",
-        "advice": "Show energy and accuracy live against their thresholds so trade-offs are visible.",
-        "detail": "Participants in Harmonica's user study named live telemetry the tool's strongest feature.",
-        "paper": "harmonica-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "adapt-log-decisions",
-        "category": "adaptation",
-        "advice": "Log every adaptation decision next to inference results so you can audit trade-offs later.",
-        "detail": "Harmonica keeps historical logs of inference results and adaptation events for later analysis.",
-        "paper": "harmonica-2026",
-        "basis": "design"
-    },
-
-    {
-        "id": "research-pilot-models",
-        "category": "study-design",
-        "advice": "Run a short pilot to confirm your candidate models really differ in accuracy and energy cost.",
-        "detail": "HarmonE's pilot showed LR and SVM often performed well enough at far lower energy than an LSTM, which justified including them as candidates.",
-        "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "research-layered-baselines",
         "category": "study-design",
-        "advice": "Compare adaptive approaches against static, fixed-retraining and switch-only baselines on identical data splits.",
-        "detail": "HarmonE compared nine approaches on the same splits, which exposed switching alone drifting toward the heavy LSTM.",
+        "advice": "Compare adaptive approaches against static and fixed-retraining baselines on identical data splits.",
+        "detail": "HarmonE compared nine approaches on the same splits. That comparison showed switching without retraining drifting toward the heavy LSTM.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "research-recurring-drift",
         "category": "study-design",
-        "advice": "Inject controlled, repeatable drift that recurs, so you test both drift detection and model reuse.",
-        "detail": "HarmonE applied the same scale-and-shift transformation to two test segments, so the data diverges and later returns to a familiar pattern.",
+        "advice": "Inject controlled drift that recurs, so the experiment tests both drift detection and model reuse.",
+        "detail": "HarmonE applied the same scale-and-shift transformation to two test segments, so the data diverges and later returns to a pattern the system has seen.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "research-fixed-setup",
         "category": "study-design",
-        "advice": "Fix hardware, precision, context window and timeout, and run every trial on an otherwise idle machine.",
-        "detail": "SWEnergy ran all configurations in FP16 with a 32K context and a 30-minute timeout, each in isolation on one dedicated workstation.",
+        "advice": "Hold the hardware and model settings fixed, and run each trial on an otherwise idle machine.",
+        "detail": "SWEnergy ran every configuration in FP16 with a 32K context on one dedicated workstation, with each run isolated from other work.",
         "paper": "swenergy-2025",
         "basis": "design"
     },
     {
         "id": "research-benchmark-subset",
         "category": "study-design",
-        "advice": "Repeat every task and configuration, using a representative benchmark subset if that's what makes repetition affordable.",
-        "detail": "SWE-bench Verified Mini (50 tasks, about 5 GB instead of 130 GB) let SWEnergy run three full repetitions, 1,200 runs in total.",
+        "advice": "Use a representative benchmark subset if that is what makes repeated runs affordable.",
+        "detail": "SWE-bench Verified Mini has 50 tasks and takes about 5 GB instead of 130 GB. It let SWEnergy repeat every configuration three times, 1,200 runs in total.",
         "paper": "swenergy-2025",
         "basis": "design"
     },
     {
         "id": "research-determinism",
         "category": "study-design",
-        "advice": "Fix temperature, seed and prompts, do warm-up runs, reset state between trials, and pin tool versions.",
-        "detail": "The study protocol uses temperature 0.0, seed 42, identical prompts, two warm-up runs against cold-start bias, and memory resets between trials.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "research-pipeline-pilot",
-        "category": "study-design",
-        "advice": "Run a small pilot that exercises the whole measurement pipeline before the main experiment.",
-        "detail": "A 50-observation pilot must capture every metric, and any failure triggers reconfiguration before the 1,500-observation main run.",
+        "advice": "Fix temperature and seed, and do warm-up runs before you start measuring.",
+        "detail": "The Watts and Debts protocol sets temperature 0.0 and seed 42. Two warm-up runs remove cold-start bias before any trial is recorded.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
     {
         "id": "research-multi-hardware",
         "category": "study-design",
-        "advice": "Replicate on more than one hardware configuration, and only claim effects that hold on all of them.",
-        "detail": "The study runs on three machines with different CPU generations and GPUs, and counts a hypothesis as supported only if all three agree.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "research-subject-selection",
-        "category": "study-design",
-        "advice": "Select study subjects with written criteria, including whether they can run locally for direct measurement.",
-        "detail": "Frameworks were screened for observability, local deployability and distinct architecture; a homogeneous pool would suppress the variance needed to detect correlations.",
+        "advice": "Replicate on more than one hardware configuration and claim only the effects that hold on all of them.",
+        "detail": "The study plans three machines with different CPU generations and GPUs, and counts a hypothesis as supported only if every machine agrees.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
     {
         "id": "research-ablation",
         "category": "study-design",
-        "advice": "Ablate feature groups, removing each and using each alone, before claiming any single metric explains energy.",
-        "detail": "Complexity metrics alone reached R² = 0.067, barely above random, and no single group matched the full model.",
+        "advice": "Run feature-group ablations before claiming that any single metric explains energy.",
+        "detail": "In EnCoDe, complexity metrics alone reached R² = 0.067, and no single feature group matched the full model.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
         "id": "research-correlations",
         "category": "study-design",
-        "advice": "Compare Pearson with Spearman or Kendall, and check strong correlations against model feature importance.",
-        "detail": "Rank correlations ran well above Pearson, revealing largely non-linear links; one feature with high rank correlation contributed little to prediction.",
-        "paper": "encode-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "research-multi-domain",
-        "category": "study-design",
-        "advice": "Evaluate tools on more than one ML domain, and state plainly where your own approach was not applied.",
-        "detail": "Harmonica ran time-series and object-detection pipelines, and says outright that HarmonE itself was not applied to the vision task.",
-        "paper": "harmonica-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "research-usability",
-        "category": "study-design",
-        "advice": "Have real users install and configure your research tool, and report what they found hard.",
-        "detail": "Harmonica's 12-person study rated policy configuration lowest (4.08 out of 5) and surfaced a request for tooltips explaining tactics.",
-        "paper": "harmonica-2026",
-        "basis": "measured"
-    },
-    {
-        "id": "research-sub-ms",
-        "category": "research-measurement",
-        "advice": "Don't rely on single RAPL readings for code that runs in under about a millisecond.",
-        "detail": "Below 1 ms, readings varied by more than 110%, and 4 to 5 of every 10 runs read zero.",
+        "advice": "Compare Pearson with rank correlations, and check strong correlations against model feature importance.",
+        "detail": "Rank correlations ran well above Pearson, which points to largely non-linear relationships. One feature with high rank correlation added little to prediction.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
         "id": "research-powerlens",
         "category": "research-measurement",
-        "advice": "For tiny code blocks, amplify in a loop, start on a counter update, subtract padding energy, and filter repeated trials.",
-        "detail": "With this PowerLens protocol, over 90% of blocks varied by less than 10% between repeated trials.",
+        "advice": "For code that runs in under a millisecond, repeat it in a loop and align the measurement window to counter updates.",
+        "detail": "Single RAPL readings below 1 ms varied by over 110% or read zero. The full PowerLens protocol brought over 90% of blocks under 10% variation.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
+        "id": "research-stabilise",
+        "category": "research-measurement",
+        "advice": "Fix the CPU frequency and pin the process to one core before measuring small blocks.",
+        "detail": "PowerLens also disables Turbo Boost and stops background processes. The paper notes that single-core pinning hides multi-threading effects.",
+        "paper": "encode-2026",
+        "basis": "design"
+    },
+    {
         "id": "research-validate-whole-program",
         "category": "research-measurement",
-        "advice": "Validate fine-grained energy measurements against a whole-program measurement tool.",
-        "detail": "Summed block-level readings closely matched pyRAPL program-level energy across block types, with lower variance.",
+        "advice": "Check fine-grained energy measurements against a whole-program measurement tool.",
+        "detail": "Summed block-level readings closely matched pyRAPL's program-level energy, with lower variance.",
         "paper": "encode-2026",
         "basis": "measured"
     },
@@ -497,31 +315,31 @@
         "id": "research-idle-baseline",
         "category": "research-measurement",
         "advice": "Record each machine's idle power draw and subtract it from every energy trace you report.",
-        "detail": "SWEnergy measured 51.69 W CPU and 2.70 W GPU at idle and removed it from all RAPL and NVML traces to isolate agent energy.",
+        "detail": "SWEnergy measured 51.69 W CPU and 2.70 W GPU at idle and removed both from its RAPL and NVML traces.",
         "paper": "swenergy-2025",
         "basis": "design"
     },
     {
         "id": "research-process-attribution",
         "category": "research-measurement",
-        "advice": "Attribute energy by process ID to separate the inference server from the framework you're studying.",
-        "detail": "Framework energy is planned as total energy minus the energy of the model-serving process, tracked by its PID.",
+        "advice": "Attribute energy by process ID to separate the inference server from the framework you are studying.",
+        "detail": "Watts and Debts plans to compute framework energy as total energy minus the model server's energy, tracked by its PID.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
     {
         "id": "research-tool-scope",
         "category": "research-measurement",
-        "advice": "State exactly which components your energy tools cover; CPU and GPU totals are not whole-system energy.",
-        "detail": "RAPL and NVML leave out RAM, storage and other motherboard components, so totals are not wall-plug energy.",
+        "advice": "State which components your energy tools cover, and don't call CPU plus GPU totals whole-system energy.",
+        "detail": "RAPL and NVML leave out RAM and storage, so their totals fall short of wall-plug energy.",
         "paper": "swenergy-2025",
         "basis": "design"
     },
     {
         "id": "research-adaptation-overhead",
         "category": "research-measurement",
-        "advice": "Measure the energy of your adaptation or monitoring logic itself, not just the system it manages.",
-        "detail": "HarmonE's MAPE-K loop took 17.9 ms per invocation and 1.37% of total system energy.",
+        "advice": "Measure the energy of your adaptation or monitoring logic itself.",
+        "detail": "HarmonE's MAPE-K loop took 17.9 ms per invocation and accounted for 1.37% of total system energy.",
         "paper": "harmone-2025",
         "basis": "measured"
     },
@@ -529,31 +347,23 @@
         "id": "research-cooldown",
         "category": "research-measurement",
         "advice": "Repeat each configuration several times with cooldown gaps between runs before averaging energy.",
-        "detail": "HarmonE used five independent runs with 20-minute cooldowns so temperature and background energy could settle.",
+        "detail": "HarmonE used five independent runs with 20-minute cooldowns so temperature and background load could settle.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
-        "id": "research-log-tokens",
-        "category": "research-measurement",
-        "advice": "Log duration and token counts next to energy; in agent workloads they track it closely.",
-        "detail": "Energy correlated with wall-clock duration (R = 0.89) and output tokens (R = 0.88), while memory showed near-zero correlation.",
-        "paper": "swenergy-2025",
-        "basis": "measured"
-    },
-    {
         "id": "research-energy-with-success",
         "category": "reporting",
-        "advice": "Report energy together with task success, and verify outcomes independently of the system under test.",
-        "detail": "The most frugal framework resolved 0% of tasks, and some reported successes were destructive or invalid patches.",
+        "advice": "Report energy alongside task success, and verify success independently of the system under test.",
+        "detail": "The most frugal framework resolved 0% of tasks, and some reported successes were destructive patches.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
     {
         "id": "research-skewed-outcomes",
         "category": "reporting",
-        "advice": "Report how skewed your outcomes are, and don't generalise per-success energy from a handful of successes.",
-        "detail": "With near-zero resolution rates, SWEnergy notes its conclusions about failures are far more robust than those about successes.",
+        "advice": "Don't generalise per-success energy from a handful of successes.",
+        "detail": "With near-zero resolution rates, SWEnergy notes that its conclusions about failed runs are far more robust than those about successful ones.",
         "paper": "swenergy-2025",
         "basis": "measured"
     },
@@ -561,39 +371,23 @@
         "id": "research-llm-analysis",
         "category": "reporting",
         "advice": "If an LLM helps analyse your logs, hand-check a random sample and publish the raw logs.",
-        "detail": "SWEnergy used an LLM to classify failure modes, had two authors verify a random sample, and released the full logs.",
+        "detail": "SWEnergy used an LLM to classify failure modes. Two authors verified a random sample, and the full logs are in the replication package.",
         "paper": "swenergy-2025",
         "basis": "design"
     },
     {
         "id": "research-preregister",
         "category": "reporting",
-        "advice": "Pre-register hypotheses, statistical tests and support criteria before collecting data, for example as a registered report.",
-        "detail": "Watts and Debts fixes its hypotheses, Spearman tests and significance level in advance as an ESEM registered report.",
+        "advice": "Pre-register hypotheses and analysis plans before collecting data, for example as a registered report.",
+        "detail": "Watts and Debts fixed its hypotheses and Spearman tests in advance through the ESEM registered reports track.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
     {
         "id": "research-effect-size",
         "category": "reporting",
-        "advice": "With few units of analysis, fix a minimum effect size in advance and judge results by magnitude, not p-values.",
-        "detail": "With only five frameworks, the study pre-specifies ρ ≥ 0.50 as the smallest effect worth reporting.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "research-version-snapshots",
-        "category": "reporting",
-        "advice": "Pin exact commits, and re-run on a later release to check whether your results still hold.",
-        "detail": "Each framework is analysed at two snapshots months apart, with cross-version differences reported as limitations.",
-        "paper": "wattsdebts-2026",
-        "basis": "design"
-    },
-    {
-        "id": "research-llm-labelling",
-        "category": "reporting",
-        "advice": "Validate LLM-based labelling with an agreement threshold set in advance and a properly sized human-labelled sample.",
-        "detail": "The classifier prompt is tuned to Fleiss's κ ≥ 0.80, then checked against 384 comments labelled by two independent reviewers.",
+        "advice": "With few units of analysis, set a minimum effect size in advance and judge results by magnitude rather than p-values.",
+        "detail": "With only five frameworks to compare, the study pre-specifies ρ ≥ 0.50 as the smallest effect worth reporting.",
         "paper": "wattsdebts-2026",
         "basis": "design"
     },
@@ -601,7 +395,7 @@
         "id": "research-abs-rel-error",
         "category": "reporting",
         "advice": "When energy values span orders of magnitude, report both absolute and relative error.",
-        "detail": "EnCoDe's best regressor reached R² = 0.755 yet MAPE above 170%, driven by extremely low-energy blocks.",
+        "detail": "EnCoDe's best regressor reached R² = 0.755 yet had MAPE above 170%, mostly from very low-energy blocks.",
         "paper": "encode-2026",
         "basis": "measured"
     },
@@ -609,95 +403,63 @@
         "id": "research-model-energy",
         "category": "reporting",
         "advice": "Report the energy cost of your prediction model next to its accuracy.",
-        "detail": "A Random Forest classifier used 0.373 J against XGBoost's 0.022 J, and was also slightly less accurate.",
+        "detail": "A Random Forest classifier used 0.373 J against XGBoost's 0.022 J and was also slightly less accurate.",
         "paper": "encode-2026",
         "basis": "measured"
     },
     {
-        "id": "research-dataset-funnel",
-        "category": "reporting",
-        "advice": "Report which samples were too small to measure, and how many survived each filtering step.",
-        "detail": "EnCoDe went from 18,612 files to 14,000+ executable blocks to 8,000+ above the 1 µs floor measurable at N = 1,000.",
-        "paper": "encode-2026",
-        "basis": "design"
-    },
-    {
         "id": "research-full-tradeoff",
         "category": "reporting",
-        "advice": "Report accuracy, energy, latency and number of adaptations together so readers see the whole trade-off.",
-        "detail": "HarmonE's results table shows all four for every approach, plus an energy-versus-error plot.",
+        "advice": "Report energy, accuracy, latency and number of adaptations side by side.",
+        "detail": "HarmonE's results table gives all four for every approach, with an energy-versus-error plot alongside.",
         "paper": "harmone-2025",
         "basis": "design"
     },
     {
         "id": "research-platform-artifacts",
         "category": "reporting",
-        "advice": "Name your energy tool and its hardware limits, report the exact platform, and release code, configs and data.",
-        "detail": "HarmonE notes pyRAPL works only on Intel processors, lists its full platform, and publishes its code and configurations.",
+        "advice": "Name your energy tool's hardware limits and the exact platform, and release your code and configurations.",
+        "detail": "HarmonE notes that pyRAPL works only on Intel processors and lists its full platform. Its code and configurations are public.",
         "paper": "harmone-2025",
-        "basis": "design"
-    },
-    {
-        "id": "research-exemplars",
-        "category": "reporting",
-        "advice": "Package adaptation approaches as reusable exemplars rather than one-off case-study prototypes.",
-        "detail": "Without exemplars, researchers must reimplement monitoring pipelines and adaptation logic, which limits reproducibility.",
-        "paper": "harmonica-2026",
         "basis": "design"
     },
     {
         "id": "open-input-threads",
         "category": "open-problems",
         "advice": "Extend block-level energy estimation to varying input sizes and multi-threaded code.",
-        "detail": "EnCoDe does not model how energy scales with inputs or runtime state, and pins measurement to a single core.",
-        "paper": "encode-2026",
-        "basis": "open"
-    },
-    {
-        "id": "open-languages-repair",
-        "category": "open-problems",
-        "advice": "Validate design-time energy estimation across languages and hardware, then move from detection to automated repair.",
-        "detail": "EnCoDe covers Python 3.12 on one CPU; its authors call for other languages and runtimes and for actionable guidance.",
+        "detail": "EnCoDe does not model how energy scales with input, and it pins measurement to a single core.",
         "paper": "encode-2026",
         "basis": "open"
     },
     {
         "id": "open-portable-measurement",
         "category": "open-problems",
-        "advice": "Build energy measurement that works across operating systems, virtual machines and mixed hardware.",
-        "detail": "Harmonica calls consistent, portable energy instrumentation an open challenge, since pyRAPL is Intel-specific.",
+        "advice": "Build energy measurement that works across operating systems and virtualised hardware.",
+        "detail": "Harmonica calls portable energy instrumentation an open challenge, since pyRAPL only supports Intel processors.",
         "paper": "harmonica-2026",
         "basis": "open"
     },
     {
         "id": "open-mlops-domains",
         "category": "open-problems",
-        "advice": "Test sustainability-aware MLOps beyond time series, especially in vision, NLP and LLM-enabled systems.",
-        "detail": "HarmonE was evaluated on one traffic-forecasting task; its authors highlight LLM and SLM systems, where model-selection trade-offs are sharper.",
+        "advice": "Test sustainability-aware MLOps beyond time series, especially in systems built on language models.",
+        "detail": "HarmonE was evaluated on one traffic-forecasting task. Its authors point to LLM and SLM systems, where model-selection trade-offs are sharper.",
         "paper": "harmone-2025",
-        "basis": "open"
-    },
-    {
-        "id": "open-cv-tactics",
-        "category": "open-problems",
-        "advice": "Define domain-specific tactics so goal-driven adaptation works for computer vision pipelines.",
-        "detail": "Harmonica suggests domain-specific MAPE-K files could extend the approach to vision tasks, but this has not been shown yet.",
-        "paper": "harmonica-2026",
         "basis": "open"
     },
     {
         "id": "open-slm-agents",
         "category": "open-problems",
-        "advice": "Design agent frameworks for small models that detect loops, filter context and verify patches independently.",
-        "detail": "SWEnergy argues current frameworks are passive orchestrators built for capable LLMs, and that SLMs need active management of their weaknesses.",
+        "advice": "Design agent frameworks that manage small models' weaknesses, for example by detecting loops and checking patches independently.",
+        "detail": "SWEnergy argues that current frameworks are passive orchestrators built for capable LLMs.",
         "paper": "swenergy-2025",
         "basis": "open"
     },
     {
         "id": "open-debt-energy",
         "category": "open-problems",
-        "advice": "Test whether self-admitted technical debt can act as an early warning for energy-hungry frameworks.",
-        "detail": "This is the hypothesis Watts and Debts sets out to test across five agentic frameworks; results are not in yet.",
+        "advice": "Test whether self-admitted technical debt predicts which agent frameworks use the most energy.",
+        "detail": "Watts and Debts sets out to test this across five frameworks. Results are not in yet.",
         "paper": "wattsdebts-2026",
         "basis": "open"
     }
