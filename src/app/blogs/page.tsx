@@ -15,6 +15,15 @@ interface BlogPreview {
 
 const blogs: BlogPreview[] = [
     {
+        id: 11,
+        title: 'Two Sides of One Coin: Sustainability and Sovereignty in the Age of AI',
+        description: "Two AI models switched off overnight by a foreign government, and data centres drawing on scarce local water. Using India's record with food, medicines and energy, why control over AI and its sustainability form one loop.",
+        author: 'Akhila Matathammal',
+        date: '2026-11-10',
+        readTime: '9 min read',
+        slug: 'sustainability-and-sovereignty',
+    },
+    {
         id: 10,
         title: 'Software Metabolism',
         description: "Borrowing an idea from biology: the energy a whole system spends to deliver its work over its deployed life. On basal and active energy, metabolic bloat across releases, and whether software has its own Kleiber's law.",

@@ -24,6 +24,7 @@ const routes = [
     "/blogs/code-meets-evidence",
     "/blogs/when-systems-evolve-beyond-understanding",
     "/blogs/software-metabolism",
+    "/blogs/sustainability-and-sovereignty",
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
