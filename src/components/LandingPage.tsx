@@ -4,6 +4,7 @@ import { motion, LazyMotion, domAnimation, m } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import WorkshopBanner from '@/components/WorkshopBanner';
 
 const HeroSection = () => {
     const [currentImage, setCurrentImage] = useState(0);
@@ -193,6 +194,7 @@ const CollaborationSection = () => {
 const LandingPage = () => {
     return (
         <div className="relative">
+            <WorkshopBanner />
             <HeroSection />
             <CollaborationSection />
         </div>

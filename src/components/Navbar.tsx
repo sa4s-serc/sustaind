@@ -13,6 +13,7 @@ const Navbar = () => {
         { href: '/showcase', label: 'Showcase' },
         { href: '/publications', label: 'Publications' },
         { href: '/practices', label: 'Practices' },
+        { href: '/workshop', label: 'Workshop' },
         { href: '/blogs', label: 'Blogs' },
         { href: '/tools', label: 'Tools' },
         { href: '/videos', label: 'Videos' },
@@ -36,7 +37,7 @@ const Navbar = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:block">
-                        <div className="ml-10 flex items-baseline space-x-2 xl:space-x-8">
+                        <div className="ml-6 flex items-baseline space-x-1 xl:space-x-4">
                             {navLinks.map((link) => (
                                 <motion.div
                                     key={link.href}

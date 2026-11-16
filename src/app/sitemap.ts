@@ -13,6 +13,7 @@ const routes = [
     "/showcase",
     "/tools",
     "/videos",
+    "/workshop",
     "/blogs",
     "/blogs/enhancing-sustainability",
     "/blogs/wait-how-much-does-ai-cost",
