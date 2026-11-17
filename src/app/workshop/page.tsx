@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
 const posterSrc = `${basePath}/data/images/workshop-poster.png`;
-const contactEmail = 'serc.admin@iiit.ac.in';
+const logosSrc = `${basePath}/data/images/workshop-logos.png`;
+const contactEmail ='serc.admin@iiit.ac.in';
 
 const registerUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSfN3eCaJjMG2VpqrBILbyEfsndeVf_YNGPIeaxR3cgcLytHzw/viewform';
@@ -70,24 +71,70 @@ export default function WorkshopPage() {
     return (
         <div className="bg-white">
             {/* Hero */}
-            <section className="bg-gradient-to-br from-green-800 to-green-600 text-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 lg:pr-[26rem]">
-                    <p className="text-sm font-semibold uppercase tracking-wide text-orange-300">
-                        One-day hands-on workshop
-                    </p>
-                    <h1 className="mt-3 text-3xl sm:text-5xl font-bold leading-tight">
-                        Engineering Sustainable Agentic AI Systems
+            <section className="relative overflow-hidden bg-[#fbf8f3] text-[#14532d]">
+                {/* Decorative shapes echoing the poster */}
+                <svg
+                    className="pointer-events-none absolute top-0 right-0 hidden sm:block w-72 lg:w-[440px] h-auto"
+                    viewBox="0 0 440 240"
+                    aria-hidden="true"
+                >
+                    <path d="M440 0H120C170 40 240 70 300 120C350 162 400 200 440 230Z" fill="#166534" />
+                    <path d="M440 230C400 200 350 162 300 120C240 70 170 40 120 0H70C130 50 210 90 270 145C330 200 390 240 440 262Z" fill="#84cc16" opacity="0.6" />
+                    <path d="M0 18C60 40 110 30 160 70C200 102 220 150 222 200" fill="none" stroke="#f97316" strokeWidth="2" />
+                    <circle cx="222" cy="200" r="6" fill="#f97316" />
+                    <path d="M20 0C70 22 110 22 150 50" fill="none" stroke="#166534" strokeWidth="2" />
+                    <circle cx="150" cy="50" r="6" fill="#166534" />
+                </svg>
+                <svg
+                    className="pointer-events-none absolute bottom-0 right-0 hidden lg:block w-[380px] h-auto"
+                    viewBox="0 0 380 170"
+                    aria-hidden="true"
+                >
+                    <path d="M380 30C280 60 180 110 110 170H380Z" fill="#166534" />
+                    <path d="M380 0C270 30 160 90 80 170H110C180 110 280 60 380 30Z" fill="#f97316" />
+                </svg>
+                <svg
+                    className="pointer-events-none absolute right-10 top-1/2 hidden xl:block w-16 h-16"
+                    viewBox="0 0 64 64"
+                    aria-hidden="true"
+                >
+                    {[0, 1, 2].map((r) => [0, 1, 2].map((c) => (
+                        <circle key={`${r}-${c}`} cx={10 + c * 22} cy={10 + r * 22} r="5" fill={r === 2 && c === 0 ? '#f97316' : '#65a30d'} />
+                    )))}
+                </svg>
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 lg:pr-[26rem]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={logosSrc}
+                        alt="S4S, SERC and IIIT Hyderabad logos"
+                        width={760}
+                        height={160}
+                        className="h-12 sm:h-16 w-auto mix-blend-multiply"
+                    />
+                    <div className="mt-8 flex items-center gap-3 max-w-2xl">
+                        <span className="h-2 w-2 rounded-full bg-[#14532d]" />
+                        <span className="h-px flex-1 bg-[#14532d]" />
+                        <span className="text-sm font-semibold uppercase tracking-wide">One-day hands-on workshop on</span>
+                        <span className="h-px flex-1 bg-[#14532d]" />
+                        <span className="h-2 w-2 rounded-full bg-[#14532d]" />
+                    </div>
+                    <h1 className="mt-4 text-4xl sm:text-6xl font-bold leading-tight tracking-tight">
+                        Engineering <span className="text-lime-600">Sustainable</span>
+                        <br />
+                        <span className="text-orange-500">Agentic AI</span> Systems
                     </h1>
-                    <p className="mt-5 text-lg sm:text-xl text-green-50 max-w-2xl">
+                    <p className="mt-6 text-lg sm:text-xl text-gray-800 max-w-2xl">
                         Can we engineer Agentic AI systems that are not just intelligent, but also sustainable?
                     </p>
-                    <p className="mt-5 max-w-2xl text-green-50">
-                        SustAInd (Sustainable AI for India) is organising this in-person workshop at the Software Engineering
-                        Research Center (SERC), IIIT Hyderabad.
+                    <p className="mt-4 max-w-2xl text-gray-700">
+                        <span className="font-semibold"><span className="text-lime-600">Sust</span><span className="text-orange-500">AInd</span></span>{' '}
+                        (Sustainable AI for India) is organising this in-person workshop at the Software Engineering Research
+                        Center (SERC), IIIT Hyderabad.
                     </p>
                     <div className="mt-8 flex flex-wrap items-center gap-4 lg:hidden">
                         <CtaButton />
-                        <span className="text-sm text-green-50">Free. 30 seats. Register by 30 November.</span>
+                        <span className="text-sm text-gray-700">Free. 30 seats. Register by 30 November.</span>
                     </div>
                 </div>
             </section>
