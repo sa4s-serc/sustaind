@@ -1,5 +1,9 @@
 import Link from 'next/link';
 
+const basePath = process.env.NODE_ENV === 'production' ? '/sustaind' : '';
+const posterSrc = `${basePath}/data/images/workshop-poster.png`;
+const contactEmail = 'serc.admin@iiit.ac.in';
+
 const registerUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSfN3eCaJjMG2VpqrBILbyEfsndeVf_YNGPIeaxR3cgcLytHzw/viewform';
 
@@ -30,13 +34,13 @@ const schedule = [
     { time: '9:30 to 10:30 AM', title: 'Introduction by Prof. Karthik', note: 'An introduction to SustAInd and a talk on Agentic AI. Attendance is marked.' },
     {
         time: '10:30 AM to 12:30 PM',
-        title: 'Hands-on tutorials by students of the SustAInd team',
+        title: 'Hands-on tutorials by the SustAInd team',
         note: 'Sustainability in Agentic AI at design time and run time, and self-adaptation. Tea and coffee break in between. Attendance is marked.',
     },
     { time: '12:30 to 1:30 PM', title: 'Lunch', note: '' },
     {
         time: '1:30 to 4:15 PM',
-        title: 'Hackathon and presentations by students of the SustAInd team',
+        title: 'Hackathon and presentations by the SustAInd team',
         note: '10 groups of 3 students, pre-assigned by the SustAInd team. Each group gets one problem statement. Tea and coffee break in between.',
     },
     { time: '4:15 to 4:30 PM', title: 'Conclusion', note: 'Attendance is marked.' },
@@ -78,8 +82,8 @@ export default function WorkshopPage() {
                         Can we engineer Agentic AI systems that are not just intelligent, but also sustainable?
                     </p>
                     <p className="mt-5 max-w-2xl text-green-50">
-                        SustAInd (Sustainable AI for India), an ANRF-funded project, is organising this in-person workshop at the
-                        Software Engineering Research Center (SERC), IIIT Hyderabad.
+                        SustAInd (Sustainable AI for India) is organising this in-person workshop at the Software Engineering
+                        Research Center (SERC), IIIT Hyderabad.
                     </p>
                     <div className="mt-8 flex flex-wrap items-center gap-4 lg:hidden">
                         <CtaButton />
@@ -93,6 +97,37 @@ export default function WorkshopPage() {
                     {/* Main column */}
                     <div className="py-12 space-y-14 min-w-0">
                         <section>
+                            <h2 className="text-2xl font-bold text-gray-900">About the workshop</h2>
+                            <div className="mt-4 space-y-4 text-gray-700 leading-relaxed">
+                                <p>
+                                    Agentic AI systems call large language models and tools in a loop until a task is done. A
+                                    single request can turn into many model calls, so energy use and cost grow in ways that are hard
+                                    to see from the outside. Each extra component and prompt also adds to what the team has to
+                                    maintain later.
+                                </p>
+                                <p>
+                                    Much of this footprint is decided early. The choice of model and the way an agent is broken into
+                                    steps shape it at design time. Once the system runs, it can adapt to keep the footprint in check
+                                    as load and conditions change. This workshop treats sustainability as an engineering concern at
+                                    both stages.
+                                </p>
+                                <p>
+                                    We start with the basics of AI agents and an introduction to SustAInd. The hands-on sessions then
+                                    cover the topics below, and the day ends with a team hackathon where each group works on one
+                                    problem statement.
+                                </p>
+                            </div>
+                            <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-gray-700">
+                                {hands.map((h) => (
+                                    <li key={h} className="flex items-center gap-2">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                                        {h}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        <section>
                             <h2 className="text-2xl font-bold text-gray-900">What you will learn</h2>
                             <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                                 {learn.map((item) => (
@@ -104,32 +139,6 @@ export default function WorkshopPage() {
                                     </li>
                                 ))}
                             </ul>
-                        </section>
-
-                        <section>
-                            <h2 className="text-2xl font-bold text-gray-900">About the workshop</h2>
-                            <div className="mt-4 space-y-4 text-gray-700 leading-relaxed">
-                                <p>
-                                    The day starts with an introduction to SustAInd and a talk on Agentic AI. It is followed by hands-on
-                                    tutorials on sustainability in Agentic AI at design time and run time, self-adaptation, and a team
-                                    hackathon.
-                                </p>
-                                <p>
-                                    We begin with the basics of AI agents, then introduce sustainability from environmental, technical and
-                                    economic perspectives. The hands-on sessions cover the following topics.
-                                </p>
-                            </div>
-                            <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-gray-700">
-                                {hands.map((h) => (
-                                    <li key={h} className="flex items-center gap-2">
-                                        <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                                        {h}
-                                    </li>
-                                ))}
-                            </ul>
-                            <p className="mt-4 text-gray-700 leading-relaxed">
-                                A fun team-based activity at the end lets everyone put it all into practice.
-                            </p>
                         </section>
 
                         <section id="schedule">
@@ -158,17 +167,38 @@ export default function WorkshopPage() {
                             </dl>
                         </section>
 
+                        <section id="poster">
+                            <h2 className="text-2xl font-bold text-gray-900">Poster</h2>
+                            <a href={posterSrc} target="_blank" rel="noopener noreferrer" className="mt-5 block max-w-md">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={posterSrc}
+                                    alt="Workshop poster. Engineering Sustainable Agentic AI Systems, 4 December 2026, 9:00 AM to 4:30 PM, IIIT Hyderabad. 30 seats. Contact serc.admin@iiit.ac.in."
+                                    width={1080}
+                                    height={1350}
+                                    className="w-full h-auto rounded-lg border border-gray-200 shadow-sm"
+                                />
+                            </a>
+                            <p className="mt-2 text-sm text-gray-600">Click the poster to open it at full size.</p>
+                        </section>
+
                         <section className="rounded-xl bg-green-50 p-6 sm:p-8 text-center">
                             <h2 className="text-2xl font-bold text-gray-900">Interested?</h2>
                             <p className="mt-2 text-gray-700">Registration closes on Monday, 30 November 2026.</p>
                             <CtaButton className="mt-5" />
+                            <p className="mt-5 text-sm text-gray-700">
+                                Questions? Write to{' '}
+                                <a href={`mailto:${contactEmail}`} className="font-medium text-green-700 underline">{contactEmail}</a>.
+                            </p>
                         </section>
 
                         <section className="border-t border-gray-200 pt-8 text-sm text-gray-600">
                             <p className="font-semibold text-gray-900">Organised by</p>
-                            <p className="mt-2">Anusandhan National Research Foundation (ANRF)</p>
-                            <p>Software Engineering Research Center (SERC)</p>
+                            <p className="mt-2">Software Engineering Research Center (SERC)</p>
                             <p>International Institute of Information Technology Hyderabad (IIITH)</p>
+                            <p className="mt-4">
+                                This project is under the support of the Anusandhan National Research Foundation (ANRF).
+                            </p>
                             <p className="mt-4">
                                 Learn more about <Link href="/about" className="text-green-700 underline">SustAInd</Link>.
                             </p>
@@ -194,6 +224,10 @@ export default function WorkshopPage() {
                                 <li>Bring your own laptop</li>
                                 <li>In person only</li>
                             </ul>
+                            <p className="mt-4 border-t border-gray-100 pt-4 text-sm text-gray-700">
+                                Contact{' '}
+                                <a href={`mailto:${contactEmail}`} className="font-medium text-green-700 underline break-all">{contactEmail}</a>
+                            </p>
                         </div>
                     </aside>
                 </div>
@@ -201,7 +235,7 @@ export default function WorkshopPage() {
                 {/* Facts for small screens */}
                 <section className="lg:hidden -mt-4 mb-10 rounded-xl border border-gray-200 p-5">
                     <dl className="grid gap-4 sm:grid-cols-2 text-sm">
-                        {facts.map((f) => (
+                        {[...facts, { label: 'Contact', value: contactEmail }].map((f) => (
                             <div key={f.label}>
                                 <dt className="font-semibold text-gray-900">{f.label}</dt>
                                 <dd className="text-gray-700">{f.value}</dd>
